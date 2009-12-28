@@ -1,0 +1,96 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System"
+    xmlns:a="assembly://MediaBrowser/MediaBrowser"
+      xmlns:us="assembly://SecureContent/SecureContent"
+	  xmlns:cb="resx://MediaBrowser/MediaBrowser.Resources/CheckBox"
+	  xmlns:s="file://Styles_DoNotEdit.mcml"
+	  xmlns:f="file://Fonts_DoNotEdit.mcml"
+	  xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+	  xmlns:te="resx://MediaBrowser/MediaBrowser.Resources/TextEdit"
+	  xmlns:vm="resx://MediaBrowser/MediaBrowser.Resources/ViewMenu"
+	  xmlns:sb="resx://MediaBrowser/MediaBrowser.Resources/SimpleButton"
+    xmlns:st="resx://MediaBrowser/MediaBrowser.Resources/SpinnerText"
+    xmlns:cs="resx://MediaBrowser/MediaBrowser.Resources/ColorSpinner"
+    xmlns:ss="resx://MediaBrowser/MediaBrowser.Resources/SimpleSpinner"
+    xmlns:rg="resx://MediaBrowser/MediaBrowser.Resources/RadioGroup"
+	  xmlns:anim="resx://MediaBrowser/MediaBrowser.Resources/Animations"
+    xmlns:pv="resx://MediaBrowser/MediaBrowser.Resources/Pivot"
+    xmlns:pe="resx://MediaBrowser/MediaBrowser.Resources/PINEdit"
+    xmlns:bd="resx://MediaBrowser/MediaBrowser.Resources/Backdrop"
+>
+  <!--*****************************************************************************************************************
+
+    This is an example of a config panel for your theme.  Modify this to include any theme-specific options you require.
+    You must also handle the saving/loading of any of these options somewhere in your assembly.
+
+  *********************************************************************************************************************-->
+
+  <UI Name="ConfigPanel">
+
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <EditableText Name="FocusItem" />
+      <us:MyConfig Name="Config" />
+    </Properties>
+    <Locals>
+      <BooleanChoice Name="TestOption" Value="false" />
+      <Inset Name="CMargin" Inset="25,0,0,0" />
+      <Command Name="PINEntered" />
+      <Command Name="Relock"/>
+      <EditableText Name="PIN" Value="" />
+      <IntRangedValue Name="UnlockPeriod" />
+      <!--<us:MyConfig Name="Config" />-->
+    </Locals>
+    <Rules>
+      <!--<Default Target="[Config]" Value="[Application.CurrentConfigObject!us:MyConfig]" />-->
+      <Changed Source="[PINEntered.Invoked]">
+        <Conditions>
+          <Equality Source="[PIN.Value]" ConditionOp="Equals" Value="1234"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[SecurePanel.Visible]" Value="true" />
+          <Invoke Target="[Config.Unlock]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Relock.Invoked]">
+        <Actions>
+          <Invoke Target="[Config.Relock]" />
+          <Set Target="[SecurePanel.Visible]" Value="false" />
+        </Actions>
+      </Changed>
+
+      <Binding Source="[Config.UnlockPeriod]" Target="[UnlockPeriod.Value]" />
+      
+    </Rules>
+		<Content>
+      <Panel Layout="Center" MaximumSize="800,400">
+        <Children>
+              <Panel Layout="VerticalFlow" >
+                <Children>
+                  <!--<me:TextHeader Text="Parental Control" />-->
+                  <pe:PINEdit Label="Security PIN" EditableText="[PIN]" Border="image://i:PlainBorder" EndCommand="[PINEntered]" Margins="0,20,0,20" Font="font://f:CP_ConfigHeaderFont"/>
+                  <Panel Name="SecurePanel" Visible="false" Layout="VerticalFlow" >
+                    <Children>
+                      <Text Content="Secure Content Unlocked" Font="font://f:CP_ConfigItemFont" Color="White"/>
+                      <!--<cb:CheckBox Name="EnabledBtn" Label="Locked" FocusItem="[FocusItem]" Checked="[Config.Unlocked]" Margins="[CMargin]" Font="font://f:CP_ConfigItemFont"/>-->
+                      <!--<st:SpinnerText Name="Ratings" Model="[RatingsStrings]" FocusItem="[FocusItem]"  Label="Max Allowed Rating " Color="color://s:FontColorMedium" Font="font://f:CP_ConfigItemFont" ValueFont="font://f:CP_ConfigItemFont" Margins="[CMargin]" DefaultString="[InitialRating]" />
+                      <Text Name="RatingsDesc" Content="" MinimumSize="450,90" MaximumSize="450,90" Margins="[CMargin]" Font="Segoe Media Center Bold,14" Color="color://s:FontColorLight" WordWrap="true" />
+                      <cb:CheckBox Label="Block Unrated Content" Checked="[BlockUnrated]" FocusItem="[FocusItem]" Margins="[CMargin]"   Font="font://f:CP_ConfigItemFont"/>
+                      <cb:CheckBox Label="Hide Blocked Content" Checked="[HideProtected]" FocusItem="[FocusItem]"  Margins="[CMargin]"   Font="font://f:CP_ConfigItemFont"/>
+                      <cb:CheckBox Label="Unlock on PIN Entry" Checked="[AutoUnlock]" FocusItem="[FocusItem]" Margins="[CMargin]"   Font="font://f:CP_ConfigItemFont"/>
+                      --><!--<me:TextLine Text=" "/>-->
+                      <vm:IntSpin Label="Unlock Period (Hours)" Int="[UnlockPeriod]" Margins="[CMargin]"  />
+                      <!--<me:TextLine Text=" "/>-->
+                      <sb:SimpleButton Name="RelockBtn" Text="Re-Lock" FocusItem="[FocusItem]"  Command="[Relock]" Size="175,40" Margins="[CMargin]" Visible="true" Color="color://s:FontColorMedium" Font="font://f:CP_ConfigItemFont"/>
+                    </Children>
+                  </Panel>
+                </Children>
+              </Panel>
+        </Children>
+      </Panel>
+    </Content>
+
+	</UI>
+
+</Mcml>
