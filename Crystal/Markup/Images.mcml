@@ -1,0 +1,12 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System">
+
+  <Image Name="PosterFrame" Source="resx://Crystal/Crystal.Resources/poster_frame" NineGrid="10,10,10,10" />
+  <Image Name="CrystalOverlayWhiteAll" Source="resx://Crystal/Crystal.Resources/crystal_overlay_all" />
+  <Image Name="CrystalOverlayDarkAll" Source="resx://Crystal/Crystal.Resources/crystal_overlay_all_dark" />
+  <Image Name="CrystalOverlayDarkTop" Source="resx://Crystal/Crystal.Resources/crystal_overlay_top_dark" />
+
+  <Image Name="CrystalListBg" Source="resx://Crystal/Crystal.Resources/crystal_list_bg" NineGrid="20,20,20,20" />
+  <Image Name="CrystalListFocus" Source="resx://Crystal/Crystal.Resources/crystal_list_focus" NineGrid="5,5,0,5" />
+
+</Mcml>
