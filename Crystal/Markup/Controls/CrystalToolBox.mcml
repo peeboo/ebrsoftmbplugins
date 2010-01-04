@@ -273,7 +273,7 @@
   
   <UI Name="CrystalClipBottom">
     <Content>
-      <Graphic Content="resx://MediaBrowser/MediaBrowser.Resources/dia_overlay_bottom" />
+      <Graphic Content="resx://Crystal/Crystal.Resources/crystal_overlay_bottom" />
     </Content>
   </UI>
 

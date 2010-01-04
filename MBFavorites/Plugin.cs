@@ -35,6 +35,7 @@ namespace MBFavorites
     {
 
         static readonly Guid MBFavoritesGuid = new Guid("3f52748f-6bd4-4352-81c4-d858ae00bde5");
+        public static PluginConfiguration<PluginOptions> PluginOptions { get; set; }
         FavoriteFolder favorites;
         Kernel myKernel;
 
@@ -47,6 +48,9 @@ namespace MBFavorites
         {
             try
             {
+                PluginOptions = new PluginConfiguration<PluginOptions>(kernel, this.GetType().Assembly);
+                PluginOptions.Load();
+
                 //The AddConfigPanel method will allow you to extend the config page of MediaBrowser with your own options panel.
                 //You must create this as an mcml UI that fits within the standard config panel area.  It must take Application and 
                 //FocusItem as parameters.  The project template should have generated an example ConfigPage.mcml that you can modify
@@ -65,7 +69,7 @@ namespace MBFavorites
 
                 favorites = kernel.ItemRepository.RetrieveItem(MBFavoritesGuid) as FavoriteFolder ?? new FavoriteFolder();
                 favorites.Id = MBFavoritesGuid;
-                favorites.Path = Path.Combine(ApplicationPaths.AppPluginPath, "Favorites");
+                favorites.Path = Path.Combine(ApplicationPaths.AppPluginPath, PluginOptions.Instance.MenuName);
                 //create directory if it doesn't exist
                 if (!Directory.Exists(favorites.Path)) Directory.CreateDirectory(favorites.Path);
                 kernel.RootFolder.AddVirtualChild(favorites);
@@ -74,8 +78,8 @@ namespace MBFavorites
                 if (isMC) //only do this inside of MediaCenter as menus can only be created inside MediaCenter
                 {
                     kernel.AddMenuItem(new MenuItem(addRemoveText, "resx://MediaBrowser/MediaBrowser.Resources/Star_Full", this.addRemoveFavorite, new List<Type>() { typeof(Movie), typeof(Series), typeof(Folder) }));
-                    kernel.AddMenuItem(new MenuItem("Clear All Favs", "resx://MediaBrowser/MediaBrowser.Resources/IconDelete", this.clearFavorites, new List<Type>() { typeof(FavoriteFolder) }));
-                    kernel.AddMenuItem(new MenuItem("Hide Favorites", "resx://MediaBrowser/MediaBrowser.Resources/IconDelete", this.hideFavorites, new List<Type>() { typeof(FavoriteFolder) }));
+                    kernel.AddMenuItem(new MenuItem("Clear All", "resx://MediaBrowser/MediaBrowser.Resources/IconDelete", this.clearFavorites, new List<Type>() { typeof(FavoriteFolder) }));
+                    //kernel.AddMenuItem(new MenuItem("Hide Favorites", "resx://MediaBrowser/MediaBrowser.Resources/IconDelete", this.hideFavorites, new List<Type>() { typeof(FavoriteFolder) }));
                 }
                 else Logger.ReportInfo("Not creating menus for Favorites.  Appear to not be in MediaCenter.  AppDomain is: " + AppDomain.CurrentDomain.FriendlyName);
                 myKernel = kernel;
@@ -110,11 +114,11 @@ namespace MBFavorites
             BaseItem us = children.Find(i => i.Path.ToLower() == item.BaseItem.Path.ToLower());
             if (us != null)
             {
-                return "Remove From Favs";
+                return "Rem From " + PluginOptions.Instance.MenuName;
             }
             else
             {
-                return "Add To Favorites";
+                return "Add To " + PluginOptions.Instance.MenuName;
             }
         }
 
@@ -127,6 +131,22 @@ namespace MBFavorites
         {
             Application.CurrentInstance.RootFolder.RemoveVirtualChild(favorites);
             Application.CurrentInstance.RootFolderModel.RefreshUI();
+        }
+
+        public override bool IsConfigurable
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public override IPluginConfiguration PluginConfiguration
+        {
+            get
+            {
+                return PluginOptions;
+            }
         }
 
         public override string Name
@@ -157,7 +177,7 @@ namespace MBFavorites
         {
             get
             {
-                return new System.Version(0, 1, 0, 2);
+                return new System.Version(0, 2, 0, 0);
             }
             set
             {

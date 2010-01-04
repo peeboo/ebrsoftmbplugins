@@ -131,7 +131,7 @@ namespace Crystal {
         {
             get
             {
-                return new System.Version(0, 1, 0, 3);
+                return new System.Version(0, 1, 1, 0);
             }
             set
             {

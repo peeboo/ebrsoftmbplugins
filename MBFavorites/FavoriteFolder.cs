@@ -20,7 +20,7 @@ namespace MBFavorites
         {
             get
             {
-                return "Favorites";
+                return Plugin.PluginOptions.Instance.MenuName;
             }
             set
             {

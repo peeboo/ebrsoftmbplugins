@@ -148,11 +148,11 @@
             </LayoutInput>
           </as:AutoScroller>
           
-          <!--<dtb:SummaryNonScrolling Name="CrystalSummary" Item="[Item.SelectedChild]" Font="font://f:DV_SummaryFont" Color="White" FocusColor="White">
+          <!--<ctb:SummaryNonScrolling Name="CrystalSummary" Item="[Item.SelectedChild]" Font="font://f:DV_SummaryFont" Color="White" FocusColor="White">
             <LayoutInput>
               <AnchorLayoutInput Top="CrystalTopInfoBox,1,10"  Bottom="Parent, 0.9,-40" Left="Parent,.3,10" Right="Parent, .58"/>
             </LayoutInput>
-          </dtb:SummaryNonScrolling>-->
+          </ctb:SummaryNonScrolling>-->
 
           <!-- List Counter -->
           <Panel Name="ListCounterPosition" Layout="HorizontalFlow" LayoutInput="global://ctb:LI_ListCounter" >
@@ -204,7 +204,7 @@
           <!-- Backdrop -->
           <bd:Backdrop4 Name="Backdrop" Visible="[Application.Config.ShowBackdrop]" Image="[SelectedItem.BackdropImage]" Item="[SelectedItem]" LayoutInput="global://ctb:LI_Bg"/>
           
-          <!--<dtb:CrystalBG Name="BG_Art" Visible="[Application.Config.ShowBackdrop]" LayoutInput="global://dtb:LI_Bg" />-->
+          <!--<ctb:CrystalBG Name="BG_Art" Visible="[Application.Config.ShowBackdrop]" LayoutInput="global://ctb:LI_Bg" />-->
           
         </Children>
 

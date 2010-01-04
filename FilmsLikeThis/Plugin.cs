@@ -168,7 +168,7 @@ namespace FilmsLikeThis
         {
             get
             {
-                return new System.Version(0, 1, 0, 4);
+                return new System.Version(0, 2, 0, 0);
             }
             set
             {

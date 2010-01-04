@@ -239,7 +239,7 @@
 
   <Image Name="ButtonDisabled"          Source="resx://MediaBrowser/MediaBrowser.Resources/ButtonDisabled"          NineGrid="7,7,7,7" />
   <Image Name="ButtonDormant"           Source="resx://MediaBrowser/MediaBrowser.Resources/ButtonDormant"           NineGrid="7,7,7,7" />
-  <Image Name="ButtonLeftFocus"         Source="resx://MediaBrowser/MediaBrowser.Resources/dia_list_focus"         NineGrid="7,7,7,7" />
+  <Image Name="ButtonLeftFocus"         Source="resx://Crystal/Crystal.Resources/crystal_list_focus"         NineGrid="7,7,7,7" />
   <Image Name="ButtonLeftFocusOverlay"  Source="resx://MediaBrowser/MediaBrowser.Resources/ButtonLeftFocusOverlay"  NineGrid="7,7,7,7" />
   <Image Name="ButtonNoFocus"           Source="resx://MediaBrowser/MediaBrowser.Resources/ButtonNoFocus"           NineGrid="7,7,7,7" />
   <Image Name="ButtonPressedAfterGlow"  Source="resx://MediaBrowser/MediaBrowser.Resources/ButtonPressedAfterGlow"  NineGrid="7,7,7,7" />

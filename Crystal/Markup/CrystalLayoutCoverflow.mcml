@@ -121,7 +121,7 @@
           </mip:MediaInfoPanel>                 
 
           <!-- Bottom Clip -->
-          <ctb:CrystalClipBottom LayoutInput="global://dtb:LI_ClipBottom" />
+          <ctb:CrystalClipBottom LayoutInput="global://ctb:LI_ClipBottom" />
           
           <!-- Coverflow Scroller -->
           <me:CoverflowScroller Name="CFScroller" Application="[Application]" Folder="[Folder]">            
@@ -133,10 +133,10 @@
           
           
           <!-- Top Clip -->
-          <ctb:CrystalClipTop LayoutInput="global://dtb:LI_ClipTop" />
+          <ctb:CrystalClipTop LayoutInput="global://ctb:LI_ClipTop" />
           
           <!-- Backdrop -->
-          <bd:Backdrop4 Name="Backdrop" Visible="[Application.Config.ShowBackdrop]" Image="[PreSelectedItem.BackdropImage]" Item="[PreSelectedItem]" LayoutInput="global://dtb:LI_Bg"/>
+          <bd:Backdrop4 Name="Backdrop" Visible="[Application.Config.ShowBackdrop]" Image="[PreSelectedItem.BackdropImage]" Item="[PreSelectedItem]" LayoutInput="global://ctb:LI_Bg"/>
 
         </Children>
       </Panel>

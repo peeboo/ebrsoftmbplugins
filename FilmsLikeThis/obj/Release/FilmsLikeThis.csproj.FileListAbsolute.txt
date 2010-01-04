@@ -5,3 +5,11 @@ C:\Users\Eric\Documents\FilmsLikeThis\obj\Release\FilmsLikeThis.Resources.resour
 C:\Users\Eric\Documents\FilmsLikeThis\obj\Release\FilmsLikeThis.csproj.GenerateResource.Cache
 C:\Users\Eric\Documents\FilmsLikeThis\obj\Release\FilmsLikeThis.dll
 C:\Users\Eric\Documents\FilmsLikeThis\obj\Release\FilmsLikeThis.pdb
+C:\Users\Eric\Documents\ebrSoft\FilmsLikeThis\bin\Release\FilmsLikeThis.dll
+C:\Users\Eric\Documents\ebrSoft\FilmsLikeThis\bin\Release\FilmsLikeThis.pdb
+C:\Users\Eric\Documents\ebrSoft\FilmsLikeThis\bin\Release\System.Data.SQLite.dll
+C:\Users\Eric\Documents\ebrSoft\FilmsLikeThis\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Eric\Documents\ebrSoft\FilmsLikeThis\obj\Release\FilmsLikeThis.Resources.resources
+C:\Users\Eric\Documents\ebrSoft\FilmsLikeThis\obj\Release\FilmsLikeThis.csproj.GenerateResource.Cache
+C:\Users\Eric\Documents\ebrSoft\FilmsLikeThis\obj\Release\FilmsLikeThis.dll
+C:\Users\Eric\Documents\ebrSoft\FilmsLikeThis\obj\Release\FilmsLikeThis.pdb

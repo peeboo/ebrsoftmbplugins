@@ -168,7 +168,7 @@
 
           <!-- Backdrop -->
           <bd:Backdrop4 Name="Backdrop" Visible="[Application.Config.ShowBackdrop]" Image="[PreSelectedItem.BackdropImage]" Item="[PreSelectedItem]"  LayoutInput="global://ctb:LI_Bg"/>
-          <!--<dtb:CrystalBG Name="BG_Art" Visible="[Application.Config.ShowBackdrop]" LayoutInput="global://dtb:LI_Bg" />-->
+          <!--<ctb:CrystalBG Name="BG_Art" Visible="[Application.Config.ShowBackdrop]" LayoutInput="global://ctb:LI_Bg" />-->
                     
 
 				</Children>
