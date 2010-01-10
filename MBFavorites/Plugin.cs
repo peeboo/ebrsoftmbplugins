@@ -69,7 +69,7 @@ namespace MBFavorites
 
                 favorites = kernel.ItemRepository.RetrieveItem(MBFavoritesGuid) as FavoriteFolder ?? new FavoriteFolder();
                 favorites.Id = MBFavoritesGuid;
-                favorites.Path = Path.Combine(ApplicationPaths.AppPluginPath, PluginOptions.Instance.MenuName);
+                favorites.Path = Path.Combine(PluginOptions.Instance.FavoritesRoot, PluginOptions.Instance.MenuName);
                 //create directory if it doesn't exist
                 if (!Directory.Exists(favorites.Path)) Directory.CreateDirectory(favorites.Path);
                 kernel.RootFolder.AddVirtualChild(favorites);
@@ -177,7 +177,7 @@ namespace MBFavorites
         {
             get
             {
-                return new System.Version(0, 2, 0, 0);
+                return new System.Version(0, 2, 1, 0);
             }
             set
             {

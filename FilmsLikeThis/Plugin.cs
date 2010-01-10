@@ -91,6 +91,9 @@ namespace FilmsLikeThis
                 Async.Queue("Films Like This Search",() => {
                 foreach (BaseItem i in Application.CurrentInstance.RootFolder.RecursiveChildren)
                 {
+                    //check option for excluding remote content
+                    if (Config.Instance.ExcludeRemoteContentInSearch && i.IsRemoteContent) continue;
+
                     //see if we're already in there - don't want dups
                     if (children.Find(us => us.Name == i.Name) == null)
                     {
@@ -168,7 +171,7 @@ namespace FilmsLikeThis
         {
             get
             {
-                return new System.Version(0, 2, 0, 0);
+                return new System.Version(0, 2, 1, 0);
             }
             set
             {
