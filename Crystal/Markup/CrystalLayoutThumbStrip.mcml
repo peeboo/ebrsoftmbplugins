@@ -124,7 +124,7 @@
           <!-- Title Details -->
           <ctb:CrystalTitleUI Name="TitleUI" Item="[SelectedItem]" LayoutInput="global://ctb:LI_Title" />
 
-          <Panel Name="MyItems" Layout="Anchor" LayoutInput="[BaseLayout]">
+          <Panel Name="MyItems" Layout="Anchor" LayoutInput="[BaseLayout]" MouseInteractive="false">
             <Children>
               <lcf:CoverflowScroller Name="FlowItems" Application="[Application]" Folder="[Item]" >
                 <LayoutInput>

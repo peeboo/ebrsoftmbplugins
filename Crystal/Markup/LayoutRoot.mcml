@@ -355,7 +355,7 @@
               </pp:PopupPlay>-->
 
               <!-- Weather Panel -->
-              <wea:YahooWeatherLarge>
+              <wea:YahooWeatherLarge MouseInteractive="false">
                 <LayoutInput>
                   <AnchorLayoutInput Top="Parent,0,10" Left="Parent,0,5"/>
                 </LayoutInput>
@@ -390,7 +390,7 @@
               </Panel>
 
               <!-- Center Scrolling Panel -->
-              <Graphic Name="ItemMenuPanel" Layout="Anchor" >
+              <Graphic Name="ItemMenuPanel" Layout="Anchor" MouseInteractive="false" >
                 <LayoutInput>
                   <AnchorLayoutInput Horizontal="Fill" Top="Parent,0.8" Bottom="Parent,0.8,65"/>
                 </LayoutInput>
@@ -565,7 +565,7 @@
                   <FlowLayout Orientation="Vertical" Spacing="0,0"/>
                 </Layout>
                 <Children>
-                  <me:RecentItemList Name="RecentItemsPanel" Application="[Application]"  NavInto="[NavInto]" />
+                  <me:RecentItemList Name="RecentItemsPanel" Application="[Application]"  NavInto="[NavInto]"  MouseInteractive="false"/>
                 </Children>
               </Clip>
 
@@ -658,7 +658,7 @@
     </Rules>
 
     <Content>
-      <Graphic Name="Bg" MinimumSize="0,65" Content="image://i:BlankImage" SizingPolicy="SizeToChildren" Padding="25,0,25,0">
+      <Graphic Name="Bg" MinimumSize="0,65" Content="image://i:BlankImage" SizingPolicy="SizeToChildren" Padding="25,0,25,0" MouseInteractive="false">
         <Children>
           <ColorFill Name="BoxItem" Content="Transparent" Layout="Anchor" Alpha="1" >
             <Children>
@@ -867,7 +867,7 @@
 
     <Content>
       <Graphic Name="Bg" Content="image://i:BlankImage" Layout="Anchor" Padding="7,5,7,3" 
-               MinimumSize="[MinSize]" MaximumSize="[MinSize]" Margins="0,0,0,0">
+               MinimumSize="[MinSize]" MaximumSize="[MinSize]" Margins="0,0,0,0" MouseInteractive="false">
         <Children>
           <Graphic Name="PCLock" Layout="Form" Visible="false" Content="image://i:Lock" MaintainAspectRatio="true" MaximumSize="25,25" >
             <LayoutInput>
