@@ -91,8 +91,8 @@ namespace FilmsLikeThis
                 Async.Queue("Films Like This Search",() => {
                 foreach (BaseItem i in Application.CurrentInstance.RootFolder.RecursiveChildren)
                 {
-                    //check option for excluding remote content
-                    if (Config.Instance.ExcludeRemoteContentInSearch && i.IsRemoteContent) continue;
+                    //check option for excluding remote content - need to add this back when thunderblade released
+                    //if (Config.Instance.ExcludeRemoteContentInSearch && i.IsRemoteContent) continue;
 
                     //see if we're already in there - don't want dups
                     if (children.Find(us => us.Name == i.Name) == null)
@@ -128,7 +128,7 @@ namespace FilmsLikeThis
                 //primary score off genre
                 if (compareTo.Genres != null && show.Genres != null)
                 {
-                    float factor = 100 / compareTo.Genres.Count;
+                    float factor = 100 / Math.Max(compareTo.Genres.Count,show.Genres.Count);
                     foreach (var genre in compareTo.Genres)
                     {
                         if (show.Genres.Contains(genre)) score += factor;
