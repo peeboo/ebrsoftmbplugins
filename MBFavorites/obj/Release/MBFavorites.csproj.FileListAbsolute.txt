@@ -1,0 +1,15 @@
+C:\Users\Eric\Documents\MBFavorites\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Eric\Documents\MBFavorites\obj\Release\MBFavorites.Resources.resources
+C:\Users\Eric\Documents\MBFavorites\obj\Release\MBFavorites.csproj.GenerateResource.Cache
+C:\Users\Eric\Documents\MBFavorites\bin\Release\MBFavorites.dll
+C:\Users\Eric\Documents\MBFavorites\bin\Release\MBFavorites.pdb
+C:\Users\Eric\Documents\MBFavorites\obj\Release\MBFavorites.dll
+C:\Users\Eric\Documents\MBFavorites\obj\Release\MBFavorites.pdb
+C:\Users\Eric\Documents\ebrSoft\MBFavorites\bin\Release\MBFavorites.dll
+C:\Users\Eric\Documents\ebrSoft\MBFavorites\bin\Release\MBFavorites.pdb
+C:\Users\Eric\Documents\ebrSoft\MBFavorites\bin\Release\System.Data.SQLite.dll
+C:\Users\Eric\Documents\ebrSoft\MBFavorites\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Eric\Documents\ebrSoft\MBFavorites\obj\Release\MBFavorites.Resources.resources
+C:\Users\Eric\Documents\ebrSoft\MBFavorites\obj\Release\MBFavorites.csproj.GenerateResource.Cache
+C:\Users\Eric\Documents\ebrSoft\MBFavorites\obj\Release\MBFavorites.dll
+C:\Users\Eric\Documents\ebrSoft\MBFavorites\obj\Release\MBFavorites.pdb

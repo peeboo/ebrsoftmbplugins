@@ -1,0 +1,18 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System">
+
+  <!--Crystal Fonts-->
+  <Font Name="Crystal_Title" Font="Segoe Media Center, 24"/>
+  <Font Name="Crystal_Smallest" Font="Segoe Media Center,12"/>
+  <Font Name="Crystal_Smaller" Font="Segoe Media Center,14"/>
+  <Font Name="Crystal_Small" Font="Segoe Media Center,16"/>
+  <Font Name="Crystal_Medium" Font="Segoe Media Center,18"/>
+  <Font Name="Crystal_Large" Font="Segoe Media Center,20"/>
+  <Font Name="Crystal_Small_SemiBold" Font="Segoe Media Center Semibold,16"/>
+
+  <Font Name="Crystal_OverviewMini" Font="Segoe Media Center,16"/>
+  <Font Name="Crystal_Overview" Font="Segoe Media Center,18"/>
+  <Font Name="Crystal_MediaInfo" Font="Arial, 14"/>
+
+
+</Mcml>

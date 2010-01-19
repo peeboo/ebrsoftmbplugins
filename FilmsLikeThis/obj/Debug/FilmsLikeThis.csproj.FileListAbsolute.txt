@@ -1,0 +1,7 @@
+C:\Users\Eric\Documents\FilmsLikeThis\bin\Debug\FilmsLikeThis.dll
+C:\Users\Eric\Documents\FilmsLikeThis\bin\Debug\FilmsLikeThis.pdb
+C:\Users\Eric\Documents\FilmsLikeThis\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Eric\Documents\FilmsLikeThis\obj\Debug\FilmsLikeThis.Resources.resources
+C:\Users\Eric\Documents\FilmsLikeThis\obj\Debug\FilmsLikeThis.csproj.GenerateResource.Cache
+C:\Users\Eric\Documents\FilmsLikeThis\obj\Debug\FilmsLikeThis.dll
+C:\Users\Eric\Documents\FilmsLikeThis\obj\Debug\FilmsLikeThis.pdb

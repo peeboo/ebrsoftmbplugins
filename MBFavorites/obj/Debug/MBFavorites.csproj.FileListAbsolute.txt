@@ -1,0 +1,7 @@
+C:\Users\Eric\Documents\MBFavorites\bin\Debug\MBFavorites.dll
+C:\Users\Eric\Documents\MBFavorites\bin\Debug\MBFavorites.pdb
+C:\Users\Eric\Documents\MBFavorites\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Eric\Documents\MBFavorites\obj\Debug\MBFavorites.Resources.resources
+C:\Users\Eric\Documents\MBFavorites\obj\Debug\MBFavorites.csproj.GenerateResource.Cache
+C:\Users\Eric\Documents\MBFavorites\obj\Debug\MBFavorites.dll
+C:\Users\Eric\Documents\MBFavorites\obj\Debug\MBFavorites.pdb
