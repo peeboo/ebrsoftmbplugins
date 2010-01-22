@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoverArt", "CoverArt.csproj", "{18EE1044-0D0A-444A-BCAB-58C9EB9D5004}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18EE1044-0D0A-444A-BCAB-58C9EB9D5004}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18EE1044-0D0A-444A-BCAB-58C9EB9D5004}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18EE1044-0D0A-444A-BCAB-58C9EB9D5004}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18EE1044-0D0A-444A-BCAB-58C9EB9D5004}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
