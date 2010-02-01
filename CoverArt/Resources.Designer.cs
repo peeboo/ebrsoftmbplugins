@@ -60,6 +60,13 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap Avi {
+            get {
+                object obj = ResourceManager.GetObject("Avi", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap BD {
             get {
                 object obj = ResourceManager.GetObject("BD", resourceCulture);
@@ -67,9 +74,37 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap BlankOverlay {
+            get {
+                object obj = ResourceManager.GetObject("BlankOverlay", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Case {
             get {
                 object obj = ResourceManager.GetObject("Case", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap CC_DVD {
+            get {
+                object obj = ResourceManager.GetObject("CC_DVD", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap CD {
+            get {
+                object obj = ResourceManager.GetObject("CD", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ClearCase {
+            get {
+                object obj = ResourceManager.GetObject("ClearCase", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -88,9 +123,58 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap Film {
+            get {
+                object obj = ResourceManager.GetObject("Film", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap FilmOverlay {
+            get {
+                object obj = ResourceManager.GetObject("FilmOverlay", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Folder {
+            get {
+                object obj = ResourceManager.GetObject("Folder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap HDDVD {
+            get {
+                object obj = ResourceManager.GetObject("HDDVD", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Mkv {
+            get {
+                object obj = ResourceManager.GetObject("Mkv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Overlay {
             get {
                 object obj = ResourceManager.GetObject("Overlay", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap TV {
+            get {
+                object obj = ResourceManager.GetObject("TV", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap TVOverlay {
+            get {
+                object obj = ResourceManager.GetObject("TVOverlay", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
