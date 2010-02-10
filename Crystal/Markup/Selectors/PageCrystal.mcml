@@ -47,6 +47,12 @@
 
       <AnchorLayoutInput Name="LayoutTopBarShow" Top="Parent,0" Left="Parent,0" Right="Parent,1" Horizontal="Center" />
       <AnchorLayoutInput Name="LayoutTopBarHide" Left="Parent,0" Top="Parent,0,-100" Right="Parent,1" Horizontal="Center" />
+      <FormLayoutInput Name="NPDetails" Left="Parent,0,10" Bottom="Parent,1" />
+      <FormLayoutInput Name="NPThumb" Left="Parent,0,10" Bottom="Parent,1,25" />
+      <FormLayoutInput Name="NPStrip" Left="Parent,0,10" Bottom="Parent,.35" />
+      <FormLayoutInput Name="NPPoster" Left="Parent,0,10" Bottom="Parent,1,25" />
+      <FormLayoutInput Name="NPFlow" Left="Parent,0,10" Bottom="Parent,.35" />
+
       <!-- Navigate Timer to bypass view triggering -->
       <Timer Name="NavTimer" Interval="2000" AutoRepeat="false" Enabled="true"/>
       <Timer Name="RefocusTimer" Interval="200" AutoRepeat="false" Enabled="false"/>
@@ -144,6 +150,12 @@
           <Set Target="[ViewPanel.Alpha]" Value="1" />
         </Actions>
       </Rule>
+
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="Detail" Target="[NowPlaying.LayoutInput]" Value="[NPDetails]" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="Poster" Target="[NowPlaying.LayoutInput]" Value="[NPPoster]" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="Thumb" Target="[NowPlaying.LayoutInput]" Value="[NPThumb]" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="ThumbStrip" Target="[NowPlaying.LayoutInput]" Value="[NPStrip]" />
+      <Condition Source="[Folder.DisplayPrefs.ViewTypeString]" ConditionOp="Equals" SourceValue="CoverFlow" Target="[NowPlaying.LayoutInput]" Value="[NPFlow]" />
 
       <Rule ConditionLogicalOp ="And">
         <Conditions >
@@ -369,7 +381,7 @@
               <!-- Now Playing View -->
               <np:NowPlayingViewport Name="NowPlaying" Application="[Application]">
                 <LayoutInput>
-                  <FormLayoutInput Left="Parent,0,10" Bottom="Parent,.35" />
+                  <FormLayoutInput Right="Parent,1,-10" Bottom="Parent,.35" />
                 </LayoutInput>
               </np:NowPlayingViewport>
 

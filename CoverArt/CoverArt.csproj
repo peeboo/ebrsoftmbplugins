@@ -113,6 +113,7 @@
     <Content Include="Images\Film\Film.png" />
     <Content Include="Images\Film\FilmOverlay.png" />
     <Content Include="Images\Folder\Folder.png" />
+    <Content Include="Images\GlossOverlay.png" />
     <Content Include="Images\TV\TVOverlay.png" />
     <Content Include="Images\TV\TV.png" />
     <Content Include="Markup\ConfigPanel.mcml" />

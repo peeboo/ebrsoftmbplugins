@@ -21,7 +21,7 @@ namespace CoverArt
                 Profiles.Add(def.Directory, new Profile(def.MovieLocation, def.SeriesLocation, def.SeasonLocation, def.EpisodeLocation, def.RemoteLocation, def.ThumbLocation, def.AlbumLocation));
             }
             //testing - seed one
-            //IgnoreFolders.Add("\\mediaserver\\movies\\test");
+            //IgnoreFolders.Add("\\\\mediaserver\\movies\\test");
             //Save();
             //ProfileDefinition d = new ProfileDefinition();
             //d.Directory = "\\\\mediaserver\\movies\\music";

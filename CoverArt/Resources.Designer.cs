@@ -144,6 +144,13 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap GlossOverlay {
+            get {
+                object obj = ResourceManager.GetObject("GlossOverlay", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap HDDVD {
             get {
                 object obj = ResourceManager.GetObject("HDDVD", resourceCulture);

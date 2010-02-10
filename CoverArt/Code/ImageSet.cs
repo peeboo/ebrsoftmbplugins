@@ -27,6 +27,8 @@ namespace CoverArt
         public Rectangle RootPosition = new Rectangle(15, 90, 585, 750);
 
         [SkipField]
+        public bool JustRoundCorners = false; //we use this internally
+        [SkipField]
         public Dictionary<string, Image> Frames = new Dictionary<string, Image>();
         [SkipField]
         public Image Overlay = Resources.Overlay;
@@ -119,6 +121,15 @@ namespace CoverArt
                     Frames = new Dictionary<string, Image>() {
                         {"default", Resources.ClearCase},
                         {"DVD",Resources.CC_DVD}
+                    };
+                    break;
+                case "CoverArtRounded":
+                    //Internal Rounded Corners - only the overlay will be used
+                    JustRoundCorners = true;
+                    RootPosition = new Rectangle(0,0,0,0);
+                    Overlay = Resources.GlossOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", Resources.BlankOverlay}
                     };
                     break;
                 default:
