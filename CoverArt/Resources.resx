@@ -154,6 +154,9 @@
   <data name="Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\folder\folder.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="GlossOverlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\glossoverlay.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="HDDVD" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\case\hddvd.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

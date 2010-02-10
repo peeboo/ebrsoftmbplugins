@@ -101,7 +101,7 @@ namespace CoverArt
 
         public static void FillRoundedRectangle(Graphics g, Rectangle r, int d, Brush b)
         {
-            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             g.FillPie(b, r.X, r.Y, d + 1, d + 1, 180, 90);
             g.FillPie(b, r.X + r.Width - d - 1, r.Y, d + 1, d + 1, 270, 90);
             g.FillPie(b, r.X, r.Y + r.Height - d, d + 1, d + 1, 90, 90);
@@ -114,7 +114,7 @@ namespace CoverArt
 
         public static void FillRightRoundedRectangle(Graphics g, Rectangle r, int d, Brush b)
         {
-            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             g.FillPie(b, r.X + r.Width - d - 1, r.Y, d + 1, d + 1, 270, 90);
             g.FillPie(b, r.X + r.Width - d - 1, r.Y + r.Height - d, d + 1, d + 1, 0, 90);
 

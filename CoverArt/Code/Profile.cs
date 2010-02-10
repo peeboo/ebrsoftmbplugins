@@ -107,6 +107,12 @@ namespace CoverArt
             return imageSets[type].FrameOnTop;
         }
 
+        public bool JustRoundCorners(string type)
+        {
+            if (!imageSets.ContainsKey(type)) type = "default";
+            return imageSets[type].JustRoundCorners;
+        }
+
         public Image MovieOverlay()
         {
             return Overlay("movie");

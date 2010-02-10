@@ -107,6 +107,7 @@ namespace CoverArt
 
             Profile profile = getProfile(item.Path);
             bool frameOnTop = false;
+            bool justRoundCorners = false;
             bool process = false;
 
             //check for ignore
@@ -133,6 +134,7 @@ namespace CoverArt
                     newImage = profile.RemoteFrame("default");
                     overlay = profile.RemoteOverlay();
                     position = profile.RootPosition("remote");
+                    justRoundCorners = profile.JustRoundCorners("remote");
                     frameOnTop = profile.FrameOnTop("remote");
                 }
                 else
@@ -144,11 +146,13 @@ namespace CoverArt
                         overlay = profile.ThumbOverlay();
                         position = profile.RootPosition("thumb");
                         frameOnTop = profile.FrameOnTop("thumb");
+                        justRoundCorners = profile.JustRoundCorners("thumb");
                     }
                     else
                     {
 
                         frameOnTop = profile.FrameOnTop("movie");
+                        justRoundCorners = profile.JustRoundCorners("movie");
                         //Logger.ReportInfo("Process file " + item.Path);
 
                         if (Directory.Exists(item.Path))
@@ -200,20 +204,32 @@ namespace CoverArt
                     newImage = profile.EpisodeFrame("default");
                     overlay = profile.EpisodeOverlay();
                     frameOnTop = profile.FrameOnTop("episode");
+                    justRoundCorners = profile.JustRoundCorners("episode");
                     position = profile.RootPosition("episode");
                 }
                 else
                 {
-                    if (item is Series)
+                    if (item is Season)
+                    {
+                        //apply season treatment
+                        process = true;
+                        newImage = profile.SeasonFrame("default");
+                        overlay = profile.SeasonOverlay();
+                        frameOnTop = profile.FrameOnTop("season");
+                        justRoundCorners = profile.JustRoundCorners("season");
+                        position = profile.RootPosition("season");
+                    }
+                    else
+                    if (item is Series) 
                     {
                         //apply series treatment
                         process = true;
                         newImage = profile.SeriesFrame("default");
                         overlay = profile.SeriesOverlay();
                         frameOnTop = profile.FrameOnTop("series");
+                        justRoundCorners = profile.JustRoundCorners("series");
                         position = profile.RootPosition("series");
-                    }
-                    else
+                    } else
                     {
                         if (item is Folder && rootImage != null)
                         {
@@ -225,6 +241,7 @@ namespace CoverArt
                                 newImage = profile.AlbumFrame("default");
                                 overlay = profile.AlbumOverlay();
                                 frameOnTop = profile.FrameOnTop("album");
+                                justRoundCorners = profile.JustRoundCorners("album");
                                 position = profile.RootPosition("album");
 
                             }
@@ -246,9 +263,19 @@ namespace CoverArt
                 }
 
                 //create graphics object
-                work = Graphics.FromImage(newImage);
-                //then put the root image in it's place
-                work.DrawImage(rootImage, position);
+                
+                if (justRoundCorners)
+                {
+                    newImage = CAHelper.RoundCorners((Bitmap)rootImage, 1.0, 1);
+                    work = Graphics.FromImage(newImage);
+                }
+                else
+                {
+
+                    //then put the root image in it's place
+                    work = Graphics.FromImage(newImage);
+                    work.DrawImage(rootImage, position);
+                }
                 //and the overlay
                 work.DrawImage(overlay, 0, 0, newImage.Width, newImage.Height);
                 work.Dispose();
@@ -304,7 +331,7 @@ namespace CoverArt
                 string location = path.ToLower();
                 foreach (string folder in configData.IgnoreFolders)
                 {
-                    if (location.StartsWith(folder))
+                    if (!String.IsNullOrEmpty(folder) && location.StartsWith(folder))
                         return true;
                 }
             }
