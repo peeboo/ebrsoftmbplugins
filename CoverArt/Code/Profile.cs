@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using MediaBrowser.Library.Logging;
 using MediaBrowser.Library;
 
@@ -81,7 +82,7 @@ namespace CoverArt
             if (!imageSets.ContainsKey(type)) type = "default";
             if (!imageSets[type].Frames.ContainsKey(subtype)) subtype = "default";
             Logger.ReportInfo("Getting frame for " + type + "/" + subtype);
-            return imageSets[type].Frames[subtype];
+            return new Bitmap(imageSets[type].Frames[subtype]);
         }
 
         public Rectangle RootPosition(string type)
@@ -93,7 +94,7 @@ namespace CoverArt
         public Image Overlay(string type)
         {
             if (!imageSets.ContainsKey(type)) type = "default";
-            return imageSets[type].Overlay;
+            return new Bitmap(imageSets[type].Overlay);
         }
 
         public bool Is3D(string type) {
@@ -111,6 +112,12 @@ namespace CoverArt
         {
             if (!imageSets.ContainsKey(type)) type = "default";
             return imageSets[type].JustRoundCorners;
+        }
+
+        public bool RoundCorners(string type)
+        {
+            if (!imageSets.ContainsKey(type)) type = "default";
+            return imageSets[type].RoundCorners;
         }
 
         public Image MovieOverlay()

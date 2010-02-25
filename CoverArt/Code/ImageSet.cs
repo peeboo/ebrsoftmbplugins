@@ -25,13 +25,14 @@ namespace CoverArt
         public bool Is3D = false;
         public bool FrameOnTop = false;
         public Rectangle RootPosition = new Rectangle(15, 90, 585, 750);
+        public bool RoundCorners = false;
 
         [SkipField]
         public bool JustRoundCorners = false; //we use this internally
         [SkipField]
         public Dictionary<string, Image> Frames = new Dictionary<string, Image>();
         [SkipField]
-        public Image Overlay = Resources.Overlay;
+        public Image Overlay;
 
         [SkipField]
         protected static List<string> FrameTypes = new List<string>() {
@@ -130,6 +131,16 @@ namespace CoverArt
                     Overlay = Resources.GlossOverlay;
                     Frames = new Dictionary<string, Image>() {
                         {"default", Resources.BlankOverlay}
+                    };
+                    break;
+                case "CoverArtDiamond":
+                    //Internal Rounded Corners - only the overlay will be used
+                    RoundCorners = true;
+                    FrameOnTop = true;
+                    RootPosition = new Rectangle(26, 25, 470, 665);
+                    Overlay = Resources.BlankOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", Resources.Diamond}
                     };
                     break;
                 default:

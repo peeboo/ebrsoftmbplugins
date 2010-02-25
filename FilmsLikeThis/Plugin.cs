@@ -92,7 +92,7 @@ namespace FilmsLikeThis
                 foreach (BaseItem i in Application.CurrentInstance.RootFolder.RecursiveChildren)
                 {
                     //check option for excluding remote content - need to add this back when thunderblade released
-                    //if (Config.Instance.ExcludeRemoteContentInSearch && i.IsRemoteContent) continue;
+                    if (Config.Instance.ExcludeRemoteContentInSearch && i.IsRemoteContent) continue;
 
                     //see if we're already in there - don't want dups
                     if (children.Find(us => us.Name == i.Name) == null)
@@ -167,11 +167,19 @@ namespace FilmsLikeThis
             }
         }
 
+        public override string RichDescURL
+        {
+            get
+            {
+                return "http://www.ebrsoft.com/software/mb/plugins/LikeThisdesc.htm";
+            }
+        }
+
         public override System.Version LatestVersion
         {
             get
             {
-                return new System.Version(0, 2, 1, 0);
+                return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             }
             set
             {
@@ -183,6 +191,20 @@ namespace FilmsLikeThis
             get
             {
                 return LatestVersion;
+            }
+        }
+        public override System.Version RequiredMBVersion
+        {
+            get
+            {
+                return new System.Version(2,2,2,0);
+            }
+        }
+        public override System.Version TestedMBVersion
+        {
+            get
+            {
+                return new System.Version(2, 2, 2,0);
             }
         }
     }

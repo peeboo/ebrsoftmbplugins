@@ -4,11 +4,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{86D2AFF0-6B00-4452-9A7D-7CABEF0D7BB5}</ProjectGuid>
+    <ProjectGuid>{0FE5D155-F141-4F8C-BDA5-BB9D5394EA81}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FilmsLikeThis</RootNamespace>
-    <AssemblyName>FilmsLikeThis</AssemblyName>
+    <RootNamespace>MBQueue</RootNamespace>
+    <AssemblyName>MBQueue</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -75,9 +75,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyConfig.cs" />
     <Compile Include="MyStrings.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueueFolder.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -88,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Markup\ConfigPanel.mcml" />
+    <Content Include="Markup\Views\QueuePage.mcml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
@@ -130,12 +133,11 @@
     <Folder Include="Images\" />
     <Folder Include="Markup\Controls\" />
     <Folder Include="Markup\Selectors\" />
-    <Folder Include="Markup\Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>%25windir%25\eHome\McmlVerifier.exe -verbose -assemblyredirect:"$(FullyQualifiedOutputPath)" -directory:"$(ProjectDir)Markup"
-copy "$(TargetPath)" c:\programdata\mediabrowser\plugins</PostBuildEvent>
+copy "$(TargetPath)" c:\windows\ehome</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
