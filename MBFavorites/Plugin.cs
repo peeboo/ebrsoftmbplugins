@@ -177,7 +177,7 @@ namespace MBFavorites
         {
             get
             {
-                return new System.Version(0, 2, 1, 0);
+                return new System.Version(1, 0, 0, 0);
             }
             set
             {
@@ -191,6 +191,28 @@ namespace MBFavorites
                 return LatestVersion;
             }
         }
+        public override System.Version RequiredMBVersion
+        {
+            get
+            {
+                return new System.Version(2,2,1,0);
+            }
+        }
+        public override System.Version TestedMBVersion
+        {
+            get
+            {
+                return new System.Version(2, 2, 2,0);
+            }
+        }
+        public override string RichDescURL
+        {
+            get
+            {
+                return "http://www.ebrsoft.com/software/mb/plugins/Favoritesdesc.htm";
+            }
+        }
+
     }
 
 

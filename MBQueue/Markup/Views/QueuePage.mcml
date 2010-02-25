@@ -1,0 +1,67 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System"
+    xmlns:a="assembly://MediaBrowser/MediaBrowser"
+    xmlns:lib="assembly://MediaBrowser/MediaBrowser.Library"
+		xmlns:pd="resx://MediaBrowser/MediaBrowser.Resources/PageDefault"
+    xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+    xmlns:an="resx://MediaBrowser/MediaBrowser.Resources/Animations"
+	    xmlns:ib="resx://MediaBrowser/MediaBrowser.Resources/ImageButton"
+      xmlns:sb="resx://MediaBrowser/MediaBrowser.Resources/SimpleButton"
+	  xmlns:s="file://Styles_DoNotEdit.mcml"
+	  xmlns:f="file://Fonts_DoNotEdit.mcml"    
+    xmlns:me="Me"
+>
+
+	<UI Name="QueuePage">
+
+		<Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <lib:FolderModel Name="Folder" FolderModel="$Required"/>
+    </Properties>
+
+		<Locals>
+      <Command Name="PlayAll"/>
+      <TypingHandler Name="TypingHandler" HandlerStage="Bubbled" TypingPolicy="TripleTap" >
+        <EditableText>
+          <EditableText Value="" />
+        </EditableText>
+      </TypingHandler>
+
+    </Locals>
+
+		<!--<Rules>
+		</Rules>-->
+
+		<Content>
+      <!--<Text Content="Hello" Color="White" />-->
+
+      <ColorFill Content="Transparent" Layout="Form">
+        <Animations>
+          <Animation Animation="animation://an:PageHide" />
+        </Animations>
+        <Children>
+          <Panel Layout="Center">
+            <Children>
+              <Clip Layout="Form" Padding="[Application.Config.OverScanPadding]" Scale="[Application.Config.OverScanScaling]" CenterPointPercent="0.5,0.5,0.5">
+                <Children>
+                  <Panel Name="OptionPanel" Layout="VerticalFlow" >
+                    <LayoutInput>
+                      <FormLayoutInput Left="Parent,.1,30" Top="Parent,.2,70" Right="Parent,.5" Bottom="Parent,1,-80"/>
+                    </LayoutInput>
+                    <Children>
+                      <Text Content="Testing" Color="White" />
+                      <ib:ImageButton  Name="PlayAll" Text="Play" Command="[PlayAll]" Visible="true" Size="100,50" Font="font://f:CP_ButtonFont"/>
+                      <!--<sb:SimpleButton  Name="Clear" Text="Clear Queue" Command="[PlayAll]" Visible="true" Size="200,50" Font="font://f:CP_ButtonFont"/>-->
+                    </Children>
+                  </Panel>
+                </Children>
+              </Clip>
+            </Children>
+          </Panel>
+        </Children>
+      </ColorFill>
+    </Content>
+
+	</UI>
+
+</Mcml>

@@ -102,12 +102,13 @@ namespace CoverArt
 
         public Image ProcessImage(Image rootImage, BaseItem item)
         {
-            Logger.ReportInfo("Image for " + item.Name + " being processed by CoverArt");
+            Logger.ReportInfo("Image for " + item.Name + " being processed by CoverArt. Path is: "+item.Path);
             Image newImage = rootImage;
 
             Profile profile = getProfile(item.Path);
             bool frameOnTop = false;
             bool justRoundCorners = false;
+            bool roundCorners = false;
             bool process = false;
 
             //check for ignore
@@ -119,12 +120,12 @@ namespace CoverArt
 
             Graphics work;
             Rectangle position = new Rectangle(0,0,0,0);
-            Image overlay = profile.MovieOverlay();
+            Image overlay = new Bitmap(Resources.Overlay);
 
             if (item is Movie)
             {
                 process = true;
-                //overlay = profile.MovieOverlay;
+                overlay = profile.MovieOverlay();
                 position = profile.RootPosition("movie");
 
                 if (item.Path.StartsWith("http://"))
@@ -135,6 +136,7 @@ namespace CoverArt
                     overlay = profile.RemoteOverlay();
                     position = profile.RootPosition("remote");
                     justRoundCorners = profile.JustRoundCorners("remote");
+                    roundCorners = profile.RoundCorners("remote");
                     frameOnTop = profile.FrameOnTop("remote");
                 }
                 else
@@ -147,12 +149,14 @@ namespace CoverArt
                         position = profile.RootPosition("thumb");
                         frameOnTop = profile.FrameOnTop("thumb");
                         justRoundCorners = profile.JustRoundCorners("thumb");
+                        roundCorners = profile.RoundCorners("thumb");
                     }
                     else
                     {
 
                         frameOnTop = profile.FrameOnTop("movie");
                         justRoundCorners = profile.JustRoundCorners("movie");
+                        roundCorners = profile.RoundCorners("movie");
                         //Logger.ReportInfo("Process file " + item.Path);
 
                         if (Directory.Exists(item.Path))
@@ -206,6 +210,7 @@ namespace CoverArt
                     frameOnTop = profile.FrameOnTop("episode");
                     justRoundCorners = profile.JustRoundCorners("episode");
                     position = profile.RootPosition("episode");
+                    roundCorners = profile.RoundCorners("episode");
                 }
                 else
                 {
@@ -218,6 +223,7 @@ namespace CoverArt
                         frameOnTop = profile.FrameOnTop("season");
                         justRoundCorners = profile.JustRoundCorners("season");
                         position = profile.RootPosition("season");
+                        roundCorners = profile.RoundCorners("season");
                     }
                     else
                     if (item is Series) 
@@ -229,7 +235,9 @@ namespace CoverArt
                         frameOnTop = profile.FrameOnTop("series");
                         justRoundCorners = profile.JustRoundCorners("series");
                         position = profile.RootPosition("series");
-                    } else
+                        roundCorners = profile.RoundCorners("series");
+                    }
+                    else
                     {
                         if (item is Folder && rootImage != null)
                         {
@@ -243,6 +251,7 @@ namespace CoverArt
                                 frameOnTop = profile.FrameOnTop("album");
                                 justRoundCorners = profile.JustRoundCorners("album");
                                 position = profile.RootPosition("album");
+                                roundCorners = profile.RoundCorners("album");
 
                             }
                         }
@@ -271,14 +280,20 @@ namespace CoverArt
                 }
                 else
                 {
-
                     //then put the root image in it's place
                     work = Graphics.FromImage(newImage);
+                    if (roundCorners)
+                    {
+                        rootImage = CAHelper.RoundCorners((Bitmap)rootImage, 0.41, 1);
+                    }
                     work.DrawImage(rootImage, position);
                 }
                 //and the overlay
                 work.DrawImage(overlay, 0, 0, newImage.Width, newImage.Height);
                 work.Dispose();
+                work = null;
+                overlay.Dispose();
+                overlay = null;
             }
             else
             {
@@ -331,7 +346,7 @@ namespace CoverArt
                 string location = path.ToLower();
                 foreach (string folder in configData.IgnoreFolders)
                 {
-                    if (!String.IsNullOrEmpty(folder) && location.StartsWith(folder))
+                    if (!String.IsNullOrEmpty(folder) && location.StartsWith(folder.ToLower()))
                         return true;
                 }
             }
@@ -347,7 +362,7 @@ namespace CoverArt
         public override string Description
         {
             //provide a longer description of your plugin - this will display when the user selects the theme in the plug-in section
-            get { return "Built-in CoverArt for MediaBrowser.  Brought to you by ebrSoft (www.ebrsoft.com)"; }
+            get { return "Built-in CoverArt for MediaBrowser. (REQUIRES ThunderBlade)  Brought to you by ebrSoft (www.ebrsoft.com)"; }
         }
 
         public override bool InstallGlobally
@@ -370,14 +385,30 @@ namespace CoverArt
             }
         }
 
+        public override System.Version TestedMBVersion
+        {
+            get
+            {
+                return new System.Version(2, 2, 2, 0);
+            }
+        }
+
         public override System.Version LatestVersion
         {
             get
             {
-                return new System.Version(0, 1, 0, 1);
+                return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             }
             set
             {
+            }
+        }
+
+        public override string RichDescURL
+        {
+            get
+            {
+                return "http://www.ebrsoft.com/software/mb/plugins/CoverArtdesc.htm";
             }
         }
 

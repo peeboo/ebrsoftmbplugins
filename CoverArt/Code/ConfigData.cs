@@ -28,8 +28,9 @@ namespace CoverArt
             //d.MovieLocation = "CoverArtClearCase";
             //ProfileDefs.Add(d);
             //Save();
-            //and add in default
-            Profiles.Add("default", new Profile());
+            //and add in default if not already there
+            if (!Profiles.ContainsKey("default"))
+                Profiles.Add("default", new Profile());
         }
         #endregion
         [SkipField]

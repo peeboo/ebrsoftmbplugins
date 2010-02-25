@@ -18,8 +18,7 @@ namespace Crystal {
 
         static readonly Guid CrystalGuid = new Guid("{CDEC944E-60BB-4945-B06D-7C7D8969130E}");
 
-        private MenuItem tickMenuItem;
-        private Timer aTimer;
+        //private Timer aTimer;
 
         public override void Init(Kernel kernel)
         {
@@ -59,25 +58,25 @@ namespace Crystal {
 
         }
 
-        void config_PropertyChanged(IPropertyObject sender, string property)
-        {
-            if (property == "ViewTheme")
-            {
-                if (Config.Instance.ViewTheme == "Crystal")
-                    tickMenuItem.Available = true;
-                else
-                    tickMenuItem.Available = false;
-            }
-        }
+        //void config_PropertyChanged(IPropertyObject sender, string property)
+        //{
+        //    if (property == "ViewTheme")
+        //    {
+        //        if (Config.Instance.ViewTheme == "Crystal")
+        //            tickMenuItem.Available = true;
+        //        else
+        //            tickMenuItem.Available = false;
+        //    }
+        //}
 
-        public void TestCommand(Item item)
-        {
-            tickMenuItem.Enabled = !tickMenuItem.Enabled;
-            if (aTimer == null) initTimer(null);
-            aTimer.Enabled = true; //start our pretend operation and re-set the button;
-            MediaBrowser.Application.CurrentInstance.Information.AddInformationString("Ticked " + item.Name); //and display a message
+        //public void TestCommand(Item item)
+        //{
+        //    tickMenuItem.Enabled = !tickMenuItem.Enabled;
+        //    if (aTimer == null) initTimer(null);
+        //    aTimer.Enabled = true; //start our pretend operation and re-set the button;
+        //    MediaBrowser.Application.CurrentInstance.Information.AddInformationString("Ticked " + item.Name); //and display a message
 
-        }
+        //}
 
         public void TestCommand2(Item item)
         {
@@ -85,29 +84,29 @@ namespace Crystal {
 
         }
 
-        private void initTimer(object args)
-        {
-            aTimer = new Timer();
-            aTimer.Enabled = false; //don't need this until we unlock
-            aTimer.Interval = 30000; //30secs
-            aTimer.Tick += new EventHandler(aTimer_Tick);
-        }
+        //private void initTimer(object args)
+        //{
+        //    aTimer = new Timer();
+        //    aTimer.Enabled = false; //don't need this until we unlock
+        //    aTimer.Interval = 30000; //30secs
+        //    aTimer.Tick += new EventHandler(aTimer_Tick);
+        //}
 
-        void aTimer_Tick(object sender, EventArgs e)
-        {
-            tickMenuItem.Enabled = true;
-            aTimer.Enabled = false;
-        }
+        //void aTimer_Tick(object sender, EventArgs e)
+        //{
+        //    tickMenuItem.Enabled = true;
+        //    aTimer.Enabled = false;
+        //}
 
-        public string TickOptionText(Item item)
-        {
-            if (tickMenuItem.Enabled)
-                if (item.HaveWatched)
-                    return "Mark Unwatched";
-                else return "Mark Watched";
-            else
-                return "Unavailable";
-        }
+        //public string TickOptionText(Item item)
+        //{
+        //    if (tickMenuItem.Enabled)
+        //        if (item.HaveWatched)
+        //            return "Mark Unwatched";
+        //        else return "Mark Watched";
+        //    else
+        //        return "Unavailable";
+        //}
 
         public override string Name
         {

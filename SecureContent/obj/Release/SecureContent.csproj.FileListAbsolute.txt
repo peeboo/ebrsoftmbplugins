@@ -6,3 +6,11 @@ C:\Users\Eric\Documents\SecureContent\obj\Release\SecureContent.csproj.GenerateR
 C:\Users\Eric\Documents\SecureContent\obj\Release\SecureContent.dll
 C:\Users\Eric\Documents\SecureContent\obj\Release\SecureContent.pdb
 C:\Users\Eric\Documents\SecureContent\bin\Release\System.Data.SQLite.dll
+C:\Users\Eric\Documents\ebrSoft\SecureContent\bin\Release\SecureContent.dll
+C:\Users\Eric\Documents\ebrSoft\SecureContent\bin\Release\SecureContent.pdb
+C:\Users\Eric\Documents\ebrSoft\SecureContent\bin\Release\System.Data.SQLite.dll
+C:\Users\Eric\Documents\ebrSoft\SecureContent\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Eric\Documents\ebrSoft\SecureContent\obj\Release\SecureContent.Resources.resources
+C:\Users\Eric\Documents\ebrSoft\SecureContent\obj\Release\SecureContent.csproj.GenerateResource.Cache
+C:\Users\Eric\Documents\ebrSoft\SecureContent\obj\Release\SecureContent.dll
+C:\Users\Eric\Documents\ebrSoft\SecureContent\obj\Release\SecureContent.pdb
