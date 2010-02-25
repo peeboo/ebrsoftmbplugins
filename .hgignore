@@ -2,3 +2,15 @@ glob:FilmsLikeThis/obj/Release/ResolveAssemblyReference.cache
 glob:FilmsLikeThis/bin/Release/FilmsLikeThis.pdb
 glob:FilmsLikeThis/obj/Release/FilmsLikeThis.pdb
 glob:FilmsLikeThis/obj/Release/FilmsLikeThis.dll
+glob:Crystal/bin/
+glob:Crystal/obj/
+glob:CoverArt/bin/
+glob:CoverArt/obj/
+glob:MBFavorites/obj/
+glob:MBFavorites/bin/
+glob:MBQueue/obj/
+glob:SecureContent/bin/
+glob:MBQueue/bin/
+glob:FilmsLikeThis/bin/
+glob:*.sln
+glob:*.suo
