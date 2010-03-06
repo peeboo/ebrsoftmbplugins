@@ -1,0 +1,31 @@
+﻿<Window x:Class="CoverArtConfig.ImageSetsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Custom Image Sets" Height="508" Width="511" Loaded="Window_Loaded" Closing="Window_Closing">
+    <Grid>
+        <ListBox Margin="32,47,20,0" x:Name="lbxImageSets" ItemsSource="{Binding Path=ImageSetLocations}" Height="144" SelectionChanged="lbxImageSets_SelectionChanged" VerticalAlignment="Top" />
+        <Label Height="31" Margin="34,19,80,0" Name="label1" VerticalAlignment="Top">Custom Image Set Locations:</Label>
+        <Button Height="23" HorizontalAlignment="Left" Margin="34,203,0,0" Name="btnAdd" VerticalAlignment="Top" Width="75" Click="btnAdd_Click">Add...</Button>
+        <Button Height="23" Margin="115,203,0,0" Name="btnRemove" VerticalAlignment="Top" HorizontalAlignment="Left" Width="74" Click="btnRemove_Click">Remove</Button>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,20,12" Name="btnDone" VerticalAlignment="Bottom" Width="75" Click="btnDone_Click">Done</Button>
+        <GroupBox Header="Image Set Definition" Margin="28,0,0,45" Name="groupBox1" Height="181" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="441">
+            <Grid Height="122">
+                <CheckBox Height="16" HorizontalAlignment="Left" Margin="35,31,0,0" Name="cbxFrameOnTop" VerticalAlignment="Top" Width="120">Frame on Top</CheckBox>
+                <CheckBox HorizontalAlignment="Left" Margin="35,53,0,53" Name="cbxRoundCorners" Width="120">Round Corners</CheckBox>
+                <GroupBox Header="Original Image Position" Margin="176,15,0,7" Name="groupBox2" HorizontalAlignment="Left" Width="244">
+                    <Grid>
+                        <TextBox Margin="51,9,0,0" Name="posX" HorizontalAlignment="Left" Width="37" Height="23.04" VerticalAlignment="Top" PreviewTextInput="validateNumber" TextAlignment="Right" />
+                        <TextBox HorizontalAlignment="Left" Margin="51,38,0,16" Name="posY" Width="37" PreviewTextInput="validateNumber" TextAlignment="Right" />
+                        <TextBox Height="23.04" Margin="156,9,0,0" Name="posWidth" VerticalAlignment="Top" PreviewTextInput="validateNumber" TextAlignment="Right" HorizontalAlignment="Left" Width="37" />
+                        <TextBox Margin="156,38,0,16" Name="posHeight" PreviewTextInput="validateNumber" TextAlignment="Right" HorizontalAlignment="Left" Width="37" />
+                        <Label HorizontalAlignment="Left" Margin="4,9,0,0" Name="label2" Width="41" Height="28.04" VerticalAlignment="Top" HorizontalContentAlignment="Right">X</Label>
+                        <Label HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="4,33,0,16" Name="label3" Width="41">Y</Label>
+                        <Label Height="28.04" HorizontalContentAlignment="Right" Margin="109,9,0,0" Name="label4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="41">Width</Label>
+                        <Label HorizontalContentAlignment="Right" Margin="99,33,0,16" Name="label5" HorizontalAlignment="Left" Width="51">Height</Label>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,114,12" Name="btnPreview" VerticalAlignment="Bottom" Width="75" Click="btnPreview_Click">Preview</Button>
+    </Grid>
+</Window>

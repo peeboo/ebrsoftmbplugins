@@ -52,7 +52,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <UseVSHostingProcess>true</UseVSHostingProcess>
@@ -81,7 +81,6 @@
     <Compile Include="Code\ProfileDefinition.cs" />
     <Compile Include="Code\Serialization\AbstractMember.cs" />
     <Compile Include="Code\CAHelper.cs" />
-    <Compile Include="Code\3D\FastBitmap.cs" />
     <Compile Include="Code\ImageSet.cs" />
     <Compile Include="Code\MyConfig.cs" />
     <Compile Include="Code\MyStrings.cs" />
@@ -89,7 +88,6 @@
     <Compile Include="Code\Plugin.cs" />
     <Compile Include="Code\Profile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Code\3D\QuadDistort.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -99,6 +97,7 @@
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CoverArtConfig.exe" />
     <Content Include="Images\BlankOverlay.png" />
     <Content Include="Images\Case\Avi.png" />
     <Content Include="Images\Case\BD.png" />
@@ -111,11 +110,13 @@
     <Content Include="Images\CD\CD.png" />
     <Content Include="Images\ClearCase\ClearCase.png" />
     <Content Include="Images\ClearCase\CC_DVD.png" />
+    <Content Include="Images\Blank.png" />
     <Content Include="Images\Diamond\Diamond.png" />
     <Content Include="Images\Film\Film.png" />
     <Content Include="Images\Film\FilmOverlay.png" />
     <Content Include="Images\Folder\Folder.png" />
     <Content Include="Images\GlossOverlay.png" />
+    <Content Include="Images\TVMB\TVMB.png" />
     <Content Include="Images\TV\TVOverlay.png" />
     <Content Include="Images\TV\TV.png" />
     <Content Include="Markup\ConfigPanel.mcml" />

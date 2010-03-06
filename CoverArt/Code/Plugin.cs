@@ -34,12 +34,12 @@ using MediaBrowser.LibraryManagement;
 
 namespace CoverArt
 {
-    class Plugin : BasePlugin
+    public class Plugin : BasePlugin
     {
 
         static readonly Guid CoverArtGuid = new Guid("756c2e60-f6f1-4167-b287-3798ddf373c4");
 
-        private MyConfig config;
+        private string configPath;
 
         private MyConfigData configData;
 
@@ -82,7 +82,8 @@ namespace CoverArt
                 //profiles.Add("default", defaultProfile);
 
                 //Load custom profiles here...
-                configData = MyConfigData.FromFile(Path.Combine(MediaBrowser.Library.Configuration.ApplicationPaths.AppPluginPath, "Configurations\\Coverart.xml"));
+                configPath = Path.Combine(MediaBrowser.Library.Configuration.ApplicationPaths.AppPluginPath, "Configurations");
+                configData = MyConfigData.FromFile(Path.Combine(configPath, "Coverart.xml"));
 
                 //test
                 //ignoreFolders.Add("\\\\mediaserver\\movies\\music");
@@ -105,7 +106,6 @@ namespace CoverArt
             Logger.ReportInfo("Image for " + item.Name + " being processed by CoverArt. Path is: "+item.Path);
             Image newImage = rootImage;
 
-            Profile profile = getProfile(item.Path);
             bool frameOnTop = false;
             bool justRoundCorners = false;
             bool roundCorners = false;
@@ -117,8 +117,13 @@ namespace CoverArt
                 Logger.ReportInfo("Ignoring Item in " + item.Path);
                 return rootImage;
             }
+            //be sure path is valid
+            if (item.Path == null) {
+                Logger.ReportInfo("Not processing Item " + item.Name);
+                return rootImage;
+            }
 
-            Graphics work;
+            Profile profile = getProfile(item.Path);
             Rectangle position = new Rectangle(0,0,0,0);
             Image overlay = new Bitmap(Resources.Overlay);
 
@@ -262,44 +267,54 @@ namespace CoverArt
 
             if (process)
             {
-                if (frameOnTop)
-                {
-                    //the frame goes on top so just create a base image of proper size
-                    Image temp = newImage;
-                    //no overlay so just create new bitmap of proper size
-                    newImage = new Bitmap(temp.Width,temp.Height);
-                    overlay = temp;
-                }
-
-                //create graphics object
-                
-                if (justRoundCorners)
-                {
-                    newImage = CAHelper.RoundCorners((Bitmap)rootImage, 1.0, 1);
-                    work = Graphics.FromImage(newImage);
-                }
-                else
-                {
-                    //then put the root image in it's place
-                    work = Graphics.FromImage(newImage);
-                    if (roundCorners)
-                    {
-                        rootImage = CAHelper.RoundCorners((Bitmap)rootImage, 0.41, 1);
-                    }
-                    work.DrawImage(rootImage, position);
-                }
-                //and the overlay
-                work.DrawImage(overlay, 0, 0, newImage.Width, newImage.Height);
-                work.Dispose();
-                work = null;
-                overlay.Dispose();
-                overlay = null;
+                newImage = CreateImage(newImage, rootImage, overlay, position, frameOnTop, roundCorners, justRoundCorners);
             }
             else
             {
                 Logger.ReportInfo("No processing applied to image for " + item.Name);
             }
 
+            return newImage;
+        }
+
+        public static Image CreateImage(Image newImage, Image rootImage, Image overlay, Rectangle position, bool frameOnTop, bool roundCorners, bool justRoundCorners)
+        {
+            Graphics work;
+            if (!justRoundCorners && (position.Width == 0 || position.Height == 0))
+            {
+                //use original (basically an ignore)
+                return rootImage;
+            }
+            if (frameOnTop)
+            {
+                //the frame goes on top so just create a base image of proper size
+                Image temp = newImage;
+                //no overlay so just create new bitmap of proper size
+                newImage = new Bitmap(temp.Width, temp.Height);
+                overlay = temp;
+            }
+
+            //create graphics object
+
+            if (justRoundCorners)
+            {
+                newImage = CAHelper.RoundCorners((Bitmap)rootImage, 1.0, 1);
+                work = Graphics.FromImage(newImage);
+            }
+            else
+            {
+                //then put the root image in it's place
+                work = Graphics.FromImage(newImage);
+                if (roundCorners)
+                {
+                    rootImage = CAHelper.RoundCorners((Bitmap)rootImage, 0.41, 1);
+                }
+                work.DrawImage(rootImage, position);
+            }
+            //and the overlay
+            work.DrawImage(overlay, 0, 0, newImage.Width, newImage.Height);
+            work = null;
+            overlay = null;
             return newImage;
         }
 
@@ -319,9 +334,14 @@ namespace CoverArt
                         return profile.MovieFrame("WMV");
                     case MediaType.Avi:
                         return profile.MovieFrame("AVI");
+                    case MediaType.Mp4:
+                        return profile.MovieFrame("MP4");
+                    case MediaType.DVRMS:
+                        return profile.MovieFrame("DVRMS");
                     default:
-                        Logger.ReportInfo("Could not determine file type of " + video.VideoFiles.First().ToLower().Substring(video.VideoFiles.First().Length - 4));
-                        return profile.MovieFrame("default");
+                        //couldn't find type - try extension
+                        //Logger.ReportInfo("Could not determine file type of " + video.VideoFiles.First().ToLower().Substring(video.VideoFiles.First().Length - 4));
+                        return profile.MovieFrame(Path.GetExtension(video.VideoFiles.First()).ToUpper());
                 }
             }
             else return profile.MovieFrame("default");
@@ -351,6 +371,65 @@ namespace CoverArt
                 }
             }
             return false;
+        }
+
+        public void EnsureConfigIsExtracted()
+        {
+            string fileName = Path.Combine(MediaBrowser.Library.Configuration.ApplicationPaths.AppPluginPath, "CoverArtConfig.exe");
+            if (!File.Exists(fileName) || configData.LastConfigVersion != this.Version)
+            {
+                try
+                {
+                    if (File.Exists(fileName)) File.Delete(fileName);
+                    FileInfo fileInfoOutputFile = new FileInfo(fileName);
+                    FileStream streamToOutputFile = fileInfoOutputFile.OpenWrite();
+                    //GET THE STREAM TO THE RESOURCES
+                    Stream streamToResourceFile = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("CoverArt.CoverArtConfig.exe");
+                    const int size = 4096;
+                    byte[] bytes = new byte[4096];
+                    int numBytes;
+                    while ((numBytes = streamToResourceFile.Read(bytes, 0, size)) > 0)
+                    {
+                        streamToOutputFile.Write(bytes, 0, numBytes);
+                    }
+
+                    streamToOutputFile.Close();
+                    streamToResourceFile.Close();
+                }
+                catch (Exception ex)
+                {
+                    Logger.ReportException("Error extracting CoverArt Config utility", ex);
+                }
+            }
+        }
+
+        public override bool IsConfigurable
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public override void Configure()
+        {
+            try
+            {
+                EnsureConfigIsExtracted();
+            }
+            catch (Exception e)
+            {
+                Logger.ReportException("Could not extract CoverArtConfig.", e);
+                return;
+            }
+            try
+            {
+                System.Diagnostics.Process.Start(Path.Combine(MediaBrowser.Library.Configuration.ApplicationPaths.AppPluginPath, "CoverArtConfig.exe"));
+            }
+            catch (Exception e)
+            {
+                Logger.ReportException("Could not execute CoverArtConfig.", e);
+            }
         }
 
         public override string Name
@@ -389,7 +468,7 @@ namespace CoverArt
         {
             get
             {
-                return new System.Version(2, 2, 2, 0);
+                return new System.Version(2, 2, 3, 0);
             }
         }
 
@@ -417,6 +496,14 @@ namespace CoverArt
             get
             {
                 return LatestVersion;
+            }
+        }
+
+        public static System.Version CurrentVersion
+        {
+            get
+            {
+                return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             }
         }
     }

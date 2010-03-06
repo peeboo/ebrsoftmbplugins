@@ -74,6 +74,13 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap Blank {
+            get {
+                object obj = ResourceManager.GetObject("Blank", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap BlankOverlay {
             get {
                 object obj = ResourceManager.GetObject("BlankOverlay", resourceCulture);
@@ -182,6 +189,13 @@ namespace CoverArt {
         internal static System.Drawing.Bitmap TV {
             get {
                 object obj = ResourceManager.GetObject("TV", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap TVMB {
+            get {
+                object obj = ResourceManager.GetObject("TVMB", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

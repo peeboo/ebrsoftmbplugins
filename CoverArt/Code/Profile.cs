@@ -43,7 +43,7 @@ namespace CoverArt
 
             if (String.IsNullOrEmpty(episodeLocation))
             {
-                episodeLocation = "CoverArtTV";
+                episodeLocation = "CoverArtTVMB";
             }
 
             if (String.IsNullOrEmpty(remoteLocation))
@@ -72,6 +72,28 @@ namespace CoverArt
             imageSets.Add("thumb", new ImageSet(thumbLocation));
         }
 
+        public ImageSet GetImageSet(string location)
+        {
+            if (imageSets.ContainsKey(location))
+                return imageSets[location];
+            else 
+                return imageSets["default"];
+        }
+
+        public void SetImageSet(string type, string location)
+        {
+            if (!imageSets.ContainsKey(type)) type = "default";
+            imageSets[type] = new ImageSet(location);
+        }
+
+        public List<ImageSet> ImageSets
+        {
+            get
+            {
+                return imageSets.Values.ToList();
+            }
+        }
+
         public Image Frame(string type)
         {
             return Frame(type, "default");
@@ -79,10 +101,13 @@ namespace CoverArt
 
         public Image Frame(string type, string subtype)
         {
-            if (!imageSets.ContainsKey(type)) type = "default";
-            if (!imageSets[type].Frames.ContainsKey(subtype)) subtype = "default";
-            Logger.ReportInfo("Getting frame for " + type + "/" + subtype);
-            return new Bitmap(imageSets[type].Frames[subtype]);
+            lock (imageSets)
+            {
+                if (!imageSets.ContainsKey(type)) type = "default";
+                if (!imageSets[type].Frames.ContainsKey(subtype)) subtype = "default";
+                Logger.ReportInfo("Getting frame for " + type + "/" + subtype);
+                return new Bitmap(imageSets[type].Frames[subtype]);
+            }
         }
 
         public Rectangle RootPosition(string type)
@@ -93,8 +118,11 @@ namespace CoverArt
 
         public Image Overlay(string type)
         {
-            if (!imageSets.ContainsKey(type)) type = "default";
-            return new Bitmap(imageSets[type].Overlay);
+            lock (imageSets)
+            {
+                if (!imageSets.ContainsKey(type)) type = "default";
+                return new Bitmap(imageSets[type].Overlay);
+            }
         }
 
         public bool Is3D(string type) {

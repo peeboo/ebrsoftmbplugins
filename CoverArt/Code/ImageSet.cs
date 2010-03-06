@@ -22,6 +22,12 @@ namespace CoverArt
 
         protected string directory = "";
 
+        [SkipField]
+        public string Name
+        {
+            get { return directory; }
+        }
+
         public bool Is3D = false;
         public bool FrameOnTop = false;
         public Rectangle RootPosition = new Rectangle(15, 90, 585, 750);
@@ -42,7 +48,14 @@ namespace CoverArt
             "DVD",
             "WMV",
             "AVI",
-            "MKV"
+            "MKV",
+            "MP4",
+            "M4P",
+            "MPG",
+            "MOV",
+            "MPEG",
+            "DVRMS"
+            
         };
 
         public void Save()
@@ -80,6 +93,26 @@ namespace CoverArt
                         {"HDDVD",Resources.HDDVD}
                     };
                     break;
+                case "CoverArtCaseBD":
+                    //Internal Case
+                    Is3D = false;
+                    FrameOnTop = false;
+                    RootPosition = new Rectangle(15, 90, 585, 750);
+                    Overlay = Resources.Overlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", Resources.BD},
+                    };
+                    break;
+                case "CoverArtCaseDVD":
+                    //Internal Case
+                    Is3D = false;
+                    FrameOnTop = false;
+                    RootPosition = new Rectangle(15, 90, 585, 750);
+                    Overlay = Resources.Overlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", Resources.DVD},
+                    };
+                    break;
                 case "CoverArtTV":
                     //Internal TV
                     Is3D = false;
@@ -88,6 +121,17 @@ namespace CoverArt
                     Overlay = Resources.TVOverlay;
                     Frames = new Dictionary<string, Image>() {
                         {"default", Resources.TV},
+                    };
+                    break;
+                case "CoverArtTVMB":
+                    //Internal TV with MB logo
+                    Is3D = false;
+                    FrameOnTop = true;
+                    //RoundCorners = true;
+                    RootPosition = new Rectangle(38,38,665,380);
+                    Overlay = Resources.TVOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", Resources.TVMB},
                     };
                     break;
                 case "CoverArtCD":
@@ -104,7 +148,7 @@ namespace CoverArt
                     //Internal Film
                     Is3D = false;
                     FrameOnTop = false;
-                    RootPosition = new Rectangle(95, 32, 550, 345);
+                    RootPosition = new Rectangle(95, 32, 553, 348);
                     Overlay = Resources.FilmOverlay;
                     Frames = new Dictionary<string, Image>() {
                         {"default", Resources.Film},
@@ -117,7 +161,8 @@ namespace CoverArt
                     //Internal ClearCase
                     Is3D = false;
                     FrameOnTop = true;
-                    RootPosition = new Rectangle(75, 30, 470, 663);
+                    RoundCorners = true;
+                    RootPosition = new Rectangle(75, 25, 470, 668);
                     Overlay = Resources.BlankOverlay;
                     Frames = new Dictionary<string, Image>() {
                         {"default", Resources.ClearCase},
@@ -141,6 +186,14 @@ namespace CoverArt
                     Overlay = Resources.BlankOverlay;
                     Frames = new Dictionary<string, Image>() {
                         {"default", Resources.Diamond}
+                    };
+                    break;
+                case "Ignore":
+                    //Ignore this cover
+                    RootPosition = new Rectangle(0,0,0,0);
+                    Overlay = Resources.BlankOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", Resources.Blank}
                     };
                     break;
                 default:
