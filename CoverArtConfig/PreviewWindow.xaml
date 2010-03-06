@@ -1,0 +1,26 @@
+﻿<Window x:Class="CoverArtConfig.PreviewWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Image Set Preview" Height="370" Width="671" Loaded="Window_Loaded" Topmost="True">
+    <Grid>
+        <ListView Margin="20,12,23,12" Name="coversView" ItemsSource="{Binding}" Padding="5" BorderBrush="Beige" BorderThickness="1">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" MinWidth="100" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate >
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="240" />
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+                        <Image  Source="{Binding Path=Preview}" Height="220" Grid.Row="0"/>
+                        <TextBlock Text="{Binding Path=Name}" Grid.Row="1" FontFamily="Segoe Media Center" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>

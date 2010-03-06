@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CoverArt
 {
-    internal class MyConfigData
+    public class MyConfigData
     {
         #region constructor
         public MyConfigData()
@@ -18,7 +18,7 @@ namespace CoverArt
             //translate defintions to actual profiles
             foreach (ProfileDefinition def in ProfileDefs)
             {
-                Profiles.Add(def.Directory, new Profile(def.MovieLocation, def.SeriesLocation, def.SeasonLocation, def.EpisodeLocation, def.RemoteLocation, def.ThumbLocation, def.AlbumLocation));
+                Profiles.Add(def.Directory.ToLower(), new Profile(def.MovieLocation, def.SeriesLocation, def.SeasonLocation, def.EpisodeLocation, def.RemoteLocation, def.ThumbLocation, def.AlbumLocation));
             }
             //testing - seed one
             //IgnoreFolders.Add("\\\\mediaserver\\movies\\test");
@@ -38,6 +38,8 @@ namespace CoverArt
 
         public List<ProfileDefinition> ProfileDefs = new List<ProfileDefinition>();
         public List<string> IgnoreFolders = new List<string>();
+        public List<string> CustomImageSets = new List<string>();
+        public System.Version LastConfigVersion = new System.Version(0, 0, 0, 0);
 
         #region Load / Save Data
         public static MyConfigData FromFile(string file)

@@ -9,13 +9,18 @@ namespace CoverArt
     {
         public ProfileDefinition() { }
 
-        public string Directory = "";
-        public string MovieLocation = "";
-        public string SeriesLocation = "";
-        public string SeasonLocation = "";
-        public string EpisodeLocation = "";
-        public string RemoteLocation = "";
-        public string ThumbLocation = "";
-        public string AlbumLocation = "";
+        public string Directory = "default";
+        public string MovieLocation = "CoverArtCase";
+        public string SeriesLocation = "CoverArtCase";
+        public string SeasonLocation = "CoverArtCase";
+        public string EpisodeLocation = "CoverArtTVMB";
+        public string RemoteLocation = "CoverArtClearCase";
+        public string ThumbLocation = "CoverArtFilm";
+        public string AlbumLocation = "CoverArtCD";
+
+        public override string ToString()
+        {
+            return this.Directory;
+        }
     }
 }

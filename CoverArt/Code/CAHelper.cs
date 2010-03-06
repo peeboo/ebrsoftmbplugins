@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Drawing;
-using QuadrilateralDistortion;
 using MediaBrowser.Library.Filesystem;
 
 namespace CoverArt
@@ -123,16 +122,16 @@ namespace CoverArt
             g.FillRectangle(b, r.X, r.Y + r.Height - d / 2, r.Width - d / 2 + 1, d / 2);
         }
 
-        public static Bitmap Squeeze3D(Bitmap image)
-        {
-            Bitmap bitmap = new Bitmap(image.Width, image.Height);
-            Point tl = new Point(0, 0);
-            Point tr = new Point(image.Width, Convert.ToInt32(image.Height * (.055)));
-            Point bl = new Point(0, image.Height);
-            Point br = new Point(image.Width, Convert.ToInt32(image.Height * (.945)));
-            Bitmap Perspective = QuadDistort.Distort(image, tl, tr, bl, br);
+        //public static Bitmap Squeeze3D(Bitmap image)
+        //{
+        //    Bitmap bitmap = new Bitmap(image.Width, image.Height);
+        //    Point tl = new Point(0, 0);
+        //    Point tr = new Point(image.Width, Convert.ToInt32(image.Height * (.055)));
+        //    Point bl = new Point(0, image.Height);
+        //    Point br = new Point(image.Width, Convert.ToInt32(image.Height * (.945)));
+        //    Bitmap Perspective = QuadDistort.Distort(image, tl, tr, bl, br);
 
-            return Perspective;
-        }
+        //    return Perspective;
+        //}
     }
 }

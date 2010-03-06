@@ -27,7 +27,7 @@ namespace MBQueue
 
         public override bool SelectAction(MediaBrowser.Library.Item item)
         {
-            Logger.ReportInfo("In SelectAction");
+            //Logger.ReportInfo("In SelectAction");
             if (folderModel == null) folderModel = ItemFactory.Instance.Create(this) as FolderModel;
             Dictionary<string,object> parms = new Dictionary<string,object>();
             parms.Add("Application", Application.CurrentInstance);
