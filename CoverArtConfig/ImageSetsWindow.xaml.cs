@@ -155,10 +155,15 @@ namespace CoverArtConfig
 
         private void updateImageSet(string location)
         {
-            ImageSets[location].RootPosition.X = Int32.Parse(posX.Text);
-            ImageSets[location].RootPosition.Y = Int32.Parse(posY.Text);
-            ImageSets[location].RootPosition.Width = Int32.Parse(posWidth.Text);
-            ImageSets[location].RootPosition.Height = Int32.Parse(posHeight.Text);
+            int x, y, width, height;
+            Int32.TryParse(posX.Text, out x);
+            ImageSets[location].RootPosition.X = x;
+            Int32.TryParse(posY.Text, out y);
+            ImageSets[location].RootPosition.Y = y;
+            Int32.TryParse(posWidth.Text, out width);
+            ImageSets[location].RootPosition.Width = width;
+            Int32.TryParse(posHeight.Text, out height);
+            ImageSets[location].RootPosition.Height = height;
             ImageSets[location].RoundCorners = cbxRoundCorners.IsChecked.Value;
             ImageSets[location].FrameOnTop = cbxFrameOnTop.IsChecked.Value;
             ImageSets[location].Save();
@@ -171,7 +176,11 @@ namespace CoverArtConfig
                 string imageSetName = lbxImageSets.SelectedItem.ToString();
                 updateImageSet(imageSetName);
                 ImageSet imageSet = ImageSets[imageSetName];
-                if (PreviewWin == null) PreviewWin = new PreviewWindow();
+                if (PreviewWin == null)
+                {
+                    PreviewWin = new PreviewWindow();
+                    PreviewWin.Closed += previewWindowClosed;
+                }
                 this.Cursor = Cursors.Wait;
                 PreviewWin.Previews = MainWindow.CreatePreviews(imageSet, imageSetName);
                 this.Cursor = Cursors.Arrow;
@@ -180,6 +189,10 @@ namespace CoverArtConfig
             }
         }
 
+        private void previewWindowClosed(object sender, EventArgs e)
+        {
+            PreviewWin = null;
+        }
 
     }
 }

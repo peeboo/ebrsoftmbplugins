@@ -145,9 +145,10 @@ namespace CoverArtConfig
             foreach (KeyValuePair<string, System.Drawing.Image> entry in imageSet.Frames)
             {
                 System.Drawing.Image img = CoverArt.Plugin.CreateImage(entry.Value, (System.Drawing.Image)CoverArtConfig.Resources.folder.Clone(), imageSet.Overlay, imageSet.RootPosition, imageSet.FrameOnTop, imageSet.RoundCorners, imageSet.JustRoundCorners);
-                filename = System.IO.Path.Combine(TempLocation, imageSetName.GetMD5() + entry.Key+".png");
+                filename = System.IO.Path.Combine(TempLocation, imageSetName.GetMD5() + System.DateTime.Now.Millisecond.ToString() + entry.Key+".png");
                 img.Save(filename,System.Drawing.Imaging.ImageFormat.Png);
                 previews.Add(new PreviewItem(filename, entry.Key));
+                img.Dispose();
             }
             return previews;
         }
@@ -308,7 +309,7 @@ namespace CoverArtConfig
 
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Coming Soon...", "Help");
+            System.Diagnostics.Process.Start("http://www.ebrsoft.com/coverart-setup");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

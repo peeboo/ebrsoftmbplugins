@@ -66,8 +66,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\MB Trunk\MediaBrowser\bin\Release\MediaBrowser.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.MediaCenter" />
-    <Reference Include="Microsoft.MediaCenter.UI" />
+    <Reference Include="Microsoft.MediaCenter, Version=6.0.6000.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\MB Trunk\VistaDlls\Microsoft.MediaCenter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.MediaCenter.UI, Version=6.0.6000.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\MB Trunk\VistaDlls\Microsoft.MediaCenter.UI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>

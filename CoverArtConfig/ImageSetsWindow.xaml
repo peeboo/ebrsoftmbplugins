@@ -26,6 +26,6 @@
                 </GroupBox>
             </Grid>
         </GroupBox>
-        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,114,12" Name="btnPreview" VerticalAlignment="Bottom" Width="75" Click="btnPreview_Click">Preview</Button>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,114,12" Name="btnPreview" VerticalAlignment="Bottom" Width="75" Click="btnPreview_Click" IsDefault="True">Preview</Button>
     </Grid>
 </Window>
