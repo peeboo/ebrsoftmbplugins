@@ -40,5 +40,6 @@ namespace CoverArtConfig
         {
             coversView.ItemsSource = Previews;
         }
+
     }
 }
