@@ -14,10 +14,10 @@
                 <CheckBox HorizontalAlignment="Left" Margin="35,53,0,53" Name="cbxRoundCorners" Width="120">Round Corners</CheckBox>
                 <GroupBox Header="Original Image Position" Margin="176,15,0,7" Name="groupBox2" HorizontalAlignment="Left" Width="244">
                     <Grid>
-                        <TextBox Margin="51,9,0,0" Name="posX" HorizontalAlignment="Left" Width="37" Height="23.04" VerticalAlignment="Top" PreviewTextInput="validateNumber" TextAlignment="Right" />
-                        <TextBox HorizontalAlignment="Left" Margin="51,38,0,16" Name="posY" Width="37" PreviewTextInput="validateNumber" TextAlignment="Right" />
-                        <TextBox Height="23.04" Margin="156,9,0,0" Name="posWidth" VerticalAlignment="Top" PreviewTextInput="validateNumber" TextAlignment="Right" HorizontalAlignment="Left" Width="37" />
-                        <TextBox Margin="156,38,0,16" Name="posHeight" PreviewTextInput="validateNumber" TextAlignment="Right" HorizontalAlignment="Left" Width="37" />
+                        <TextBox Margin="51,9,0,0" Name="posX" HorizontalAlignment="Left" Width="37" Height="23.04" VerticalAlignment="Top"  GotFocus="txtBoxAutoSelect" PreviewTextInput="validateNumber" TextAlignment="Right" />
+                        <TextBox HorizontalAlignment="Left" Margin="51,38,0,16" Name="posY" Width="37" GotFocus="txtBoxAutoSelect" PreviewTextInput="validateNumber" TextAlignment="Right" />
+                        <TextBox Height="23.04" Margin="156,9,0,0" Name="posWidth" VerticalAlignment="Top" GotFocus="txtBoxAutoSelect" PreviewTextInput="validateNumber" TextAlignment="Right" HorizontalAlignment="Left" Width="37" />
+                        <TextBox Margin="156,38,0,16" Name="posHeight" GotFocus="txtBoxAutoSelect" PreviewTextInput="validateNumber" TextAlignment="Right" HorizontalAlignment="Left" Width="37" />
                         <Label HorizontalAlignment="Left" Margin="4,9,0,0" Name="label2" Width="41" Height="28.04" VerticalAlignment="Top" HorizontalContentAlignment="Right">X</Label>
                         <Label HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="4,33,0,16" Name="label3" Width="41">Y</Label>
                         <Label Height="28.04" HorizontalContentAlignment="Right" Margin="109,9,0,0" Name="label4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="41">Width</Label>

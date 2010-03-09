@@ -313,8 +313,9 @@ namespace CoverArt
             }
             //and the overlay
             work.DrawImage(overlay, 0, 0, newImage.Width, newImage.Height);
-            work = null;
-            overlay = null;
+            work.Dispose();
+            //work = null; 
+            //overlay = null;
             return newImage;
         }
 
@@ -376,10 +377,11 @@ namespace CoverArt
         public void EnsureConfigIsExtracted()
         {
             string fileName = Path.Combine(MediaBrowser.Library.Configuration.ApplicationPaths.AppPluginPath, "CoverArtConfig.exe");
-            if (!File.Exists(fileName) || configData.LastConfigVersion != this.Version)
+            if (!File.Exists(fileName) || configData.LastConfigVersion != this.Version.ToString())
             {
                 try
                 {
+                    Logger.ReportInfo("CoverArt Extracting New Config Tool (version "+this.Version.ToString()+")");
                     if (File.Exists(fileName)) File.Delete(fileName);
                     FileInfo fileInfoOutputFile = new FileInfo(fileName);
                     FileStream streamToOutputFile = fileInfoOutputFile.OpenWrite();
@@ -395,6 +397,8 @@ namespace CoverArt
 
                     streamToOutputFile.Close();
                     streamToResourceFile.Close();
+                    configData.LastConfigVersion = this.Version.ToString();
+                    configData.Save();
                 }
                 catch (Exception ex)
                 {
