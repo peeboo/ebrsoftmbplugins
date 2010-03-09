@@ -144,7 +144,7 @@ namespace CoverArtConfig
 
             foreach (KeyValuePair<string, System.Drawing.Image> entry in imageSet.Frames)
             {
-                System.Drawing.Image img = CoverArt.Plugin.CreateImage(entry.Value, (System.Drawing.Image)CoverArtConfig.Resources.folder.Clone(), imageSet.Overlay, imageSet.RootPosition, imageSet.FrameOnTop, imageSet.RoundCorners, imageSet.JustRoundCorners);
+                System.Drawing.Image img = CoverArt.Plugin.CreateImage((System.Drawing.Image)entry.Value.Clone(), (System.Drawing.Image)CoverArtConfig.Resources.folder.Clone(), imageSet.Overlay, imageSet.RootPosition, imageSet.FrameOnTop, imageSet.RoundCorners, imageSet.JustRoundCorners);
                 filename = System.IO.Path.Combine(TempLocation, imageSetName.GetMD5() + System.DateTime.Now.Millisecond.ToString() + entry.Key+".png");
                 img.Save(filename,System.Drawing.Imaging.ImageFormat.Png);
                 previews.Add(new PreviewItem(filename, entry.Key));

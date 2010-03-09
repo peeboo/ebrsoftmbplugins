@@ -39,7 +39,7 @@ namespace CoverArt
         public List<ProfileDefinition> ProfileDefs = new List<ProfileDefinition>();
         public List<string> IgnoreFolders = new List<string>();
         public List<string> CustomImageSets = new List<string>();
-        public System.Version LastConfigVersion = new System.Version(0, 0, 0, 0);
+        public string LastConfigVersion = "0.0.0.0";
 
         #region Load / Save Data
         public static MyConfigData FromFile(string file)

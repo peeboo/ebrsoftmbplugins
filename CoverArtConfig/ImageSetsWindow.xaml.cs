@@ -82,23 +82,30 @@ namespace CoverArtConfig
 
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                if (isValidImageSetLocation(dlg1.SelectedPath))
+                try
                 {
-                    if (ImageSetLocations.Contains(dlg1.SelectedPath))
+                    if (isValidImageSetLocation(dlg1.SelectedPath))
                     {
-                        MessageBox.Show(dlg1.SelectedPath + " already exists.", "Error");
+                        if (ImageSetLocations.Contains(dlg1.SelectedPath))
+                        {
+                            MessageBox.Show(dlg1.SelectedPath + " already exists.", "Error");
+                        }
+                        else
+                        {
+                            ImageSetLocations.Add(dlg1.SelectedPath);
+                            ImageSets.Add(dlg1.SelectedPath, new ImageSet(dlg1.SelectedPath));
+                            lbxImageSets.Items.Refresh();
+                            lbxImageSets.SelectedItem = dlg1.SelectedPath;
+                        }
                     }
                     else
                     {
-                        ImageSetLocations.Add(dlg1.SelectedPath);
-                        ImageSets.Add(dlg1.SelectedPath, new ImageSet(dlg1.SelectedPath));
-                        lbxImageSets.Items.Refresh();
-                        lbxImageSets.SelectedItem = dlg1.SelectedPath;
+                        MessageBox.Show(dlg1.SelectedPath + " doesn't appear to be a valid Image Set location.  At a minimum, it must contain a 'default.png' file.", "Invalid Location");
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show(dlg1.SelectedPath + " doesn't appear to be a valid Image Set location.  At a minimum, it must contain a 'default.png' file.", "Invalid Location");
+                    MessageBox.Show("Error attempting to add Image Set. " + ex.Message, "Error");
                 }
 
             }
@@ -192,6 +199,12 @@ namespace CoverArtConfig
         private void previewWindowClosed(object sender, EventArgs e)
         {
             PreviewWin = null;
+        }
+
+        private void txtBoxAutoSelect(object sender, RoutedEventArgs e)
+        {
+            TextBox us = sender as TextBox;
+            if (us != null) us.SelectAll();
         }
 
     }

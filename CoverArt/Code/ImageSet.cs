@@ -200,25 +200,25 @@ namespace CoverArt
                     //Load from directory
                     //first get our attributes from xml
                     string fullName = Path.Combine(directory,file);
-                    if (!File.Exists(fullName))
-                    {
-                        //can't find xml file - either directory not valid or file not there
-                        Logger.ReportError("CoverArt cannot find required xml definition file 'CoverArt.xml' in directory " + directory + ".  Using default.");
-                        //Use default
-                        Is3D = false;
-                        FrameOnTop = false;
-                        RootPosition = new Rectangle(15, 90, 585, 750);
-                        Overlay = Resources.Overlay;
-                        Frames = new Dictionary<string, Image>() {
-                            {"default", Resources.Case},
-                            {"BD",Resources.BD},
-                            {"DVD",Resources.DVD},
-                            {"MKV",Resources.Mkv},
-                            {"WMV",Resources.Wmv},
-                            {"AVI",Resources.Avi},
-                            {"HDDVD",Resources.HDDVD}
-                        };
-                    }
+                    //if (!File.Exists(fullName))
+                    //{
+                    //    //can't find xml file - either directory not valid or file not there
+                    //    Logger.ReportError("CoverArt cannot find required xml definition file 'CoverArt.xml' in directory " + directory + ".  Using default.");
+                    //    //Use default
+                    //    Is3D = false;
+                    //    FrameOnTop = false;
+                    //    RootPosition = new Rectangle(15, 90, 585, 750);
+                    //    Overlay = Resources.Overlay;
+                    //    Frames = new Dictionary<string, Image>() {
+                    //        {"default", Resources.Case},
+                    //        {"BD",Resources.BD},
+                    //        {"DVD",Resources.DVD},
+                    //        {"MKV",Resources.Mkv},
+                    //        {"WMV",Resources.Wmv},
+                    //        {"AVI",Resources.Avi},
+                    //        {"HDDVD",Resources.HDDVD}
+                    //    };
+                    //} else 
                     if (Directory.Exists(directory))
                     {
                         //read in settings
