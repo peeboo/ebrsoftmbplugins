@@ -394,7 +394,7 @@ namespace CoverArt
                     {
                         streamToOutputFile.Write(bytes, 0, numBytes);
                     }
-
+                    
                     streamToOutputFile.Close();
                     streamToResourceFile.Close();
                     configData.LastConfigVersion = this.Version.ToString();
@@ -464,7 +464,7 @@ namespace CoverArt
         {
             get
             {
-                return new System.Version(2,2,2,0);
+                return new System.Version(2,2,3,0);
             }
         }
 
