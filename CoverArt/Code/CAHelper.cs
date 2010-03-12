@@ -60,7 +60,7 @@ namespace CoverArt
 
         public static bool IsAlbumFolder(string path)
         {
-            if (Path.HasExtension(path))
+            if (!Directory.Exists(path))
                 return false;
 
             DirectoryInfo directoryInfo = new DirectoryInfo(path);

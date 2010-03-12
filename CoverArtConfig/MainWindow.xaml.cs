@@ -58,6 +58,19 @@ namespace CoverArtConfig
         {
             config = MyConfigData.FromFile(System.IO.Path.Combine(MediaBrowser.Library.Configuration.ApplicationPaths.AppPluginPath, "Configurations\\Coverart.xml"));
             InitializeComponent();
+            refreshImageSetOptions();
+            ProfileDefinition def = config.ProfileDefs.Find(p => p.Directory == "default");
+            if (def == null)
+            {
+                config.ProfileDefs.Insert(0,new ProfileDefinition());
+            }
+            lbxProfiles.ItemsSource = config.ProfileDefs;
+            version.Content = "Version " + CoverArt.Plugin.CurrentVersion;
+        }
+
+        private void refreshImageSetOptions()
+        {
+            imageSetOptions = new List<string>();
             imageSetOptions.AddRange(builtinImageSets);
             imageSetOptions.AddRange(config.CustomImageSets);
             ddlMovieLocation.ItemsSource = imageSetOptions;
@@ -67,13 +80,6 @@ namespace CoverArtConfig
             ddlRemoteLocation.ItemsSource = imageSetOptions;
             ddlThumbLocation.ItemsSource = imageSetOptions;
             ddlAlbumLocation.ItemsSource = imageSetOptions;
-            ProfileDefinition def = config.ProfileDefs.Find(p => p.Directory == "default");
-            if (def == null)
-            {
-                config.ProfileDefs.Insert(0,new ProfileDefinition());
-            }
-            lbxProfiles.ItemsSource = config.ProfileDefs;
-            version.Content = "Version " + CoverArt.Plugin.CurrentVersion;
         }
 
         private List<string> getCustomImageSets()
@@ -239,6 +245,7 @@ namespace CoverArtConfig
             dlg.Top = this.Top;
             dlg.ShowDialog();
             config.Save();
+            refreshImageSetOptions();
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
@@ -288,7 +295,7 @@ namespace CoverArtConfig
             IgnoresWindow dlg = new IgnoresWindow(config.IgnoreFolders);
             dlg.Left = this.Left + 40;
             dlg.Top = this.Top + 40;
-            dlg.Show();
+            dlg.ShowDialog();
             config.Save(); //in case we changed anything
         }
 
