@@ -177,7 +177,7 @@ namespace MBFavorites
         {
             get
             {
-                return new System.Version(1, 0, 0, 0);
+                return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             }
             set
             {
@@ -202,7 +202,7 @@ namespace MBFavorites
         {
             get
             {
-                return new System.Version(2, 2, 2,0);
+                return new System.Version(2, 2, 3,0);
             }
         }
         public override string RichDescURL

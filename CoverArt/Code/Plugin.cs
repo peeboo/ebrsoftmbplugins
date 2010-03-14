@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Drawing;
+using System.Net;
 using MediaBrowser.Library.Plugins;
 using MediaBrowser.Library.Entities;
 using MediaBrowser.Library.Logging;
@@ -91,6 +92,7 @@ namespace CoverArt
                 //profiles.Add("\\\\mediaserver\\movies\\hd", new Profile("c:\\programdata\\mediabrowser\\plugins\\coverart\\testprofiles\\diamond", null, null, null, null, "c:\\programdata\\mediabrowser\\plugins\\coverart\\testprofiles\\movie", null));
                 //test
 
+                ping("http://www.ebrsoft.com/software/mb/plugins/CoverArtPing.php");
                 //Tell the log we loaded.
                 Logger.ReportInfo("CoverArt (version " + Version + ") Plug-in Loaded.");
             }
@@ -100,6 +102,18 @@ namespace CoverArt
             }
 
         }
+
+        private void ping(string path)
+        {
+            try
+            {
+                WebRequest request = WebRequest.Create(path);
+                var response = request.GetResponse();
+                Stream stream = response.GetResponseStream();
+            }
+            catch { } //just let it go
+        }
+
 
         public Image ProcessImage(Image rootImage, BaseItem item)
         {
@@ -111,15 +125,16 @@ namespace CoverArt
             bool roundCorners = false;
             bool process = false;
 
+            //be sure path is valid
+            if (item.Path == null) {
+                Logger.ReportInfo("Not processing Item " + item.Name +" (null path)");
+                return rootImage;
+            }
+
             //check for ignore
             if (Ignore(item.Path))
             {
                 Logger.ReportInfo("Ignoring Item in " + item.Path);
-                return rootImage;
-            }
-            //be sure path is valid
-            if (item.Path == null) {
-                Logger.ReportInfo("Not processing Item " + item.Name);
                 return rootImage;
             }
 
