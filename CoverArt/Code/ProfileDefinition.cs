@@ -17,6 +17,7 @@ namespace CoverArt
         public string RemoteLocation = "CoverArtClearCase";
         public string ThumbLocation = "CoverArtFilm";
         public string AlbumLocation = "CoverArtCD";
+        public string FolderLocation = "Ignore";
 
         public override string ToString()
         {

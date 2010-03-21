@@ -18,14 +18,14 @@ namespace CoverArt
 
         public Profile()
         {
-            init(null, null, null, null, null, null, null);
+            init(null, null, null, null, null, null, null, null);
         }
-        public Profile(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation)
+        public Profile(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation, string folderLocation)
         {
-            init(movieLocation, seriesLocation, seasonLocation, episodeLocation, remoteLocation, thumbLocation, albumLocation);
+            init(movieLocation, seriesLocation, seasonLocation, episodeLocation, remoteLocation, thumbLocation, albumLocation, folderLocation);
         }
 
-        private void init(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation)
+        private void init(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation, string folderLocation)
         {
             if (String.IsNullOrEmpty(movieLocation))
             {
@@ -61,6 +61,11 @@ namespace CoverArt
                 albumLocation = "CoverArtCD";
             }
 
+            if (String.IsNullOrEmpty(folderLocation))
+            {
+                albumLocation = "Ignore";
+            }
+
             //Create all our imagesets
             imageSets.Add("default", new ImageSet("CoverArtCase"));
             imageSets.Add("movie", new ImageSet(movieLocation));
@@ -70,6 +75,7 @@ namespace CoverArt
             imageSets.Add("episode", new ImageSet(episodeLocation));
             imageSets.Add("album", new ImageSet(albumLocation));
             imageSets.Add("thumb", new ImageSet(thumbLocation));
+            imageSets.Add("folder", new ImageSet(folderLocation));
         }
 
         public ImageSet GetImageSet(string location)
@@ -216,5 +222,9 @@ namespace CoverArt
             return Frame("album", type);
         }
 
+        public Image FolderFrame(string type)
+        {
+            return Frame("folder", type);
+        }
     }
 }

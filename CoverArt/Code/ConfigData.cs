@@ -18,16 +18,8 @@ namespace CoverArt
             //translate defintions to actual profiles
             foreach (ProfileDefinition def in ProfileDefs)
             {
-                Profiles.Add(def.Directory.ToLower(), new Profile(def.MovieLocation, def.SeriesLocation, def.SeasonLocation, def.EpisodeLocation, def.RemoteLocation, def.ThumbLocation, def.AlbumLocation));
+                Profiles.Add(def.Directory.ToLower(), new Profile(def.MovieLocation, def.SeriesLocation, def.SeasonLocation, def.EpisodeLocation, def.RemoteLocation, def.ThumbLocation, def.AlbumLocation, def.FolderLocation));
             }
-            //testing - seed one
-            //IgnoreFolders.Add("\\\\mediaserver\\movies\\test");
-            //Save();
-            //ProfileDefinition d = new ProfileDefinition();
-            //d.Directory = "\\\\mediaserver\\movies\\music";
-            //d.MovieLocation = "CoverArtClearCase";
-            //ProfileDefs.Add(d);
-            //Save();
             //and add in default if not already there
             if (!Profiles.ContainsKey("default"))
                 Profiles.Add("default", new Profile());

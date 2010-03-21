@@ -226,24 +226,30 @@ namespace CoverArt
                         string filename;
                         //look for images and read those in
                         //first the frames
-                        foreach (string frame in FrameTypes) {
-                            filename = Path.Combine(directory,frame+".png");
-                            if (File.Exists(filename)) {
-                                Frames.Add(frame,Image.FromFile(filename));
+                        foreach (string frame in FrameTypes)
+                        {
+                            filename = Path.Combine(directory, frame + ".png");
+                            if (File.Exists(filename))
+                            {
+                                Frames.Add(frame, Image.FromFile(filename));
                             }
                         }
                         //be sure we got at least a default
-                        if (!Frames.ContainsKey("default")) {
-                            Logger.ReportError("CoverArt - No default frame found in "+directory);
-                            Frames.Add("default",Resources.Case);
+                        if (!Frames.ContainsKey("default"))
+                        {
+                            Logger.ReportError("CoverArt - No default frame found in " + directory);
+                            Frames.Add("default", Resources.Case);
                         }
 
                         //now the overlay
-                        filename = Path.Combine(directory,"overlay.png");
-                        if (File.Exists(filename)) {
+                        filename = Path.Combine(directory, "overlay.png");
+                        if (File.Exists(filename))
+                        {
                             Overlay = Image.FromFile(filename);
-                        } else Overlay = Resources.BlankOverlay;
+                        }
+                        else Overlay = Resources.BlankOverlay;
                     }
+                    else Logger.ReportError("CoverArt ImageSet does not exist: " + directory);
                     break;
             }
         }
