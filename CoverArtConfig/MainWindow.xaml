@@ -47,6 +47,12 @@
                     <ComboBox Height="23" HorizontalAlignment="Left" Margin="104,15,296,0" SelectionChanged="ddlImageSet_SelectionChanged" Name="ddlAlbumLocation" VerticalAlignment="Top" Width="371" />
                 </Grid>
             </TabItem>
+            <TabItem Header="Folder" Name="folderTab">
+                <Grid>
+                    <Label Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label8" VerticalAlignment="Top" Width="88">Image Set</Label>
+                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="104,15,296,0" SelectionChanged="ddlImageSet_SelectionChanged" Name="ddlFolderLocation" VerticalAlignment="Top" Width="371" />
+                </Grid>
+            </TabItem>
         </TabControl>
         <Button Height="23" Margin="0,247,90,0" Name="btnCustomImageSet" VerticalAlignment="Top"  IsEnabled="True" Click="btnCustomImageSet_Click" HorizontalAlignment="Right" Width="184">Custom Image Sets...</Button>
         <ListView Margin="20,304,23,62" Name="coversView" ItemsSource="{Binding}" Padding="5" BorderBrush="Beige" BorderThickness="1">

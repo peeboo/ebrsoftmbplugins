@@ -28,6 +28,7 @@ namespace CoverArtConfig
         private Dictionary<string, List<PreviewItem>> PreviewItems = new Dictionary<string,List<PreviewItem>>();
         private ImageSet currentImageSet;
         private string currentImageSetName;
+        private bool processChanges = true;
         private Dictionary<string, ImageSet> imageSets = new Dictionary<string, ImageSet>();
         private List<string> imageSetOptions = new List<string>();
         private List<string> builtinImageSets = new List<string>() {
@@ -80,6 +81,7 @@ namespace CoverArtConfig
             ddlRemoteLocation.ItemsSource = imageSetOptions;
             ddlThumbLocation.ItemsSource = imageSetOptions;
             ddlAlbumLocation.ItemsSource = imageSetOptions;
+            ddlFolderLocation.ItemsSource = imageSetOptions;
         }
 
         private List<string> getCustomImageSets()
@@ -120,6 +122,7 @@ namespace CoverArtConfig
 
         private bool loadProfile(ProfileDefinition profileDef)
         {
+            processChanges = false; //don't want change events to fire
             ddlMovieLocation.SelectedItem = profileDef.MovieLocation;
             ddlSeasonLocation.SelectedItem = profileDef.SeasonLocation;
             ddlSeriesLocation.SelectedItem = profileDef.SeriesLocation;
@@ -127,6 +130,9 @@ namespace CoverArtConfig
             ddlRemoteLocation.SelectedItem = profileDef.RemoteLocation;
             ddlThumbLocation.SelectedItem = profileDef.ThumbLocation;
             ddlAlbumLocation.SelectedItem = profileDef.AlbumLocation;
+            ddlFolderLocation.SelectedItem = profileDef.FolderLocation;
+            processChanges = true;
+            setCurrentImageSet();
 
             //create previews
             loadPreviews();
@@ -162,7 +168,7 @@ namespace CoverArtConfig
 
         private void tabImageSet_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (tabImageSet.SelectedItem != null && ddlAlbumLocation.SelectedItem != null)
+            if (tabImageSet.SelectedItem != null && ddlFolderLocation.SelectedItem != null && processChanges)
             {
                 setCurrentImageSet();
                 loadPreviews();
@@ -171,7 +177,7 @@ namespace CoverArtConfig
 
         private void ddlImageSet_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (tabImageSet.SelectedItem != null && ddlAlbumLocation.SelectedItem != null)
+            if (tabImageSet.SelectedItem != null && ddlFolderLocation.SelectedItem != null && processChanges)
             {
                 setCurrentImageSet();
                 loadPreviews();
@@ -215,6 +221,11 @@ namespace CoverArtConfig
                 case 6:
                     currentImageSetName = ddlAlbumLocation.SelectedItem.ToString();
                     currentProfileDef.AlbumLocation = currentImageSetName;
+                    config.Save();
+                    break;
+                case 7:
+                    currentImageSetName = ddlFolderLocation.SelectedItem.ToString();
+                    currentProfileDef.FolderLocation = currentImageSetName;
                     config.Save();
                     break;
             }

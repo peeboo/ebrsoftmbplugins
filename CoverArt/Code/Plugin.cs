@@ -12,6 +12,7 @@ using MediaBrowser;
 using MediaBrowser.Library.Configuration;
 using MediaBrowser.Library;
 using MediaBrowser.LibraryManagement;
+using MediaBrowser.Library.Threading;
 
 //******************************************************************************************************************
 //  This class is the heart of your plug-in.  It is instantiated by the initial loading logic of MediaBrowser.
@@ -92,7 +93,7 @@ namespace CoverArt
                 //profiles.Add("\\\\mediaserver\\movies\\hd", new Profile("c:\\programdata\\mediabrowser\\plugins\\coverart\\testprofiles\\diamond", null, null, null, null, "c:\\programdata\\mediabrowser\\plugins\\coverart\\testprofiles\\movie", null));
                 //test
 
-                ping("http://www.ebrsoft.com/software/mb/plugins/CoverArtPing.php");
+                Async.Queue("CAPing",()=> ping("http://www.ebrsoft.com/software/mb/plugins/CoverArtPing.php"));
                 //Tell the log we loaded.
                 Logger.ReportInfo("CoverArt (version " + Version + ") Plug-in Loaded.");
             }
@@ -273,6 +274,17 @@ namespace CoverArt
                                 position = profile.RootPosition("album");
                                 roundCorners = profile.RoundCorners("album");
 
+                            }
+                            else
+                            {
+                                //just a plain old folder
+                                process = true;
+                                newImage = profile.FolderFrame("default");
+                                overlay = profile.FolderOverlay();
+                                frameOnTop = profile.FrameOnTop("folder");
+                                justRoundCorners = profile.JustRoundCorners("folder");
+                                roundCorners = profile.RoundCorners("folder");
+                                position = profile.RootPosition("folder");
                             }
                         }
                     }
