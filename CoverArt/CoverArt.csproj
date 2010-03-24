@@ -120,8 +120,6 @@
     <Content Include="Images\Diamond\Diamond.png" />
     <Content Include="Images\Film\Film.png" />
     <Content Include="Images\Film\FilmOverlay.png" />
-    <Content Include="Images\Folder\Folder.png" />
-    <Content Include="Images\Folder\Folderp.png" />
     <Content Include="Images\GlossOverlay.png" />
     <Content Include="Images\TVMB\TVMB.png" />
     <Content Include="Images\TV\TVOverlay.png" />
@@ -166,6 +164,7 @@
     <None Include="Plugin.snk" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Images\Folder\" />
     <Folder Include="Markup\Controls\" />
     <Folder Include="Markup\Selectors\" />
     <Folder Include="Markup\Views\" />
