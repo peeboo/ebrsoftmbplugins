@@ -161,6 +161,7 @@ namespace CoverArtConfig
                 img.Save(filename,System.Drawing.Imaging.ImageFormat.Png);
                 previews.Add(new PreviewItem(filename, entry.Key));
                 img.Dispose();
+                img = null;
             }
             return previews;
         }

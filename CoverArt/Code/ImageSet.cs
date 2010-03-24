@@ -58,6 +58,65 @@ namespace CoverArt
             
         };
 
+        [SkipField]
+        protected static Image BlankOverlay = Resources.BlankOverlay;
+
+        [SkipField]
+        protected static Image StdOverlay = Resources.Overlay;
+
+        [SkipField]
+        protected static Image BDCase = Resources.BD;
+
+        [SkipField]
+        protected static Image DVDCase = Resources.DVD;
+
+        [SkipField]
+        protected static Image StdCase = Resources.Case;
+
+        [SkipField]
+        protected static Image BlankImage = Resources.Blank;
+
+        [SkipField]
+        protected static Image GlossOverlay = Resources.GlossOverlay;
+
+        [SkipField]
+        protected static Image ClearCase = Resources.ClearCase;
+
+        [SkipField]
+        protected static Image ClearCaseDVD = Resources.CC_DVD;
+
+        [SkipField]
+        protected static Image Diamond = Resources.Diamond;
+
+        [SkipField]
+        protected static Image TV = Resources.TV;
+
+        [SkipField]
+        protected static Image TVMB = Resources.TVMB;
+
+        [SkipField]
+        protected static Image Film = Resources.Film;
+
+        [SkipField]
+        protected static Image CD = Resources.CD;
+
+        [SkipField]
+        protected static Image TVOverlay = Resources.TVOverlay;
+
+        [SkipField]
+        protected static Image FilmOverlay = Resources.FilmOverlay;
+
+        [SkipField]
+        protected static Dictionary<string, Image> InternalCase = new Dictionary<string, Image>() {
+                        {"default", StdCase},
+                        {"BD",BDCase},
+                        {"DVD",DVDCase},
+                        {"MKV",Resources.Mkv},
+                        {"WMV",Resources.Wmv},
+                        {"AVI",Resources.Avi},
+                        {"HDDVD",Resources.HDDVD}
+        };
+
         public void Save()
         {
             this.settings.Write();
@@ -82,25 +141,26 @@ namespace CoverArt
                     Is3D = false;
                     FrameOnTop = false;
                     RootPosition = new Rectangle(15, 90, 585, 750);
-                    Overlay = Resources.Overlay;
-                    Frames = new Dictionary<string, Image>() {
-                        {"default", Resources.Case},
-                        {"BD",Resources.BD},
-                        {"DVD",Resources.DVD},
-                        {"MKV",Resources.Mkv},
-                        {"WMV",Resources.Wmv},
-                        {"AVI",Resources.Avi},
-                        {"HDDVD",Resources.HDDVD}
-                    };
+                    Overlay = StdOverlay;
+                    Frames = InternalCase;
+                    //Frames = new Dictionary<string, Image>() {
+                    //    {"default", Resources.Case},
+                    //    {"BD",Resources.BD},
+                    //    {"DVD",Resources.DVD},
+                    //    {"MKV",Resources.Mkv},
+                    //    {"WMV",Resources.Wmv},
+                    //    {"AVI",Resources.Avi},
+                    //    {"HDDVD",Resources.HDDVD}
+                    //};
                     break;
                 case "CoverArtCaseBD":
                     //Internal Case
                     Is3D = false;
                     FrameOnTop = false;
                     RootPosition = new Rectangle(15, 90, 585, 750);
-                    Overlay = Resources.Overlay;
+                    Overlay = StdOverlay;
                     Frames = new Dictionary<string, Image>() {
-                        {"default", Resources.BD},
+                        {"default", BDCase},
                     };
                     break;
                 case "CoverArtCaseDVD":
@@ -108,9 +168,9 @@ namespace CoverArt
                     Is3D = false;
                     FrameOnTop = false;
                     RootPosition = new Rectangle(15, 90, 585, 750);
-                    Overlay = Resources.Overlay;
+                    Overlay = StdOverlay;
                     Frames = new Dictionary<string, Image>() {
-                        {"default", Resources.DVD},
+                        {"default", DVDCase},
                     };
                     break;
                 case "CoverArtTV":
@@ -118,9 +178,9 @@ namespace CoverArt
                     Is3D = false;
                     FrameOnTop = false;
                     RootPosition = new Rectangle(45, 35, 645, 345);
-                    Overlay = Resources.TVOverlay;
+                    Overlay = TVOverlay;
                     Frames = new Dictionary<string, Image>() {
-                        {"default", Resources.TV},
+                        {"default", TV},
                     };
                     break;
                 case "CoverArtTVMB":
@@ -129,9 +189,9 @@ namespace CoverArt
                     FrameOnTop = true;
                     //RoundCorners = true;
                     RootPosition = new Rectangle(38,38,665,380);
-                    Overlay = Resources.TVOverlay;
+                    Overlay = TVOverlay;
                     Frames = new Dictionary<string, Image>() {
-                        {"default", Resources.TVMB},
+                        {"default", TVMB},
                     };
                     break;
                 case "CoverArtCD":
@@ -139,9 +199,9 @@ namespace CoverArt
                     Is3D = false;
                     FrameOnTop = true;
                     RootPosition = new Rectangle(70, 15, 470, 465);
-                    Overlay = Resources.BlankOverlay;
+                    Overlay = BlankOverlay;
                     Frames = new Dictionary<string, Image>() {
-                        {"default", Resources.CD},
+                        {"default", CD},
                     };
                     break;
                 case "CoverArtFilm":
@@ -149,9 +209,9 @@ namespace CoverArt
                     Is3D = false;
                     FrameOnTop = false;
                     RootPosition = new Rectangle(95, 32, 553, 348);
-                    Overlay = Resources.FilmOverlay;
+                    Overlay = FilmOverlay;
                     Frames = new Dictionary<string, Image>() {
-                        {"default", Resources.Film},
+                        {"default", Film},
                     };
                     break;
                 case "CoverArtFolder":
@@ -163,19 +223,19 @@ namespace CoverArt
                     FrameOnTop = true;
                     RoundCorners = true;
                     RootPosition = new Rectangle(75, 25, 470, 668);
-                    Overlay = Resources.BlankOverlay;
+                    Overlay = BlankOverlay;
                     Frames = new Dictionary<string, Image>() {
-                        {"default", Resources.ClearCase},
-                        {"DVD",Resources.CC_DVD}
+                        {"default", ClearCase},
+                        {"DVD",ClearCaseDVD}
                     };
                     break;
                 case "CoverArtRounded":
                     //Internal Rounded Corners - only the overlay will be used
                     JustRoundCorners = true;
                     RootPosition = new Rectangle(0,0,0,0);
-                    Overlay = Resources.GlossOverlay;
+                    Overlay = GlossOverlay;
                     Frames = new Dictionary<string, Image>() {
-                        {"default", Resources.BlankOverlay}
+                        {"default", BlankOverlay}
                     };
                     break;
                 case "CoverArtDiamond":
@@ -183,17 +243,17 @@ namespace CoverArt
                     RoundCorners = true;
                     FrameOnTop = true;
                     RootPosition = new Rectangle(26, 25, 470, 665);
-                    Overlay = Resources.BlankOverlay;
+                    Overlay = BlankOverlay;
                     Frames = new Dictionary<string, Image>() {
-                        {"default", Resources.Diamond}
+                        {"default", Diamond}
                     };
                     break;
                 case "Ignore":
                     //Ignore this cover
                     RootPosition = new Rectangle(0,0,0,0);
-                    Overlay = Resources.BlankOverlay;
+                    Overlay = BlankOverlay;
                     Frames = new Dictionary<string, Image>() {
-                        {"default", Resources.Blank}
+                        {"default", BlankImage}
                     };
                     break;
                 default:
@@ -238,7 +298,7 @@ namespace CoverArt
                         if (!Frames.ContainsKey("default"))
                         {
                             Logger.ReportError("CoverArt - No default frame found in " + directory);
-                            Frames.Add("default", Resources.Case);
+                            Frames.Add("default", StdCase);
                         }
 
                         //now the overlay
@@ -247,7 +307,7 @@ namespace CoverArt
                         {
                             Overlay = Image.FromFile(filename);
                         }
-                        else Overlay = Resources.BlankOverlay;
+                        else Overlay = BlankOverlay;
                     }
                     else Logger.ReportError("CoverArt ImageSet does not exist: " + directory);
                     break;

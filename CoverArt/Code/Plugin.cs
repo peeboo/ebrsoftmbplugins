@@ -85,6 +85,7 @@ namespace CoverArt
 
                 //Load custom profiles here...
                 configPath = Path.Combine(MediaBrowser.Library.Configuration.ApplicationPaths.AppPluginPath, "Configurations");
+                if (!Directory.Exists(configPath)) Directory.CreateDirectory(configPath);
                 configData = MyConfigData.FromFile(Path.Combine(configPath, "Coverart.xml"));
 
                 //test
@@ -472,7 +473,7 @@ namespace CoverArt
         public override string Description
         {
             //provide a longer description of your plugin - this will display when the user selects the theme in the plug-in section
-            get { return "Built-in CoverArt for MediaBrowser. (REQUIRES ThunderBlade)  Brought to you by ebrSoft (www.ebrsoft.com)"; }
+            get { return "Built-in CoverArt for MediaBrowser. (REQUIRES Pegasus). Version 1.1.3 SIGNIFICANTLY reduces the memory usage of CoverArt.  Brought to you by ebrSoft (www.ebrsoft.com)"; }
         }
 
         public override bool InstallGlobally
