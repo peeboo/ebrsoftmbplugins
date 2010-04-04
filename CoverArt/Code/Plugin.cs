@@ -44,6 +44,25 @@ namespace CoverArt
         private string configPath;
 
         private MyConfigData configData;
+        private int nagged = 0;
+        private DateTime expirationDate;
+        private bool isReg = false;
+        private bool? isInTrial = null;
+        private bool trialVersion
+        {
+            get
+            {
+                if (isInTrial == null) isInTrial = expirationDate > DateTime.Now;
+                return (isInTrial.Value && !isReg);
+            }
+        }
+        private bool isValid
+        {
+            get
+            {
+                return (isReg || trialVersion);
+            }
+        }
 
         /// <summary>
         /// The Init method is called when the plug-in is loaded by MediaBrowser.  You should perform all your specific initializations
@@ -93,8 +112,13 @@ namespace CoverArt
                 //profiles.Add("\\\\mediaserver\\movies\\music", new Profile("CoverArtClearCase", null, null, null, null, null, null));
                 //profiles.Add("\\\\mediaserver\\movies\\hd", new Profile("c:\\programdata\\mediabrowser\\plugins\\coverart\\testprofiles\\diamond", null, null, null, null, "c:\\programdata\\mediabrowser\\plugins\\coverart\\testprofiles\\movie", null));
                 //test
-
-                Async.Queue("CAPing",()=> ping("http://www.ebrsoft.com/software/mb/plugins/CoverArtPing.php"));
+                //ping("http://www.ebrsoft.com/software/mb/plugins/cahits_db.php?ver=" + Version.ToString());
+                Async.Queue("CAPing", () =>
+                {
+                    ping("http://www.ebrsoft.com/software/mb/plugins/cahits_db.php?ver=" + Version.ToString());
+                    validate("http://www.ebrsoft.com/software/mb/plugins/caregcheck.php");
+                    //Logger.ReportInfo("CoverArt registration status: " + isReg+ ". Expiration date: "+expirationDate);
+                });
                 //Tell the log we loaded.
                 Logger.ReportInfo("CoverArt (version " + Version + ") Plug-in Loaded.");
             }
@@ -112,13 +136,51 @@ namespace CoverArt
                 WebRequest request = WebRequest.Create(path);
                 var response = request.GetResponse();
                 Stream stream = response.GetResponseStream();
+                byte[] buffer = new byte[10];
+                stream.Read(buffer,0,10);
+                //Logger.ReportInfo("Exp Date as string: " + System.Text.Encoding.ASCII.GetString(buffer));
+                expirationDate = DateTime.Parse(System.Text.Encoding.ASCII.GetString(buffer));
             }
             catch { } //just let it go
         }
 
+        private void validate(string path)
+        {
+            try
+            {
+                WebRequest request = WebRequest.Create(path);
+                var response = request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                byte[] buffer = new byte[10];
+                stream.Read(buffer, 0, 10);
+                int result = 0;
+                int.TryParse(System.Text.Encoding.ASCII.GetString(buffer), out result);
+                if (result > 0) isReg = true;
+            }
+            catch { isReg = true; } //just let it go and make sure we will run
+        }
 
         public Image ProcessImage(Image rootImage, BaseItem item)
         {
+            string msg = "";
+            if (!isValid)
+            {
+                if (nagged < 3)
+                {
+                    msg = "CoverArt trial period expired.  Please donate at www.ebrsoft.com/coverart.";
+                    Logger.ReportInfo(msg);
+                    Application.CurrentInstance.Information.AddInformationString(msg);
+                    nagged++;
+                }
+                return rootImage;
+            } else
+                if (trialVersion && nagged < 3) {
+                    msg = "CoverArt trial will expire in "+(expirationDate - DateTime.Now).Days+" days.  Please donate at www.ebrsoft.com/coverart.";
+                    Logger.ReportInfo(msg);
+                    Application.CurrentInstance.Information.AddInformationString(msg);
+                    nagged++;
+                }
+
             Logger.ReportInfo("Image for " + item.Name + " being processed by CoverArt. Path is: "+item.Path);
             Image newImage = rootImage;
 
@@ -445,6 +507,7 @@ namespace CoverArt
 
         public override void Configure()
         {
+            
             try
             {
                 EnsureConfigIsExtracted();
@@ -473,7 +536,23 @@ namespace CoverArt
         public override string Description
         {
             //provide a longer description of your plugin - this will display when the user selects the theme in the plug-in section
-            get { return "Built-in CoverArt for MediaBrowser. (REQUIRES Pegasus). Version 1.1.3 SIGNIFICANTLY reduces the memory usage of CoverArt.  Brought to you by ebrSoft (www.ebrsoft.com)"; }
+            get
+            {
+                string regStr;
+                if (isReg)
+                {
+                    regStr = "\n\nTHANK YOU for your support.";
+                } else
+                    if (trialVersion)
+                    {
+                        regStr = "\n\nTRIAL version.  Expires in " + ((expirationDate - DateTime.Now).Days + 1) + " Days.  Please donate at www.ebrsoft.com/coverart";
+                    }
+                    else
+                    {
+                        regStr = "\n\nTRIAL EXPIRED.  Please donate at www.ebrsoft.com/coverart";
+                    }
+                return "Built-in CoverArt for MediaBrowser. (REQUIRES Pegasus). Version 1.1.3+ SIGNIFICANTLY reduces the memory usage of CoverArt.  Brought to you by ebrSoft (www.ebrsoft.com)" + regStr;
+            }
         }
 
         public override bool InstallGlobally
