@@ -33,9 +33,12 @@ namespace CoverArtConfig
         private List<string> imageSetOptions = new List<string>();
         private List<string> builtinImageSets = new List<string>() {
             "CoverArtCase",
+            "CoverArtCaseMinimal",
             "CoverArtCaseBD",
             "CoverArtCaseDVD",
             "CoverArtClearCase",
+            "CoverArtClearCaseMinimal",
+            "CoverArtClearCaseDVD",
             "CoverArtCD",
             "CoverArtDiamond",
             "CoverArtRounded",
@@ -46,6 +49,31 @@ namespace CoverArtConfig
             
         };
         private MyConfigData config;
+        private bool isReg = false;
+        private DateTime expDate;
+        private string regString
+        {
+            get
+            {
+                if (isReg)
+                    return " (Registered)";
+                else
+                    if (expDate > DateTime.Now)
+                        return " (Trial - Expires in " + ((expDate - DateTime.Now).Days + 1) + " Days)";
+                    else
+                        return " (Expired)";
+            }
+        }
+        private string regBtnText
+        {
+            get
+            {
+                if (isReg)
+                    return "Edit Key...";
+                else
+                    return "Register...";
+            }
+        }
 
         private ProfileDefinition currentProfileDef
         {
@@ -58,6 +86,9 @@ namespace CoverArtConfig
         public MainWindow()
         {
             config = MyConfigData.FromFile(System.IO.Path.Combine(MediaBrowser.Library.Configuration.ApplicationPaths.AppPluginPath, "Configurations\\Coverart.xml"));
+            isReg = CoverArt.Plugin.Validate(config.RegKey);
+            expDate = CoverArt.Plugin.Ping("http://www.ebrsoft.com/software/mb/plugins/caexpdate.php");
+
             InitializeComponent();
             refreshImageSetOptions();
             ProfileDefinition def = config.ProfileDefs.Find(p => p.Directory == "default");
@@ -66,8 +97,15 @@ namespace CoverArtConfig
                 config.ProfileDefs.Insert(0,new ProfileDefinition());
             }
             lbxProfiles.ItemsSource = config.ProfileDefs;
-            version.Content = "Version " + CoverArt.Plugin.CurrentVersion;
+            setVersion();
         }
+
+        private void setVersion()
+        {
+            version.Content = "Version " + CoverArt.Plugin.CurrentVersion + regString;
+            btnRegister.Content = regBtnText;
+        }
+
 
         private void refreshImageSetOptions()
         {
@@ -131,6 +169,7 @@ namespace CoverArtConfig
             ddlThumbLocation.SelectedItem = profileDef.ThumbLocation;
             ddlAlbumLocation.SelectedItem = profileDef.AlbumLocation;
             ddlFolderLocation.SelectedItem = profileDef.FolderLocation;
+            cbxByDef.IsChecked = profileDef.CoverByDefinition;
             processChanges = true;
             setCurrentImageSet();
 
@@ -138,34 +177,68 @@ namespace CoverArtConfig
             loadPreviews();
             return true;
         }
-
+        
         private void loadPreviews()
         {
-            if (!PreviewItems.ContainsKey(currentImageSetName))
+            string imageSetName = currentImageSetName;
+            string imageSetType = "std";
+            List<int> defOnlyTabs = new List<int>() {1,2,4,6,7};
+            //determine the type of previews we should create
+            if (tabImageSet.SelectedIndex == 0 && currentProfileDef.CoverByDefinition) imageSetType = "definition";
+            else if (defOnlyTabs.Contains(tabImageSet.SelectedIndex)) imageSetType = "defaultonly";
+            imageSetName = imageSetName + imageSetType;
+
+            if (!PreviewItems.ContainsKey(imageSetName))
             {
                 this.Cursor = Cursors.Wait;
-                PreviewItems.Add(currentImageSetName, CreatePreviews(currentImageSet, currentImageSetName));
+                PreviewItems.Add(imageSetName, CreatePreviews(currentImageSet, imageSetName, imageSetType));
                 this.Cursor = Cursors.Arrow;
             }
-            coversView.ItemsSource = PreviewItems[currentImageSetName];
+            coversView.ItemsSource = PreviewItems[imageSetName];
         }
 
-        public static List<PreviewItem> CreatePreviews(ImageSet imageSet, string imageSetName) {
+        public static List<PreviewItem> CreatePreviews(ImageSet imageSet, string imageSetName)
+        {
+            return CreatePreviews(imageSet, imageSetName, "all");
+        }
+
+        public static List<PreviewItem> CreatePreviews(ImageSet imageSet, string imageSetName, string previewType) {
             List<PreviewItem> previews = new List<PreviewItem>();
             string filename;
+            List<string> keys;
+
+            switch (previewType)
+            {
+                case "definition":
+                    keys = new List<string>() { "default", "HD", "SD" };
+                    break;
+                case "defaultonly":
+                    keys = new List<string>() { "default" };
+                    break;
+                case "std":
+                    keys = ImageSet.FrameTypes;
+                    keys.Remove("HD");
+                    keys.Remove("SD");
+                    break;
+                default:
+                    keys = ImageSet.FrameTypes;
+                    break;
+            }
 
             foreach (KeyValuePair<string, System.Drawing.Image> entry in imageSet.Frames)
             {
-                System.Drawing.Image img = CoverArt.Plugin.CreateImage((System.Drawing.Image)entry.Value.Clone(), (System.Drawing.Image)CoverArtConfig.Resources.folder.Clone(), imageSet.Overlay, imageSet.RootPosition, imageSet.FrameOnTop, imageSet.RoundCorners, imageSet.JustRoundCorners);
-                filename = System.IO.Path.Combine(TempLocation, imageSetName.GetMD5() + System.DateTime.Now.Millisecond.ToString() + entry.Key+".png");
-                img.Save(filename,System.Drawing.Imaging.ImageFormat.Png);
-                previews.Add(new PreviewItem(filename, entry.Key));
-                img.Dispose();
-                img = null;
+                if (keys.Contains(entry.Key)) //just create the ones we want
+                {
+                    System.Drawing.Image img = CoverArt.Plugin.CreateImage((System.Drawing.Image)entry.Value.Clone(), (System.Drawing.Image)CoverArtConfig.Resources.folder.Clone(), imageSet.Overlay, imageSet.RootPosition, imageSet.FrameOnTop, imageSet.RoundCorners, imageSet.JustRoundCorners);
+                    filename = System.IO.Path.Combine(TempLocation, imageSetName.GetMD5() + System.DateTime.Now.Millisecond.ToString() + entry.Key + ".png");
+                    img.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
+                    previews.Add(new PreviewItem(filename, entry.Key));
+                    img.Dispose();
+                    img = null;
+                }
             }
             return previews;
         }
-
 
         private void tabImageSet_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -338,6 +411,34 @@ namespace CoverArtConfig
                 lbxProfiles.SelectedIndex = 0;
             }
 
+        }
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            RegWindow dlg = new RegWindow(config);
+            if (dlg.ShowDialog().Value)
+            {
+                this.Cursor = Cursors.Wait;
+                isReg = CoverArt.Plugin.Validate(config.RegKey);
+                this.Cursor = Cursors.Arrow;
+                if (isReg)
+                {
+                    MessageBox.Show("Thank you for your support.", "Registered");
+                }
+                else
+                {
+                    MessageBox.Show("Invalid registration key.  Please paste from the email you received.", "NOT Registered");
+                }
+                setVersion();
+            }
+        }
+
+        private void cbxByDef_Checked(object sender, RoutedEventArgs e)
+        {
+            currentProfileDef.CoverByDefinition = cbxByDef.IsChecked.Value;
+            config.Save();
+            setCurrentImageSet();
+            loadPreviews();
         }
 
     }

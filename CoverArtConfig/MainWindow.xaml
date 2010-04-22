@@ -75,7 +75,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <Image Height="101" HorizontalAlignment="Right" Margin="0,12,12,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="286" Source="images/coverartlogo.png" />
-        <ListBox Height="154" Margin="12,34,313,0" x:Name="lbxProfiles" VerticalAlignment="Top" ItemsSource="{Binding Path=config.ProfileDefs}" SelectionChanged="lbxProfiles_SelectionChanged" />
+        <ListBox Height="130" Margin="12,34,313,0" x:Name="lbxProfiles" VerticalAlignment="Top" ItemsSource="{Binding Path=config.ProfileDefs}" SelectionChanged="lbxProfiles_SelectionChanged" />
         <TextBlock Height="21" HorizontalAlignment="Left" Margin="12,12,0,0" Text="Profiles" Name="textBlock1" VerticalAlignment="Top" Width="188" FontSize="14" />
         <Button Height="30" HorizontalAlignment="Left" Margin="20,0,0,14" Name="btnNew" VerticalAlignment="Bottom" Width="106" FontSize="14" Click="btnNew_Click">New Profile...</Button>
         <Button FontSize="14" Height="30" HorizontalAlignment="Left" Margin="132,0,0,14" Name="btnRemove" VerticalAlignment="Bottom" Width="106" Click="btnRemove_Click">Remove</Button>
@@ -83,6 +83,8 @@
         <Button FontSize="14" Height="30" HorizontalAlignment="Right" Margin="0,0,23,14" Name="btnDone" VerticalAlignment="Bottom" Width="106" Click="btnDone_Click">Done</Button>
         <Button Height="32" HorizontalAlignment="Right" Margin="0,0,154,12" Name="btnHelp" VerticalAlignment="Bottom" Width="75" FontSize="14" Click="btnHelp_Click">Help...</Button>
         <Button Height="30" Margin="356,0,313,14" Name="btnClearCache" VerticalAlignment="Bottom" FontSize="14" Click="btnClearCache_Click">Clear Image Cache</Button>
-        <Label Height="28" HorizontalAlignment="Right" Margin="0,119,40,0" Name="version" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Right">Version 0.1.10.0</Label>
+        <Label Height="28" HorizontalAlignment="Right" Margin="0,119,40,0" Name="version" VerticalAlignment="Top" Width="258" HorizontalContentAlignment="Right">Version 0.1.10.0</Label>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,153,40,0" Name="btnRegister" VerticalAlignment="Top" Width="89" Click="btnRegister_Click">Register...</Button>
+        <CheckBox Height="20" Margin="20,177,0,0" Name="cbxByDef" VerticalAlignment="Top" FontSize="14" Unchecked="cbxByDef_Checked" Checked="cbxByDef_Checked" HorizontalAlignment="Left" Width="429">Cover by Definition instead of type (applies only to Movie items)</CheckBox>
     </Grid>
 </Window>

@@ -15,17 +15,19 @@ namespace CoverArt
     {
         protected Dictionary<string, ImageSet> imageSets = new Dictionary<string, ImageSet>();
 
+        public bool CoverByDefinition = false;
+
 
         public Profile()
         {
-            init(null, null, null, null, null, null, null, null);
+            init(null, null, null, null, null, null, null, null, false);
         }
-        public Profile(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation, string folderLocation)
+        public Profile(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation, string folderLocation, bool coverByDef)
         {
-            init(movieLocation, seriesLocation, seasonLocation, episodeLocation, remoteLocation, thumbLocation, albumLocation, folderLocation);
+            init(movieLocation, seriesLocation, seasonLocation, episodeLocation, remoteLocation, thumbLocation, albumLocation, folderLocation, coverByDef);
         }
 
-        private void init(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation, string folderLocation)
+        private void init(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation, string folderLocation, bool coverByDef)
         {
             if (String.IsNullOrEmpty(movieLocation))
             {
@@ -65,6 +67,8 @@ namespace CoverArt
             {
                 albumLocation = "Ignore";
             }
+
+            CoverByDefinition = coverByDef;
 
             //Create all our imagesets
             imageSets.Add("default", new ImageSet("CoverArtCase"));

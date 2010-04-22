@@ -18,7 +18,7 @@ namespace CoverArt
             //translate defintions to actual profiles
             foreach (ProfileDefinition def in ProfileDefs)
             {
-                Profiles.Add(def.Directory.ToLower(), new Profile(def.MovieLocation, def.SeriesLocation, def.SeasonLocation, def.EpisodeLocation, def.RemoteLocation, def.ThumbLocation, def.AlbumLocation, def.FolderLocation));
+                Profiles.Add(def.Directory.ToLower(), new Profile(def.MovieLocation, def.SeriesLocation, def.SeasonLocation, def.EpisodeLocation, def.RemoteLocation, def.ThumbLocation, def.AlbumLocation, def.FolderLocation, def.CoverByDefinition));
             }
             //and add in default if not already there
             if (!Profiles.ContainsKey("default"))
@@ -32,6 +32,7 @@ namespace CoverArt
         public List<string> IgnoreFolders = new List<string>();
         public List<string> CustomImageSets = new List<string>();
         public string LastConfigVersion = "0.0.0.0";
+        public string RegKey = "";
 
         #region Load / Save Data
         public static MyConfigData FromFile(string file)

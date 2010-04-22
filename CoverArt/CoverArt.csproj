@@ -80,6 +80,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -108,12 +109,30 @@
     <Content Include="Images\Case\Avi.png" />
     <Content Include="Images\Case\BD.png" />
     <Content Include="Images\Case\Case.png" />
+    <Content Include="Images\Case\DivX.png" />
+    <Content Include="Images\Case\dv.png" />
     <Content Include="Images\Case\DVD.png" />
+    <Content Include="Images\Case\h264.png" />
+    <Content Include="Images\Case\HD.png" />
     <Content Include="Images\Case\HDDVD.png" />
     <Content Include="Images\Case\Mkv.png" />
+    <Content Include="Images\Case\mov.png" />
+    <Content Include="Images\Case\Mpeg.png" />
     <Content Include="Images\Case\Overlay.png" />
     <Content Include="Images\Case\Wmv.png" />
+    <Content Include="Images\Case\Xvid.png" />
     <Content Include="Images\CD\CD.png" />
+    <Content Include="Images\ClearCase\cc_avi.png" />
+    <Content Include="Images\ClearCase\cc_bd.png" />
+    <Content Include="Images\ClearCase\cc_divx.png" />
+    <Content Include="Images\ClearCase\cc_dv.png" />
+    <Content Include="Images\ClearCase\cc_h264.png" />
+    <Content Include="Images\ClearCase\cc_hddvd.png" />
+    <Content Include="Images\ClearCase\cc_mkv.png" />
+    <Content Include="Images\ClearCase\cc_mov.png" />
+    <Content Include="Images\ClearCase\cc_mpeg.png" />
+    <Content Include="Images\ClearCase\cc_wmv.png" />
+    <Content Include="Images\ClearCase\cc_xvid.png" />
     <Content Include="Images\ClearCase\ClearCase.png" />
     <Content Include="Images\ClearCase\CC_DVD.png" />
     <Content Include="Images\Blank.png" />
