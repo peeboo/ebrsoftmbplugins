@@ -70,7 +70,7 @@ namespace CoverArtConfig
         {
             var dlg1 = new FolderBrowserDialogEx
             {
-                Description = "Select a folder to ignore (will include all sub-folders)...",
+                Description = "Select the folder that contains your custom images",
                 ShowNewFolderButton = false,
                 ShowEditBox = true,
                 NewStyle = true,

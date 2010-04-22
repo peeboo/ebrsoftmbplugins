@@ -18,6 +18,7 @@ namespace CoverArt
         public string ThumbLocation = "CoverArtFilm";
         public string AlbumLocation = "CoverArtCD";
         public string FolderLocation = "Ignore";
+        public bool CoverByDefinition = false;
 
         public override string ToString()
         {

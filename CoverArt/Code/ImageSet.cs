@@ -41,7 +41,7 @@ namespace CoverArt
         public Image Overlay;
 
         [SkipField]
-        protected static List<string> FrameTypes = new List<string>() {
+        public static List<string> FrameTypes = new List<string>() {
             "default",
             "BD",
             "HDDVD",
@@ -54,9 +54,17 @@ namespace CoverArt
             "MPG",
             "MOV",
             "MPEG",
-            "DVRMS"
+            "DIVX",
+            "H264",
+            "XVID",
+            "DVRMS",
+            "HD",
+            "SD"
             
         };
+
+        [SkipField]
+        protected static Rectangle caseRectangle = new Rectangle(15, 95, 580, 745);
 
         [SkipField]
         protected static Image BlankOverlay = Resources.BlankOverlay;
@@ -66,6 +74,9 @@ namespace CoverArt
 
         [SkipField]
         protected static Image BDCase = Resources.BD;
+
+        [SkipField]
+        protected static Image HDDVDCase = Resources.HDDVD;
 
         [SkipField]
         protected static Image DVDCase = Resources.DVD;
@@ -84,6 +95,12 @@ namespace CoverArt
 
         [SkipField]
         protected static Image ClearCaseDVD = Resources.CC_DVD;
+
+        [SkipField]
+        protected static Image ClearCaseBD = Resources.cc_bd;
+
+        [SkipField]
+        protected static Image ClearCaseHDDVD = Resources.cc_hddvd;
 
         [SkipField]
         protected static Image Diamond = Resources.Diamond;
@@ -114,7 +131,33 @@ namespace CoverArt
                         {"MKV",Resources.Mkv},
                         {"WMV",Resources.Wmv},
                         {"AVI",Resources.Avi},
-                        {"HDDVD",Resources.HDDVD}
+                        {"HDDVD",HDDVDCase},
+                        {"DVRMS",Resources.dv},
+                        {"H264",Resources.h264},
+                        {"MPEG",Resources.Mpeg},
+                        {"MP4",Resources.Mpeg},
+                        {"DIVX",Resources.DivX},
+                        {"MOV",Resources.mov},
+                        {"XVID",Resources.Xvid},
+                        {"HD",Resources.HD}
+        };
+
+        [SkipField]
+        protected static Dictionary<string, Image> InternalClearCase = new Dictionary<string, Image>() {
+                        {"default", ClearCase},
+                        {"BD",ClearCaseBD},
+                        {"DVD",ClearCaseDVD},
+                        {"MKV",Resources.cc_mkv},
+                        {"WMV",Resources.cc_wmv},
+                        {"AVI",Resources.cc_avi},
+                        {"HDDVD",ClearCaseHDDVD},
+                        {"DVRMS",Resources.cc_dv},
+                        {"H264",Resources.cc_h264},
+                        {"MPEG",Resources.cc_mpeg},
+                        {"MP4",Resources.cc_mpeg},
+                        {"DIVX",Resources.cc_divx},
+                        {"MOV",Resources.cc_mov},
+                        {"XVID",Resources.cc_xvid}
         };
 
         public void Save()
@@ -140,24 +183,15 @@ namespace CoverArt
                     //Internal Case
                     Is3D = false;
                     FrameOnTop = false;
-                    RootPosition = new Rectangle(15, 90, 585, 750);
+                    RootPosition = caseRectangle;
                     Overlay = StdOverlay;
                     Frames = InternalCase;
-                    //Frames = new Dictionary<string, Image>() {
-                    //    {"default", Resources.Case},
-                    //    {"BD",Resources.BD},
-                    //    {"DVD",Resources.DVD},
-                    //    {"MKV",Resources.Mkv},
-                    //    {"WMV",Resources.Wmv},
-                    //    {"AVI",Resources.Avi},
-                    //    {"HDDVD",Resources.HDDVD}
-                    //};
                     break;
                 case "CoverArtCaseBD":
                     //Internal Case
                     Is3D = false;
                     FrameOnTop = false;
-                    RootPosition = new Rectangle(15, 90, 585, 750);
+                    RootPosition = caseRectangle;
                     Overlay = StdOverlay;
                     Frames = new Dictionary<string, Image>() {
                         {"default", BDCase},
@@ -167,10 +201,25 @@ namespace CoverArt
                     //Internal Case
                     Is3D = false;
                     FrameOnTop = false;
-                    RootPosition = new Rectangle(15, 90, 585, 750);
+                    RootPosition = caseRectangle;
                     Overlay = StdOverlay;
                     Frames = new Dictionary<string, Image>() {
                         {"default", DVDCase},
+                    };
+                    break;
+                case "CoverArtCaseMinimal":
+                    //Just the big 3
+                    Is3D = false;
+                    FrameOnTop = false;
+                    RootPosition = caseRectangle;
+                    Overlay = StdOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", StdCase},
+                        {"DVD",DVDCase},
+                        {"BD",BDCase},
+                        {"HDDVD",HDDVDCase},
+                        {"SD",DVDCase},
+                        {"HD",BDCase}
                     };
                     break;
                 case "CoverArtTV":
@@ -224,9 +273,33 @@ namespace CoverArt
                     RoundCorners = true;
                     RootPosition = new Rectangle(75, 25, 470, 668);
                     Overlay = BlankOverlay;
+                    Frames = InternalClearCase;
+                    break;
+                case "CoverArtClearCaseMinimal":
+                    //Internal ClearCase
+                    Is3D = false;
+                    FrameOnTop = true;
+                    RoundCorners = true;
+                    RootPosition = new Rectangle(75, 25, 470, 668);
+                    Overlay = BlankOverlay;
                     Frames = new Dictionary<string, Image>() {
-                        {"default", ClearCase},
-                        {"DVD",ClearCaseDVD}
+                        {"default",ClearCase},
+                        {"DVD",ClearCaseDVD},
+                        {"BD",ClearCaseBD},
+                        {"HDDVD",ClearCaseHDDVD},
+                        {"HD",ClearCaseBD},
+                        {"SD",ClearCaseDVD}
+                    };
+                    break;
+                case "CoverArtClearCaseDVD":
+                    //Internal ClearCase just DVD cover
+                    Is3D = false;
+                    FrameOnTop = true;
+                    RoundCorners = true;
+                    RootPosition = new Rectangle(75, 25, 470, 668);
+                    Overlay = BlankOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", ClearCaseDVD}
                     };
                     break;
                 case "CoverArtRounded":

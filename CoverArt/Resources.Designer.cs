@@ -95,9 +95,86 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap cc_avi {
+            get {
+                object obj = ResourceManager.GetObject("cc_avi", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_bd {
+            get {
+                object obj = ResourceManager.GetObject("cc_bd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_divx {
+            get {
+                object obj = ResourceManager.GetObject("cc_divx", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_dv {
+            get {
+                object obj = ResourceManager.GetObject("cc_dv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap CC_DVD {
             get {
                 object obj = ResourceManager.GetObject("CC_DVD", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_h264 {
+            get {
+                object obj = ResourceManager.GetObject("cc_h264", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_hddvd {
+            get {
+                object obj = ResourceManager.GetObject("cc_hddvd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_mkv {
+            get {
+                object obj = ResourceManager.GetObject("cc_mkv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_mov {
+            get {
+                object obj = ResourceManager.GetObject("cc_mov", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_mpeg {
+            get {
+                object obj = ResourceManager.GetObject("cc_mpeg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_wmv {
+            get {
+                object obj = ResourceManager.GetObject("cc_wmv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_xvid {
+            get {
+                object obj = ResourceManager.GetObject("cc_xvid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -130,6 +207,20 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap DivX {
+            get {
+                object obj = ResourceManager.GetObject("DivX", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap dv {
+            get {
+                object obj = ResourceManager.GetObject("dv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap DVD {
             get {
                 object obj = ResourceManager.GetObject("DVD", resourceCulture);
@@ -158,6 +249,20 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap h264 {
+            get {
+                object obj = ResourceManager.GetObject("h264", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap HD {
+            get {
+                object obj = ResourceManager.GetObject("HD", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap HDDVD {
             get {
                 object obj = ResourceManager.GetObject("HDDVD", resourceCulture);
@@ -168,6 +273,20 @@ namespace CoverArt {
         internal static System.Drawing.Bitmap Mkv {
             get {
                 object obj = ResourceManager.GetObject("Mkv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap mov {
+            get {
+                object obj = ResourceManager.GetObject("mov", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Mpeg {
+            get {
+                object obj = ResourceManager.GetObject("Mpeg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,6 +322,13 @@ namespace CoverArt {
         internal static System.Drawing.Bitmap Wmv {
             get {
                 object obj = ResourceManager.GetObject("Wmv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Xvid {
+            get {
+                object obj = ResourceManager.GetObject("Xvid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

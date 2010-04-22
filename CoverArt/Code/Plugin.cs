@@ -45,10 +45,10 @@ namespace CoverArt
 
         private MyConfigData configData;
         private int nagged = 0;
-        private DateTime expirationDate;
-        private bool isReg = false;
-        private bool? isInTrial = null;
-        private bool trialVersion
+        private static DateTime expirationDate;
+        private static bool isReg = false;
+        private static bool? isInTrial = null;
+        private static bool trialVersion
         {
             get
             {
@@ -115,8 +115,8 @@ namespace CoverArt
                 //ping("http://www.ebrsoft.com/software/mb/plugins/cahits_db.php?ver=" + Version.ToString());
                 Async.Queue("CAPing", () =>
                 {
-                    ping("http://www.ebrsoft.com/software/mb/plugins/cahits_db.php?ver=" + Version.ToString());
-                    validate("http://www.ebrsoft.com/software/mb/plugins/caregcheck.php");
+                    expirationDate = Ping("http://www.ebrsoft.com/software/mb/plugins/cahits_db.php?ver=" + Version.ToString()+"&mac="+CAHelper.GetMACAddress()+"&key="+configData.RegKey);
+                    isReg = Validate(configData.RegKey);
                     //Logger.ReportInfo("CoverArt registration status: " + isReg+ ". Expiration date: "+expirationDate);
                 });
                 //Tell the log we loaded.
@@ -129,7 +129,7 @@ namespace CoverArt
 
         }
 
-        private void ping(string path)
+        public static DateTime Ping(string path)
         {
             try
             {
@@ -139,13 +139,14 @@ namespace CoverArt
                 byte[] buffer = new byte[10];
                 stream.Read(buffer,0,10);
                 //Logger.ReportInfo("Exp Date as string: " + System.Text.Encoding.ASCII.GetString(buffer));
-                expirationDate = DateTime.Parse(System.Text.Encoding.ASCII.GetString(buffer));
+                return DateTime.Parse(System.Text.Encoding.ASCII.GetString(buffer));
             }
-            catch { } //just let it go
+            catch { return new DateTime(2020,01,01); } //just let it go
         }
 
-        private void validate(string path)
+        public static bool Validate(string key)
         {
+            string path = "http://www.ebrsoft.com/software/mb/plugins/caregcheck.php?key=" + key;
             try
             {
                 WebRequest request = WebRequest.Create(path);
@@ -155,9 +156,9 @@ namespace CoverArt
                 stream.Read(buffer, 0, 10);
                 int result = 0;
                 int.TryParse(System.Text.Encoding.ASCII.GetString(buffer), out result);
-                if (result > 0) isReg = true;
+                return (result > 0);
             }
-            catch { isReg = true; } //just let it go and make sure we will run
+            catch { return true; } //just let it go and make sure we will run
         }
 
         public Image ProcessImage(Image rootImage, BaseItem item)
@@ -167,7 +168,7 @@ namespace CoverArt
             {
                 if (nagged < 3)
                 {
-                    msg = "CoverArt trial period expired.  Please donate at www.ebrsoft.com/coverart.";
+                    msg = "CoverArt trial period expired.  Please donate at www.ebrsoft.com/registration.";
                     Logger.ReportInfo(msg);
                     Application.CurrentInstance.Information.AddInformationString(msg);
                     nagged++;
@@ -175,7 +176,7 @@ namespace CoverArt
                 return rootImage;
             } else
                 if (trialVersion && nagged < 3) {
-                    msg = "CoverArt trial will expire in "+(expirationDate - DateTime.Now).Days+" days.  Please donate at www.ebrsoft.com/coverart.";
+                    msg = "CoverArt trial will expire in "+(expirationDate - DateTime.Now).Days+" days.  Please donate at www.ebrsoft.com/registration.";
                     Logger.ReportInfo(msg);
                     Application.CurrentInstance.Information.AddInformationString(msg);
                     nagged++;
@@ -249,25 +250,78 @@ namespace CoverArt
                             if (Helper.IsBluRayFolder(item.Path, null))
                             {
                                 //blu-ray start with frame as background
-                                Logger.ReportInfo("Using bluray case art for " + item.Name);
-                                newImage = profile.MovieFrame("BD");
+                                if (profile.CoverByDefinition)
+                                {
+                                    //bd is hi-def
+                                    Logger.ReportInfo("Using HD case art for " + item.Name);
+                                    newImage = profile.MovieFrame("HD");
+                                }
+                                else
+                                {
+                                    Logger.ReportInfo("Using bluray case art for " + item.Name);
+                                    newImage = profile.MovieFrame("BD");
+                                }
                             }
                             else
                             {
                                 if (Helper.IsDvDFolder(item.Path, null, null))
                                 {
                                     //dvd
-                                    Logger.ReportInfo("Using dvd case art for " + item.Name);
-                                    newImage = profile.MovieFrame("DVD");
+                                    if (profile.CoverByDefinition)
+                                    {
+                                        //dvd is std-def
+                                        Logger.ReportInfo("Using SD case art for " + item.Name);
+                                        newImage = profile.MovieFrame("SD");
+                                    }
+                                    else
+                                    {
+                                        Logger.ReportInfo("Using dvd case art for " + item.Name);
+                                        newImage = profile.MovieFrame("DVD");
+                                    }
                                 }
                                 else
                                     if (Helper.IsHDDVDFolder(item.Path, null))
                                     {
                                         //hd-dvd
-                                        Logger.ReportInfo("Using hd-dvd case art for " + item.Name);
-                                        newImage = profile.MovieFrame("HDDVD");
+                                        if (profile.CoverByDefinition)
+                                        {
+                                            //hddvd is hi-def
+                                            Logger.ReportInfo("Using HD case art for " + item.Name);
+                                            newImage = profile.MovieFrame("HD");
+                                        }
+                                        else
+                                        {
+                                            Logger.ReportInfo("Using hd-dvd case art for " + item.Name);
+                                            newImage = profile.MovieFrame("HDDVD");
+                                        }
                                     }
-                                    else newImage = movieFrameBasedOnFileType(item, profile);
+                                    else
+                                    {
+                                        if (profile.CoverByDefinition)
+                                        {
+                                            Video video = item as Video;
+                                            if (video != null && video.MediaInfo != null)
+                                            {
+                                                if (video.MediaInfo.Width >= 1280 || video.MediaInfo.Height >= 720)
+                                                {
+                                                    newImage = profile.MovieFrame("HD");
+                                                }
+                                                else
+                                                {
+                                                    newImage = profile.MovieFrame("SD");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Logger.ReportInfo("CoverArt could not determine definition of " + item.Name);
+                                                newImage = profile.MovieFrame("default");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            newImage = movieFrameBasedOnFileType(item, profile);
+                                        }
+                                    }
                             }
                         }
                         else
@@ -275,7 +329,30 @@ namespace CoverArt
                             //not a directory - maybe a file...?
                             if (File.Exists(item.Path))
                             {
-                                newImage = movieFrameBasedOnFileType(item, profile);
+                                if (profile.CoverByDefinition)
+                                {
+                                    Video video = item as Video;
+                                    if (video != null && video.MediaInfo != null)
+                                    {
+                                        if (video.MediaInfo.Width >= 1280 || video.MediaInfo.Height >= 720)
+                                        {
+                                            newImage = profile.MovieFrame("HD");
+                                        }
+                                        else
+                                        {
+                                            newImage = profile.MovieFrame("SD");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Logger.ReportInfo("CoverArt could not determine definition of " + item.Name);
+                                        newImage = profile.MovieFrame("default");
+                                    }
+                                }
+                                else
+                                {
+                                    newImage = movieFrameBasedOnFileType(item, profile);
+                                }
                             }
                             else newImage = profile.MovieFrame("default");
                         }
@@ -415,24 +492,75 @@ namespace CoverArt
             Video video = item as Video;
             if (video != null)
             {
-                switch (video.MediaType)
+                MediaType mediaType = video.MediaType;
+                //*********Uncomment after CRONOS
+                //if (video.DisplayMediaType != null)
+                //{
+                //    switch (video.DisplayMediaType.ToLower())
+                //    {
+                //        case "blu-ray":
+                //            mediaType = MediaType.BluRay;
+                //            break;
+                //        case "dvd":
+                //            mediaType = MediaType.DVD;
+                //            break;
+                //        case "hd dvd":
+                //            mediaType = MediaType.HDDVD;
+                //            break;
+                //    }
+                //}
+                switch (mediaType)
                 {
                     case MediaType.BluRay:
                         return profile.MovieFrame("BD");
                     case MediaType.Mkv:
-                        return profile.MovieFrame("MKV");
+                        if (video.MediaInfo != null)
+                        {
+                            int len = Math.Min(4, video.MediaInfo.VideoCodec.Length);
+                            switch (video.MediaInfo.VideoCodec.Substring(0, len).ToLower())
+                            {
+                                case "xvid":
+                                    return profile.MovieFrame("XVID");
+                                case "h264":
+                                    return profile.MovieFrame("H264");
+                                case "divx":
+                                    return profile.MovieFrame("DIVX");
+                                default:
+                                    Logger.ReportInfo("CoverArt could not determine codec - " + video.MediaInfo.VideoCodec);
+                                    return profile.MovieFrame("MKV");
+                            }
+                        }
+                        else return profile.MovieFrame("MKV");
                     case MediaType.Wmv:
                         return profile.MovieFrame("WMV");
                     case MediaType.Avi:
-                        return profile.MovieFrame("AVI");
+                        if (video.MediaInfo != null)
+                        {
+                            int len = Math.Min(4, video.MediaInfo.VideoCodec.Length);
+                            switch (video.MediaInfo.VideoCodec.Substring(0,len).ToLower())
+                            {
+                                case "xvid":
+                                    return profile.MovieFrame("XVID");
+                                case "h264":
+                                    return profile.MovieFrame("H264");
+                                case "divx":
+                                    return profile.MovieFrame("DIVX");
+                                default:
+                                    Logger.ReportInfo("CoverArt could not determine codec - " + video.MediaInfo.VideoCodec);
+                                    return profile.MovieFrame("AVI");
+                            }
+                        }
+                        else return profile.MovieFrame("AVI");
                     case MediaType.Mp4:
                         return profile.MovieFrame("MP4");
                     case MediaType.DVRMS:
                         return profile.MovieFrame("DVRMS");
+                    case MediaType.Mpg:
+                        return profile.MovieFrame("MPEG");
                     default:
                         //couldn't find type - try extension
-                        //Logger.ReportInfo("Could not determine file type of " + video.VideoFiles.First().ToLower().Substring(video.VideoFiles.First().Length - 4));
-                        return profile.MovieFrame(Path.GetExtension(video.VideoFiles.First()).ToUpper());
+                        //Logger.ReportInfo("Could not determine file type of " + Path.GetExtension(video.VideoFiles.First()).ToUpper());
+                        return profile.MovieFrame(Path.GetExtension(video.VideoFiles.First()).TrimStart('.').ToUpper());
                 }
             }
             else return profile.MovieFrame("default");
@@ -538,20 +666,20 @@ namespace CoverArt
             //provide a longer description of your plugin - this will display when the user selects the theme in the plug-in section
             get
             {
-                string regStr;
-                if (isReg)
-                {
-                    regStr = "\n\nTHANK YOU for your support.";
-                } else
-                    if (trialVersion)
-                    {
-                        regStr = "\n\nTRIAL version.  Expires in " + ((expirationDate - DateTime.Now).Days + 1) + " Days.  Please donate at www.ebrsoft.com/coverart";
-                    }
-                    else
-                    {
-                        regStr = "\n\nTRIAL EXPIRED.  Please donate at www.ebrsoft.com/coverart";
-                    }
-                return "Built-in CoverArt for MediaBrowser. (REQUIRES Pegasus). Version 1.1.3+ SIGNIFICANTLY reduces the memory usage of CoverArt.  Brought to you by ebrSoft (www.ebrsoft.com)" + regStr;
+                string regStr = "";
+                //if (isReg)
+                //{
+                //    regStr = "\n\nTHANK YOU for your support.";
+                //} else
+                //    if (trialVersion)
+                //    {
+                //        regStr = "\n\nTRIAL version.  Expires in " + ((expirationDate - DateTime.Now).Days + 1) + " Days.  Please donate at www.ebrsoft.com/coverart";
+                //    }
+                //    else
+                //    {
+                //        regStr = "\n\nTRIAL EXPIRED.  Please donate at www.ebrsoft.com/Registration";
+                //    }
+                return "Built-in CoverArt for MediaBrowser. (REQUIRES Pegasus). Version 1.2 adds new covers and image sets.  \n\nBrought to you by ebrSoft (www.ebrsoft.com)" + regStr;
             }
         }
 
@@ -602,13 +730,13 @@ namespace CoverArt
             }
         }
 
-        public override System.Version Version
-        {
-            get
-            {
-                return LatestVersion;
-            }
-        }
+        //public override System.Version Version
+        //{
+        //    get
+        //    {
+        //        return LatestVersion;
+        //    }
+        //}
 
         public static System.Version CurrentVersion
         {
