@@ -107,12 +107,6 @@ namespace CoverArt
                 if (!Directory.Exists(configPath)) Directory.CreateDirectory(configPath);
                 configData = MyConfigData.FromFile(Path.Combine(configPath, "Coverart.xml"));
 
-                //test
-                //ignoreFolders.Add("\\\\mediaserver\\movies\\music");
-                //profiles.Add("\\\\mediaserver\\movies\\music", new Profile("CoverArtClearCase", null, null, null, null, null, null));
-                //profiles.Add("\\\\mediaserver\\movies\\hd", new Profile("c:\\programdata\\mediabrowser\\plugins\\coverart\\testprofiles\\diamond", null, null, null, null, "c:\\programdata\\mediabrowser\\plugins\\coverart\\testprofiles\\movie", null));
-                //test
-                //ping("http://www.ebrsoft.com/software/mb/plugins/cahits_db.php?ver=" + Version.ToString());
                 Async.Queue("CAPing", () =>
                 {
                     expirationDate = Ping("http://www.ebrsoft.com/software/mb/plugins/cahits_db.php?ver=" + Version.ToString()+"&mac="+CAHelper.GetMACAddress()+"&key="+configData.RegKey);
@@ -191,7 +185,7 @@ namespace CoverArt
             bool process = false;
 
             //be sure path is valid
-            if (item.Path == null) {
+            if (item.Path == null || item.Path == "") {
                 Logger.ReportInfo("Not processing Item " + item.Name +" (null path)");
                 return rootImage;
             }
