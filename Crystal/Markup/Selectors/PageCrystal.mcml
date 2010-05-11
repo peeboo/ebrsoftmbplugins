@@ -559,7 +559,7 @@
             </Layout>
             <Children>
               <vm:CfgButton Name="ConfigBtn" Command="[Configure]" />
-              <vm:ViewsButton Name="ViewsBtn" Command="[ShowViewConfiguration]" Font="font://f:P_ConfigButtons" />
+              <vm:ViewsButton Name="ViewsBtn" Application="[Application]" Command="[ShowViewConfiguration]" Font="font://f:P_ConfigButtons" />
               <vm:ImgButton Name="SortOrdersBtn" Enabled="true" Command="[ShowSortConfiguration]" Image="image://i:SortImg"
                             Font="font://f:P_ConfigButtons" />
               <vm:ImgButton Name="IndexesBtn" Command="[ShowIndexConfiguration]" Image="image://i:IndexImg" Font="font://f:P_ConfigButtons" />
@@ -573,9 +573,9 @@
               <FlowLayout Orientation="Horizontal" ItemAlignment="Center" StripAlignment="Near" Spacing="10,10"/>
             </Layout>
             <Children>
-              <vm:ViewConfiguration Name="ViewConfig" Visible="false" Prefs="[Folder.DisplayPrefs]" Close="[CloseViewConfiguration]" />
-              <vm:RadioConfiguration Name="SortConfig" Visible="false" Choice="[Folder.DisplayPrefs.SortOrders]" Close="[CloseSortConfiguration]" />
-              <vm:RadioConfiguration Name="IndexConfig" Visible="false" Choice="[Folder.DisplayPrefs.IndexByChoice]" Close="[CloseIndexConfiguration]" />
+              <vm:ViewConfiguration Name="ViewConfig" Application="[Application]" Visible="false" Prefs="[Folder.DisplayPrefs]" Close="[CloseViewConfiguration]" />
+              <vm:RadioConfiguration Name="SortConfig" Application="[Application]" Visible="false" Choice="[Folder.DisplayPrefs.SortOrders]" Close="[CloseSortConfiguration]" />
+              <vm:RadioConfiguration Name="IndexConfig" Application="[Application]" Visible="false" Choice="[Folder.DisplayPrefs.IndexByChoice]" Close="[CloseIndexConfiguration]" />
             </Children>
           </Panel>
 
