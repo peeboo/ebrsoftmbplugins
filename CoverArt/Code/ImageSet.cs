@@ -115,6 +115,9 @@ namespace CoverArt
         protected static Image Film = Resources.Film;
 
         [SkipField]
+        protected static Image Border = Resources.SimpleBorder;
+
+        [SkipField]
         protected static Image CD = Resources.CD;
 
         [SkipField]
@@ -263,6 +266,16 @@ namespace CoverArt
                         {"default", Film},
                     };
                     break;
+                case "CoverArtBorder":
+                    //Internal Film
+                    Is3D = false;
+                    FrameOnTop = false;
+                    RootPosition = new Rectangle(13, 18, 554, 351);
+                    Overlay = FilmOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", Border},
+                    };
+                    break;
                 case "CoverArtFolder":
                     //Internal Folder
                     break;
@@ -289,6 +302,28 @@ namespace CoverArt
                         {"HDDVD",ClearCaseHDDVD},
                         {"HD",ClearCaseBD},
                         {"SD",ClearCaseDVD}
+                    };
+                    break;
+                case "CoverArtClearCasePlain":
+                    //Internal ClearCase with just the plain one
+                    Is3D = false;
+                    FrameOnTop = true;
+                    RoundCorners = true;
+                    RootPosition = new Rectangle(75, 25, 470, 668);
+                    Overlay = BlankOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default",ClearCase}
+                    };
+                    break;
+                case "CoverArtClearCaseBD":
+                    //Internal ClearCase with just the plain one
+                    Is3D = false;
+                    FrameOnTop = true;
+                    RoundCorners = true;
+                    RootPosition = new Rectangle(75, 25, 470, 668);
+                    Overlay = BlankOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default",ClearCaseBD}
                     };
                     break;
                 case "CoverArtClearCaseDVD":

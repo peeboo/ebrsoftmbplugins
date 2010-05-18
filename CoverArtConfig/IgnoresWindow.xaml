@@ -3,10 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Ignores" Height="407" Width="608" Loaded="Window_Loaded">
     <Grid>
-        <ListBox Margin="32,70,35,70" x:Name="lbxIgnores" ItemsSource="{Binding Path=ignores}"/>
-        <Label Height="31" Margin="34,33,80,0" Name="label1" VerticalAlignment="Top">Ignore Items in the following locations (includes sub-folders):</Label>
-        <Button Height="23" HorizontalAlignment="Left" Margin="34,0,0,26" Name="btnAdd" VerticalAlignment="Bottom" Width="75" Click="btnAdd_Click">Add...</Button>
-        <Button Height="23" Margin="115,0,0,26" Name="btnRemove" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="74" Click="btnRemove_Click">Remove</Button>
-        <Button Height="23" HorizontalAlignment="Right" Margin="0,0,35,26" Name="btnDone" VerticalAlignment="Bottom" Width="75" Click="btnDone_Click">Done</Button>
+        <ListBox Margin="32,95,35,70" x:Name="lbxIgnores" ItemsSource="{Binding Path=ignores}" FontSize="14" />
+        <Label Height="31" Margin="34,58,80,0" Name="label1" VerticalAlignment="Top" FontSize="14">Ignore Items in the following locations (includes sub-folders):</Label>
+        <Button Height="37" HorizontalAlignment="Left" Margin="34,0,0,12" Name="btnAdd" VerticalAlignment="Bottom" Width="75" Click="btnAdd_Click" FontSize="14">Add...</Button>
+        <Button Height="37" Margin="115,0,0,12" Name="btnRemove" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="74" Click="btnRemove_Click" FontSize="14">Remove</Button>
+        <Button Height="37" HorizontalAlignment="Right" Margin="0,0,35,12" Name="btnDone" VerticalAlignment="Bottom" Width="75" Click="btnDone_Click" FontSize="14">Done</Button>
+        <CheckBox Margin="34,28,241,0" Name="cbxIgnoreTopLevel" FontSize="14" Height="24" VerticalAlignment="Top" Checked="cbxIgnoreTopLevel_Checked" Unchecked="cbxIgnoreTopLevel_Checked">Ignore Top-level (EHS) Items</CheckBox>
     </Grid>
 </Window>

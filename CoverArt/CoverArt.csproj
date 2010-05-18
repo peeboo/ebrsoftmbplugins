@@ -139,6 +139,7 @@
     <Content Include="Images\Diamond\Diamond.png" />
     <Content Include="Images\Film\Film.png" />
     <Content Include="Images\Film\FilmOverlay.png" />
+    <Content Include="Images\Film\SimpleBorder.png" />
     <Content Include="Images\GlossOverlay.png" />
     <Content Include="Images\TVMB\TVMB.png" />
     <Content Include="Images\TV\TVOverlay.png" />

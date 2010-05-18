@@ -37,14 +37,17 @@ namespace CoverArtConfig
             "CoverArtCaseBD",
             "CoverArtCaseDVD",
             "CoverArtClearCase",
+            "CoverArtClearCasePlain",
             "CoverArtClearCaseMinimal",
             "CoverArtClearCaseDVD",
+            "CoverArtClearCaseBD",
             "CoverArtCD",
             "CoverArtDiamond",
             "CoverArtRounded",
             "CoverArtTV",
             "CoverArtTVMB",
             "CoverArtFilm",
+            "CoverArtBorder",
             "Ignore"
             
         };
@@ -377,7 +380,7 @@ namespace CoverArtConfig
 
         private void btnIgnores_Click(object sender, RoutedEventArgs e)
         {
-            IgnoresWindow dlg = new IgnoresWindow(config.IgnoreFolders);
+            IgnoresWindow dlg = new IgnoresWindow(config);
             dlg.Left = this.Left + 40;
             dlg.Top = this.Top + 40;
             dlg.ShowDialog();

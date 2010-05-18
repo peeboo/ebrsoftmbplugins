@@ -45,6 +45,7 @@ namespace CoverArt
 
         private MyConfigData configData;
         private int nagged = 0;
+        private static bool regChecked = false;
         private static DateTime expirationDate;
         private static bool isReg = false;
         private static bool? isInTrial = null;
@@ -60,7 +61,10 @@ namespace CoverArt
         {
             get
             {
-                return (isReg || trialVersion);
+                if (regChecked)
+                    return (isReg || trialVersion);
+                else
+                    return true;
             }
         }
 
@@ -135,7 +139,11 @@ namespace CoverArt
                 //Logger.ReportInfo("Exp Date as string: " + System.Text.Encoding.ASCII.GetString(buffer));
                 return DateTime.Parse(System.Text.Encoding.ASCII.GetString(buffer));
             }
-            catch { return new DateTime(2020,01,01); } //just let it go
+            catch (Exception ex) 
+            { //just let it go
+                Logger.ReportException("Error obtaining expiration date.", ex);
+                return new DateTime(2020,01,01); 
+            }
         }
 
         public static bool Validate(string key)
@@ -153,6 +161,7 @@ namespace CoverArt
                 return (result > 0);
             }
             catch { return true; } //just let it go and make sure we will run
+            finally { regChecked = true; }
         }
 
         public Image ProcessImage(Image rootImage, BaseItem item)
@@ -162,15 +171,15 @@ namespace CoverArt
             {
                 if (nagged < 3)
                 {
-                    msg = "CoverArt trial period expired.  Please donate at www.ebrsoft.com/registration.";
+                    msg = "CoverArt trial period expired ("+expirationDate+").  Please donate at www.ebrsoft.com/registration.";
                     Logger.ReportInfo(msg);
                     Application.CurrentInstance.Information.AddInformationString(msg);
                     nagged++;
                 }
                 return rootImage;
             } else
-                if (trialVersion && nagged < 3) {
-                    msg = "CoverArt trial will expire in "+(expirationDate - DateTime.Now).Days+" days.  Please donate at www.ebrsoft.com/registration.";
+                if (trialVersion && regChecked && nagged < 3) {
+                    msg = "CoverArt trial will expire in "+((expirationDate - DateTime.Now).Days + 1)+" days.  Please donate at www.ebrsoft.com/registration.";
                     Logger.ReportInfo(msg);
                     Application.CurrentInstance.Information.AddInformationString(msg);
                     nagged++;
@@ -187,6 +196,13 @@ namespace CoverArt
             //be sure path is valid
             if (item.Path == null || item.Path == "") {
                 Logger.ReportInfo("Not processing Item " + item.Name +" (null path)");
+                return rootImage;
+            }
+
+            //check top-level
+            if (configData.IgnoreTopFolders && item.Parent == Application.CurrentInstance.RootFolder)
+            {
+                Logger.ReportInfo("Ignoring Top-level Item " + item.Name);
                 return rootImage;
             }
 
@@ -693,7 +709,7 @@ namespace CoverArt
         {
             get
             {
-                return new System.Version(2,2,3,0);
+                return new System.Version(2,2,4,0);
             }
         }
 
@@ -701,7 +717,7 @@ namespace CoverArt
         {
             get
             {
-                return new System.Version(2, 2, 3, 0);
+                return new System.Version(2, 2, 4, 0);
             }
         }
 
