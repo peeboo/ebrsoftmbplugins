@@ -19,17 +19,20 @@ namespace CoverArtConfig
     public partial class IgnoresWindow : Window
     {
         List<string> ignores;
+        CoverArt.MyConfigData config;
 
         public IgnoresWindow()
         {
             InitializeComponent();
         }
 
-        public IgnoresWindow(List<string> ignoreList)
+        public IgnoresWindow(CoverArt.MyConfigData configData)
         {
             InitializeComponent();
-            ignores = ignoreList;
+            ignores = configData.IgnoreFolders;
+            this.config = configData;
             lbxIgnores.ItemsSource = ignores;
+            cbxIgnoreTopLevel.IsChecked = config.IgnoreTopFolders;
         }
 
         private void btnDone_Click(object sender, RoutedEventArgs e)
@@ -78,6 +81,11 @@ namespace CoverArtConfig
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void cbxIgnoreTopLevel_Checked(object sender, RoutedEventArgs e)
+        {
+            config.IgnoreTopFolders = cbxIgnoreTopLevel.IsChecked.Value;
         }
     }
 }

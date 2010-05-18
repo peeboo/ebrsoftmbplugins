@@ -298,6 +298,13 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap SimpleBorder {
+            get {
+                object obj = ResourceManager.GetObject("SimpleBorder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap TV {
             get {
                 object obj = ResourceManager.GetObject("TV", resourceCulture);

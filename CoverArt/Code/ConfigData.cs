@@ -33,6 +33,7 @@ namespace CoverArt
         public List<string> CustomImageSets = new List<string>();
         public string LastConfigVersion = "0.0.0.0";
         public string RegKey = "";
+        public bool IgnoreTopFolders = true;
 
         #region Load / Save Data
         public static MyConfigData FromFile(string file)
