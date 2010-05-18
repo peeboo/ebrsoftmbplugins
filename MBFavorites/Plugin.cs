@@ -195,14 +195,14 @@ namespace MBFavorites
         {
             get
             {
-                return new System.Version(2,2,1,0);
+                return new System.Version(2,2,4,0);
             }
         }
         public override System.Version TestedMBVersion
         {
             get
             {
-                return new System.Version(2, 2, 3,0);
+                return new System.Version(2, 2, 4,0);
             }
         }
         public override string RichDescURL
