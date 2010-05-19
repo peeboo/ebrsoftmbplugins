@@ -1,0 +1,8 @@
+C:\Users\Eric\Documents\ebrSoft\MBSettingSaver\bin\Release\MBSettingSaver.dll
+C:\Users\Eric\Documents\ebrSoft\MBSettingSaver\bin\Release\MBSettingSaver.pdb
+C:\Users\Eric\Documents\ebrSoft\MBSettingSaver\bin\Release\System.Data.SQLite.dll
+C:\Users\Eric\Documents\ebrSoft\MBSettingSaver\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Eric\Documents\ebrSoft\MBSettingSaver\obj\Release\MBSettingSaver.Resources.resources
+C:\Users\Eric\Documents\ebrSoft\MBSettingSaver\obj\Release\MBSettingSaver.csproj.GenerateResource.Cache
+C:\Users\Eric\Documents\ebrSoft\MBSettingSaver\obj\Release\MBSettingSaver.dll
+C:\Users\Eric\Documents\ebrSoft\MBSettingSaver\obj\Release\MBSettingSaver.pdb

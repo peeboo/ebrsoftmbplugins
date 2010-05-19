@@ -1,0 +1,270 @@
+<Mcml xmlns="http://schemas.microsoft.com/2006/mcml"
+	  xmlns:cor="assembly://MSCorLib/System"
+    xmlns:a="assembly://MediaBrowser/MediaBrowser"
+	  xmlns:cb="resx://MediaBrowser/MediaBrowser.Resources/CheckBox"
+      xmlns:sb="resx://MediaBrowser/MediaBrowser.Resources/SimpleButton"
+      xmlns:te="resx://MediaBrowser/MediaBrowser.Resources/TextEdit"
+ 		  xmlns:vm="resx://MediaBrowser/MediaBrowser.Resources/ViewMenu" 
+    xmlns:ib="resx://MediaBrowser/MediaBrowser.Resources/ImageButton"
+	    xmlns:i="resx://MediaBrowser/MediaBrowser.Resources/Images"
+
+	  xmlns:s="file://Styles_DoNotEdit.mcml"
+	  xmlns:f="file://Fonts_DoNotEdit.mcml"
+      xmlns:us="assembly://MBSettingSaver/MBSettingSaver"
+      xmlns:me="ME"
+>
+  <!--*****************************************************************************************************************
+
+    This is an example of a config panel for your theme.  Modify this to include any theme-specific options you require.
+    You must also handle the saving/loading of any of these options somewhere in your assembly.
+
+  *********************************************************************************************************************-->
+
+  <UI Name="ConfigPanel">
+
+    <Properties>
+      <a:Application Name="Application" Application="$Required"/>
+      <EditableText Name="FocusItem" />
+      <us:MyConfig Name="Config" />
+    </Properties>
+    <Locals>
+      <Inset Name="CMargin" Inset="25,0,0,0" />
+      <Command Name="GetName"/>
+      <Command Name="SaveNew"/>
+      <Command Name="Restore"/>
+      <EditableText Name="SaveName"/>
+      <ScrollingHandler HandleDirectionalKeys="true" HandleHomeEndKeys="true" HandleMouseWheel="true"
+							  HandlePageCommands="true" HandlePageKeys="true" HandlerStage="Bubbled" Name="ScrollingHandler"/>
+
+      <ScrollingData Name="ScrollingData" />
+      <Size Name="ScrollerSize" Width="700" Height="200" />
+    </Locals>
+    <Rules>
+      <!-- Give ScrollingData to ScrollingHandler. -->
+      <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
+
+      <!-- Give Repeater to ScrollingData. -->
+      <Default Target="[ScrollingData.Repeater]" Value="[SaveRepeater]"/>
+
+      <Changed Source="[GetName.Invoked]" >
+        <!--Save to new setting-->
+        <Actions>
+          <Set Target="[NamePanel.Visible]" Value="true" />
+          <Invoke Target="[NamePanel.NavigateInto]" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[Restore.Invoked]" >
+        <!--Save to new setting-->
+        <Actions>
+          <Invoke Target="[Config.RestoreSettings]" settingName="MBSBackup" />
+        </Actions>
+      </Changed>
+
+      <Changed Source="[SaveNew.Invoked]" >
+        <!--Save to new setting-->
+        <Actions>
+          <Set Target="[NamePanel.Visible]" Value="false" />
+          <Invoke Target="[MainPanel.NavigateInto]" />
+          <!--Wait a second so the tripletap has time to confirm into the edit-->
+          <!--<Invoke Target="[Config.WaitOne]" InvokePolicy="Synchronous" />-->
+          <Invoke Target="[Config.SaveSettings]" settingName="[SaveName.Value]" InvokePolicy="Synchronous" />
+          <Invoke Target="[Config.ReLoad]" />
+        </Actions>
+      </Changed>
+
+      <Binding Source="[Config.SavedSettingNames]" Target="[SaveRepeater.Source]" />
+      <Changed Source="[Config.SavedSettingNames]" InitialEvaluate="true" >
+        <Conditions>
+          <Equality Source="[Config.SavedSettingNames.Count]" Value="0"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[EmptyText.Visible]" Value="true" />
+        </Actions>
+      </Changed>
+      <Changed Source="[Config.SavedSettingNames]" InitialEvaluate="true" >
+        <Conditions>
+          <Equality Source="[Config.SavedSettingNames.Count]" ConditionOp="NotEquals" Value="0"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[EmptyText.Visible]" Value="false" />
+        </Actions>
+      </Changed>
+      <!--<Binding Source="[ScrollingData.CanScrollUp]" Target="[UpInd.Visible]" />
+      <Binding Source="[ScrollingData.CanScrollDown]" Target="[DnInd.Visible]" />-->
+
+
+    </Rules>
+		<Content>
+      <Panel Name="MainPanel" Layout="Anchor" MaximumSize="800,400">
+        <Children>
+          <Panel Name="NamePanel" Layout="Center" Visible="false">
+            <LayoutInput>
+              <AnchorLayoutInput Horizontal="Center" Vertical="Center" />
+            </LayoutInput>
+            <Children>
+              <ColorFill Name="Main" Content="255,0,15,60"  Navigation="ContainAll,Group">
+                <Children>
+                  <Graphic Content="image://i:ZoomPane"  SizingPolicy="SizeToChildren"
+                           MaintainAspectRatio="false" Padding="20,20,20,20" >
+                    <Layout>
+                      <FlowLayout Orientation="Vertical" ItemAlignment="Far"/>
+                    </Layout>
+                    <Children>
+                      <Panel >
+                        <Layout>
+                          <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
+                        </Layout>
+                        <Children>
+                          <Text Name="Title" Content="Save New Settings" Font="font://f:VM_ConfigItemFont" Color="color://s:FontColorLight"/>
+                          <ColorFill Content="DimGray" Alpha="0.8" Layout="Fill" MaximumSize="700,2" />
+                          <Text Content=" "/>
+                          <te:TextEdit Name="SName" Label="Enter Description:" Font="font://f:VM_ConfigItemFont" EditSize="600,0" EditableText="[SaveName]" />
+                        </Children>
+                      </Panel>
+                      <Panel >
+                        <Layout>
+                          <FlowLayout Orientation="Vertical" ItemAlignment="Fill"/>
+                        </Layout>
+                        <Children>
+                          <Text Content=" "/>
+                          <vm:BaseBtn LabelText="OK" Command="[SaveNew]" Font="font://f:VM_ConfigItemFont" />
+                        </Children>
+                      </Panel>
+                    </Children>
+                  </Graphic>
+                </Children>
+              </ColorFill>
+
+            </Children>
+          </Panel>
+          <Panel Layout="HorizontalFlow" MinimumSize="800,330" MaximumSize="800,330">
+            <Children>
+              <!--<Panel Name="IndicatorPanel" Layout="VerticalFlow">
+                <LayoutInput>
+                  <FormLayoutInput Top="ScrollPanel,0,15" Bottom="Parent,1" Left="ScrollPanel,0" Right="ScrollPanel,0,80"/>
+                </LayoutInput>
+                <Children>
+                  <Graphic Name="UpInd" MaximumSize="25,25" Padding="30,0,0,0" MinimumSize="25,25" CenterPointPercent="0,0,0" Content="resx://MediaBrowser/MediaBrowser.Resources/PivotArrowLeft" Rotation="90deg;0,0,1" Visible="[ScrollingData.CanScrollUp]" />
+                  <Graphic Name="DnInd" MaximumSize="25,25" Padding="30,0,100,0" MinimumSize="25,25" Content="resx://MediaBrowser/MediaBrowser.Resources/PivotArrowRight" Rotation="90deg;0,0,1" Visible="[ScrollingData.CanScrollDown]" />
+
+                </Children>
+              </Panel>-->
+              
+          <Panel Name="ScrollPanel" Layout="VerticalFlow" Padding="50,0,0,0">
+            <Children>
+              <me:TextHeader Text="Del      Save    Restore     Description" Padding="70,0,0,0" />
+              <me:TextLine Name="EmptyText" Text="         No Saved Settings" Visible="false" Alpha=".7"/>
+              <Scroller Orientation="Vertical" FadeSize="-10" Padding="70,0,0,0" Margins="15,0,0,5" Name="Scroller" MinimumSize="[ScrollerSize]" MaximumSize="[ScrollerSize]" ScrollingData="[ScrollingData]" >
+                <Children>
+                  <Repeater Name="SaveRepeater" Source="[Config.SavedSettingNames]" Layout="VerticalFlow" MinimumSize="300,35">
+                    <Content>
+                      <me:MenuItem Option="[RepeatedItem!cor:String]" ShowDelete="true" Font="font://f:MI_ButtonFont" Config="[Config]" />
+                    </Content>
+                  </Repeater>
+                </Children>
+              </Scroller>
+
+            </Children>
+            
+          </Panel>
+        </Children>
+          </Panel>
+              <Panel Layout="HorizontalFlow" Padding="25,0,0,0" MinimumSize="800,0" MaximumSize="800,0">
+                <LayoutInput>
+                  <FormLayoutInput Bottom="Desc,0,-15"/>
+                </LayoutInput>
+                <Children>
+                  <sb:SimpleButton Command="[GetName]" Text="Save New" Size="200,40" Padding="60,0,0,0" FocusItem="[FocusItem]" Font="font://f:CP_ConfigItemFont"/>
+                  <sb:SimpleButton Command="[Restore]" Text="Restore Previous" Size="200,40" Padding="60,0,0,0" FocusItem="[FocusItem]" Font="font://f:CP_ConfigItemFont"/>
+                </Children>
+              </Panel>
+          <me:TextLine Text=" " />
+          <Text Name="Desc" Content="Save will save all configuration settings for Media Browser and all plug-ins and themes.  Restore will overwrite current settings with previously saved ones and exit MB."
+                Font="Segoe Media Center, 14" Color="White" WordWrap="true" MaximumSize="730,200" >
+            <LayoutInput>
+              <AnchorLayoutInput Bottom="Parent,1,15"/>
+            </LayoutInput>
+          </Text>
+        </Children>
+      </Panel>
+    </Content>
+
+	</UI>
+
+  <UI Name="MenuItem">
+    <Properties>
+      <cor:String Name="Option" String="$Required" />
+      <us:MyConfig Name="Config" MyConfig="$Required"/>
+      <cor:Boolean Name="ShowDelete" Boolean="false" />
+      <Font Name="Font" Font="$Required"/>
+      <Size Name="ButtonSize" Height="40" Width="35"/>
+    </Properties>
+
+    <Locals>
+      <Command Name="DeleteCommand"/>
+      <Command Name="SaveCommand"/>
+      <Command Name="RestoreCommand"/>
+    </Locals>
+
+    <Rules>
+      <Changed Source="[SaveCommand.Invoked]">
+        <Actions>
+          <Invoke Target="[Config.SaveSettings]" settingName="[Option]"/>
+        </Actions>
+      </Changed>
+      <Changed Source="[RestoreCommand.Invoked]">
+        <Actions>
+          <Invoke Target="[Config.RestoreSettings]" settingName="[Option]"/>
+        </Actions>
+      </Changed>
+      <Changed Source="[DeleteCommand.Invoked]">
+        <Actions>
+          <Invoke Target="[Config.DeleteSettings]" settingName="[Option]" InvokePolicy="Synchronous"/>
+          <Invoke Target="[Config.ReLoad]" />
+        </Actions>
+      </Changed>
+    </Rules>
+
+    <Content>
+      <Panel Layout="HorizontalFlow" >
+        <Children>
+          <ib:ImageButton Name="DeleteButton" Visible="[ShowDelete]" Command="[DeleteCommand]" Icon="resx://MediaBrowser/MediaBrowser.Resources/IconDelete" Size="[ButtonSize]" Font="font://f:MM_ButtonFont" />
+          <ib:ImageButton Name="SaveButton" Command="[SaveCommand]" Padding="40,0,0,0" Icon="resx://MediaBrowser/MediaBrowser.Resources/Tick" Size="[ButtonSize]" Font="font://f:MM_ButtonFont" />
+          <ib:ImageButton Name="RestoreButton" Command="[RestoreCommand]" Padding="50,0,0,0" Icon="resx://MediaBrowser/MediaBrowser.Resources/IconRefresh" Size="[ButtonSize]" Font="font://f:MM_ButtonFont" />
+          <me:TextLine Name="Desc" Text="[Option]" Padding="30,0,0,0"/>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <UI Name="TextHeader">
+    <Properties>
+      <cor:String Name="Text" String="$Required" />
+    </Properties>
+    <Locals>
+      <Color Name="Color" Color="color://s:FontColorLight" />
+      <Font Name="Font" Font="font://f:CP_ConfigHeaderFont" />
+      <Inset Name="Margin" Inset="10,15,10,10"/>
+    </Locals>
+    <Content>
+      <Text Color="[Color]" Content="[Text]" Font="[Font]" Margins="[Margin]" />
+    </Content>
+  </UI>
+
+  <UI Name="TextLine">
+    <Properties>
+      <cor:String Name="Text" String="$Required" />
+      <Color Name="Color" Color="color://s:FontColorMedium" />
+
+    </Properties>
+    <Locals>
+      <Font Name="Font" Font="font://f:CP_ConfigItemFont" />
+      <Inset Name="Margin" Inset="25,0,0,0"/>
+    </Locals>
+    <Content>
+      <Text Color="[Color]" Content="[Text]" Font="[Font]" Margins="[Margin]" />
+    </Content>
+  </UI>
+
+</Mcml>
