@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.Collections.Generic;
 using System.IO;
 
-namespace QuadrilateralDistortion
+namespace CoverArt
 {
     public class QuadDistort
     {

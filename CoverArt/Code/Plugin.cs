@@ -216,6 +216,7 @@ namespace CoverArt
             Profile profile = getProfile(item.Path);
             Rectangle position = new Rectangle(0,0,0,0);
             Image overlay = new Bitmap(Resources.Overlay);
+            bool is3D = false;
 
             if (item is Movie)
             {
@@ -233,6 +234,7 @@ namespace CoverArt
                     justRoundCorners = profile.JustRoundCorners("remote");
                     roundCorners = profile.RoundCorners("remote");
                     frameOnTop = profile.FrameOnTop("remote");
+                    is3D = profile.Is3D("remote");
                 }
                 else
                 {
@@ -245,6 +247,7 @@ namespace CoverArt
                         frameOnTop = profile.FrameOnTop("thumb");
                         justRoundCorners = profile.JustRoundCorners("thumb");
                         roundCorners = profile.RoundCorners("thumb");
+                        is3D = profile.Is3D("thumb");
                     }
                     else
                     {
@@ -252,6 +255,7 @@ namespace CoverArt
                         frameOnTop = profile.FrameOnTop("movie");
                         justRoundCorners = profile.JustRoundCorners("movie");
                         roundCorners = profile.RoundCorners("movie");
+                        is3D = profile.Is3D("movie");
                         //Logger.ReportInfo("Process file " + item.Path);
 
                         if (Directory.Exists(item.Path))
@@ -382,6 +386,7 @@ namespace CoverArt
                     justRoundCorners = profile.JustRoundCorners("episode");
                     position = profile.RootPosition("episode");
                     roundCorners = profile.RoundCorners("episode");
+                    is3D = profile.Is3D("episode");
                 }
                 else
                 {
@@ -395,6 +400,7 @@ namespace CoverArt
                         justRoundCorners = profile.JustRoundCorners("season");
                         position = profile.RootPosition("season");
                         roundCorners = profile.RoundCorners("season");
+                        is3D = profile.Is3D("season");
                     }
                     else
                     if (item is Series) 
@@ -407,6 +413,7 @@ namespace CoverArt
                         justRoundCorners = profile.JustRoundCorners("series");
                         position = profile.RootPosition("series");
                         roundCorners = profile.RoundCorners("series");
+                        is3D = profile.Is3D("series");
                     }
                     else
                     {
@@ -423,6 +430,7 @@ namespace CoverArt
                                 justRoundCorners = profile.JustRoundCorners("album");
                                 position = profile.RootPosition("album");
                                 roundCorners = profile.RoundCorners("album");
+                                is3D = profile.Is3D("album");
 
                             }
                             else
@@ -435,6 +443,7 @@ namespace CoverArt
                                 justRoundCorners = profile.JustRoundCorners("folder");
                                 roundCorners = profile.RoundCorners("folder");
                                 position = profile.RootPosition("folder");
+                                is3D = profile.Is3D("folder");
                             }
                         }
                     }
@@ -444,17 +453,31 @@ namespace CoverArt
 
             if (process)
             {
-                newImage = CreateImage(newImage, rootImage, overlay, position, frameOnTop, roundCorners, justRoundCorners);
+                newImage = CreateImage(newImage, rootImage, overlay, position, frameOnTop, roundCorners, justRoundCorners, is3D);
             }
             else
             {
                 Logger.ReportInfo("No processing applied to image for " + item.Name);
             }
-
+            Logger.ReportInfo("Finished processing image " + item.Name);
             return newImage;
         }
 
-        public static Image CreateImage(Image newImage, Image rootImage, Image overlay, Rectangle position, bool frameOnTop, bool roundCorners, bool justRoundCorners)
+        public static Bitmap Skew3D(Bitmap image)
+        {
+            //Bitmap bitmap = new Bitmap(image.Width, image.Height);
+            Point tl = new Point(0, 0);
+            Point tr = new Point(image.Width, Convert.ToInt32(image.Height * (.052)));
+            Point bl = new Point(0, image.Height);
+            Point br = new Point(image.Width, Convert.ToInt32(image.Height * (.945)));
+            Bitmap Perspective = QuadDistort.Distort(image, tl, tr, bl, br);
+
+
+
+            return Perspective;
+        }
+
+        public static Image CreateImage(Image newImage, Image rootImage, Image overlay, Rectangle position, bool frameOnTop, bool roundCorners, bool justRoundCorners, bool is3D)
         {
             Graphics work;
             if (!justRoundCorners && (position.Width == 0 || position.Height == 0))
@@ -462,6 +485,11 @@ namespace CoverArt
                 //use original (basically an ignore)
                 return rootImage;
             }
+            if (is3D)
+            {
+                rootImage = Skew3D((Bitmap)rootImage);
+            }
+
             if (frameOnTop)
             {
                 //the frame goes on top so just create a base image of proper size

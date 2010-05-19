@@ -88,6 +88,34 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap c3d_bd {
+            get {
+                object obj = ResourceManager.GetObject("c3d_bd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap c3d_case {
+            get {
+                object obj = ResourceManager.GetObject("c3d_case", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap c3d_dvd {
+            get {
+                object obj = ResourceManager.GetObject("c3d_dvd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap c3d_hddvd {
+            get {
+                object obj = ResourceManager.GetObject("c3d_hddvd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Case {
             get {
                 object obj = ResourceManager.GetObject("Case", resourceCulture);
@@ -179,6 +207,27 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap cc3d_bd {
+            get {
+                object obj = ResourceManager.GetObject("cc3d_bd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc3d_dvd {
+            get {
+                object obj = ResourceManager.GetObject("cc3d_dvd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc3d_hddvd {
+            get {
+                object obj = ResourceManager.GetObject("cc3d_hddvd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap CD {
             get {
                 object obj = ResourceManager.GetObject("CD", resourceCulture);
@@ -189,6 +238,13 @@ namespace CoverArt {
         internal static System.Drawing.Bitmap ClearCase {
             get {
                 object obj = ResourceManager.GetObject("ClearCase", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ClearCase3d {
+            get {
+                object obj = ResourceManager.GetObject("ClearCase3d", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
