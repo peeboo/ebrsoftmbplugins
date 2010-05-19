@@ -60,6 +60,13 @@ namespace CoverArtConfig {
             }
         }
         
+        internal static System.Drawing.Bitmap cover1 {
+            get {
+                object obj = ResourceManager.GetObject("cover1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap folder {
             get {
                 object obj = ResourceManager.GetObject("folder", resourceCulture);

@@ -67,22 +67,46 @@ namespace CoverArt
         protected static Rectangle caseRectangle = new Rectangle(15, 95, 580, 745);
 
         [SkipField]
+        protected static Rectangle caseRectangle3D = new Rectangle(73, 96, 528, 768);
+
+        [SkipField]
         protected static Image BlankOverlay = Resources.BlankOverlay;
 
         [SkipField]
         protected static Image StdOverlay = Resources.Overlay;
 
         [SkipField]
-        protected static Image BDCase = Resources.BD;
+        protected static Image _BDCase;
+
+        protected static Image BDCase
+        {
+            get
+            {
+                if (_BDCase == null) _BDCase = Resources.BD;
+                return _BDCase;
+            }
+        }
+
+        [SkipField]
+        protected static Image BDCase3D = Resources.c3d_bd;
 
         [SkipField]
         protected static Image HDDVDCase = Resources.HDDVD;
 
         [SkipField]
+        protected static Image HDDVDCase3D = Resources.c3d_hddvd;
+
+        [SkipField]
         protected static Image DVDCase = Resources.DVD;
 
         [SkipField]
+        protected static Image DVDCase3D = Resources.c3d_dvd;
+
+        [SkipField]
         protected static Image StdCase = Resources.Case;
+
+        [SkipField]
+        protected static Image StdCase3D = Resources.c3d_case;
 
         [SkipField]
         protected static Image BlankImage = Resources.Blank;
@@ -101,6 +125,18 @@ namespace CoverArt
 
         [SkipField]
         protected static Image ClearCaseHDDVD = Resources.cc_hddvd;
+
+        [SkipField]
+        protected static Image ClearCase3D = Resources.ClearCase3d;
+
+        [SkipField]
+        protected static Image ClearCaseDVD3D = Resources.cc3d_dvd;
+
+        [SkipField]
+        protected static Image ClearCaseBD3D = Resources.cc3d_bd;
+
+        [SkipField]
+        protected static Image ClearCaseHDDVD3D = Resources.cc3d_hddvd;
 
         [SkipField]
         protected static Image Diamond = Resources.Diamond;
@@ -143,6 +179,44 @@ namespace CoverArt
                         {"MOV",Resources.mov},
                         {"XVID",Resources.Xvid},
                         {"HD",Resources.HD}
+        };
+
+        [SkipField]
+        protected static Dictionary<string, Image> InternalCase3D = new Dictionary<string, Image>() {
+                        {"default", StdCase3D},
+                        {"BD",BDCase3D},
+                        {"DVD",DVDCase3D},
+                        //{"MKV",Resources.Mkv},
+                        //{"WMV",Resources.Wmv},
+                        //{"AVI",Resources.Avi},
+                        {"HDDVD",HDDVDCase3D},
+                        //{"DVRMS",Resources.dv},
+                        //{"H264",Resources.h264},
+                        //{"MPEG",Resources.Mpeg},
+                        //{"MP4",Resources.Mpeg},
+                        //{"DIVX",Resources.DivX},
+                        //{"MOV",Resources.mov},
+                        //{"XVID",Resources.Xvid},
+                        {"HD",BDCase3D}
+        };
+
+        [SkipField]
+        protected static Dictionary<string, Image> InternalClearCase3D = new Dictionary<string, Image>() {
+                        {"default", ClearCase3D},
+                        {"BD",ClearCaseBD3D},
+                        {"DVD",ClearCaseDVD3D},
+                        //{"MKV",Resources.Mkv},
+                        //{"WMV",Resources.Wmv},
+                        //{"AVI",Resources.Avi},
+                        {"HDDVD",ClearCaseHDDVD3D},
+                        //{"DVRMS",Resources.dv},
+                        //{"H264",Resources.h264},
+                        //{"MPEG",Resources.Mpeg},
+                        //{"MP4",Resources.Mpeg},
+                        //{"DIVX",Resources.DivX},
+                        //{"MOV",Resources.mov},
+                        //{"XVID",Resources.Xvid},
+                        {"HD",ClearCaseBD3D}
         };
 
         [SkipField]
@@ -225,6 +299,14 @@ namespace CoverArt
                         {"HD",BDCase}
                     };
                     break;
+                case "CoverArtCase3D":
+                    //Internal 3D Case
+                    Is3D = true;
+                    FrameOnTop = true;
+                    RootPosition = caseRectangle3D;
+                    Overlay = BlankOverlay;
+                    Frames = InternalCase3D;
+                    break;
                 case "CoverArtTV":
                     //Internal TV
                     Is3D = false;
@@ -287,6 +369,15 @@ namespace CoverArt
                     RootPosition = new Rectangle(75, 25, 470, 668);
                     Overlay = BlankOverlay;
                     Frames = InternalClearCase;
+                    break;
+                case "CoverArtClearCase3D":
+                    //Internal 3D ClearCase
+                    Is3D = true;
+                    FrameOnTop = true;
+                    RoundCorners = true;
+                    RootPosition = new Rectangle(72, 19, 434, 667);
+                    Overlay = BlankOverlay;
+                    Frames = InternalClearCase3D;
                     break;
                 case "CoverArtClearCaseMinimal":
                     //Internal ClearCase
