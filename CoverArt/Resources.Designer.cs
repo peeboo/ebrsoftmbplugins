@@ -347,6 +347,41 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap oc_bd {
+            get {
+                object obj = ResourceManager.GetObject("oc_bd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap oc_dvd {
+            get {
+                object obj = ResourceManager.GetObject("oc_dvd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap oc_hddvd {
+            get {
+                object obj = ResourceManager.GetObject("oc_hddvd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap oc_overlay {
+            get {
+                object obj = ResourceManager.GetObject("oc_overlay", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap OpenCase {
+            get {
+                object obj = ResourceManager.GetObject("OpenCase", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Overlay {
             get {
                 object obj = ResourceManager.GetObject("Overlay", resourceCulture);

@@ -34,6 +34,7 @@ namespace CoverArt
         public string LastConfigVersion = "0.0.0.0";
         public string RegKey = "";
         public bool IgnoreTopFolders = true;
+        public int MemoryReleaseInterval = 120; //in seconds
 
         #region Load / Save Data
         public static MyConfigData FromFile(string file)

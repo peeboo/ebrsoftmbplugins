@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Drawing;
 using System.Net;
+using System.Timers;
 using MediaBrowser.Library.Plugins;
 using MediaBrowser.Library.Entities;
 using MediaBrowser.Library.Logging;
@@ -41,6 +42,8 @@ namespace CoverArt
 
         static readonly Guid CoverArtGuid = new Guid("756c2e60-f6f1-4167-b287-3798ddf373c4");
 
+        private Timer garbageCollector;
+        private bool processedSomething = false;
         private string configPath;
 
         private MyConfigData configData;
@@ -65,6 +68,14 @@ namespace CoverArt
                     return (isReg || trialVersion);
                 else
                     return true;
+            }
+        }
+        private bool ProcessedSomething
+        {
+            set
+            {
+                processedSomething = value;
+                if (!garbageCollector.Enabled) garbageCollector.Start();
             }
         }
 
@@ -104,12 +115,16 @@ namespace CoverArt
                 //Insert our image processor
                 kernel.ImageProcessor = ProcessImage;
 
-                //profiles.Add("default", defaultProfile);
-
                 //Load custom profiles here...
                 configPath = Path.Combine(MediaBrowser.Library.Configuration.ApplicationPaths.AppPluginPath, "Configurations");
                 if (!Directory.Exists(configPath)) Directory.CreateDirectory(configPath);
                 configData = MyConfigData.FromFile(Path.Combine(configPath, "Coverart.xml"));
+
+                //Create our garbage collection timer
+                garbageCollector = new Timer();
+                garbageCollector.Interval = configData.MemoryReleaseInterval * 1000; 
+                garbageCollector.Elapsed += new ElapsedEventHandler(garbageCollector_Elapsed);
+                garbageCollector.Start();
 
                 Async.Queue("CAPing", () =>
                 {
@@ -125,6 +140,19 @@ namespace CoverArt
                 Logger.ReportException("Error initializing CoverArt - probably incompatable MB version", ex);
             }
 
+        }
+
+        void garbageCollector_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (!processedSomething)
+            {
+                //been more than two minutes since we processed something - unload our images
+                Logger.ReportInfo("CoverArt dormant.  Freeing memory...");
+                ImageSet.UnloadImages();
+                //and stop the collector
+                garbageCollector.Stop();
+            }
+            processedSomething = false; //if we don't process something before our next event, we'll clean up
         }
 
         public static DateTime Ping(string path)
@@ -217,6 +245,7 @@ namespace CoverArt
             Rectangle position = new Rectangle(0,0,0,0);
             Image overlay = new Bitmap(Resources.Overlay);
             bool is3D = false;
+            SkewRatios skew = new SkewRatios();
 
             if (item is Movie)
             {
@@ -235,6 +264,7 @@ namespace CoverArt
                     roundCorners = profile.RoundCorners("remote");
                     frameOnTop = profile.FrameOnTop("remote");
                     is3D = profile.Is3D("remote");
+                    skew = profile.Skew("remote");
                 }
                 else
                 {
@@ -248,6 +278,7 @@ namespace CoverArt
                         justRoundCorners = profile.JustRoundCorners("thumb");
                         roundCorners = profile.RoundCorners("thumb");
                         is3D = profile.Is3D("thumb");
+                        skew = profile.Skew("thumb");
                     }
                     else
                     {
@@ -256,6 +287,7 @@ namespace CoverArt
                         justRoundCorners = profile.JustRoundCorners("movie");
                         roundCorners = profile.RoundCorners("movie");
                         is3D = profile.Is3D("movie");
+                        skew = profile.Skew("movie");
                         //Logger.ReportInfo("Process file " + item.Path);
 
                         if (Directory.Exists(item.Path))
@@ -387,6 +419,7 @@ namespace CoverArt
                     position = profile.RootPosition("episode");
                     roundCorners = profile.RoundCorners("episode");
                     is3D = profile.Is3D("episode");
+                    skew = profile.Skew("episode");
                 }
                 else
                 {
@@ -401,6 +434,7 @@ namespace CoverArt
                         position = profile.RootPosition("season");
                         roundCorners = profile.RoundCorners("season");
                         is3D = profile.Is3D("season");
+                        skew = profile.Skew("season");
                     }
                     else
                     if (item is Series) 
@@ -414,6 +448,7 @@ namespace CoverArt
                         position = profile.RootPosition("series");
                         roundCorners = profile.RoundCorners("series");
                         is3D = profile.Is3D("series");
+                        skew = profile.Skew("series");
                     }
                     else
                     {
@@ -431,6 +466,7 @@ namespace CoverArt
                                 position = profile.RootPosition("album");
                                 roundCorners = profile.RoundCorners("album");
                                 is3D = profile.Is3D("album");
+                                skew = profile.Skew("album");
 
                             }
                             else
@@ -444,6 +480,7 @@ namespace CoverArt
                                 roundCorners = profile.RoundCorners("folder");
                                 position = profile.RootPosition("folder");
                                 is3D = profile.Is3D("folder");
+                                skew = profile.Skew("folder");
                             }
                         }
                     }
@@ -453,7 +490,8 @@ namespace CoverArt
 
             if (process)
             {
-                newImage = CreateImage(newImage, rootImage, overlay, position, frameOnTop, roundCorners, justRoundCorners, is3D);
+                ProcessedSomething = true;
+                newImage = CreateImage(newImage, rootImage, overlay, position, frameOnTop, roundCorners, justRoundCorners, is3D, skew);
             }
             else
             {
@@ -463,21 +501,19 @@ namespace CoverArt
             return newImage;
         }
 
-        public static Bitmap Skew3D(Bitmap image)
+        public static Bitmap Skew3D(Bitmap image, SkewRatios skew)
         {
             //Bitmap bitmap = new Bitmap(image.Width, image.Height);
-            Point tl = new Point(0, 0);
-            Point tr = new Point(image.Width, Convert.ToInt32(image.Height * (.052)));
-            Point bl = new Point(0, image.Height);
-            Point br = new Point(image.Width, Convert.ToInt32(image.Height * (.945)));
+            Point tl = new Point(Convert.ToInt32(image.Width * (skew.TLx)), Convert.ToInt32(image.Height * (skew.TLy)));
+            Point tr = new Point(Convert.ToInt32(image.Width * (skew.TRx)), Convert.ToInt32(image.Height * (skew.TRy)));
+            Point bl = new Point(Convert.ToInt32(image.Width * (skew.BLx)), Convert.ToInt32(image.Height * (skew.BLy)));
+            Point br = new Point(Convert.ToInt32(image.Width * (skew.BRx)), Convert.ToInt32(image.Height * (skew.BRy)));
+            Logger.ReportInfo(String.Format("tl: {0},{1}  tr: {2},{3}  bl: {4},{5}  br: {6},{7}", tl.X, tl.Y, tr.X, tr.Y, bl.X, bl.Y, br.X, br.Y));
             Bitmap Perspective = QuadDistort.Distort(image, tl, tr, bl, br);
-
-
-
             return Perspective;
         }
 
-        public static Image CreateImage(Image newImage, Image rootImage, Image overlay, Rectangle position, bool frameOnTop, bool roundCorners, bool justRoundCorners, bool is3D)
+        public static Image CreateImage(Image newImage, Image rootImage, Image overlay, Rectangle position, bool frameOnTop, bool roundCorners, bool justRoundCorners, bool is3D, SkewRatios skew)
         {
             Graphics work;
             if (!justRoundCorners && (position.Width == 0 || position.Height == 0))
@@ -487,7 +523,7 @@ namespace CoverArt
             }
             if (is3D)
             {
-                rootImage = Skew3D((Bitmap)rootImage);
+                rootImage = Skew3D((Bitmap)rootImage,skew);
             }
 
             if (frameOnTop)

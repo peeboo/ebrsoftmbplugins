@@ -262,4 +262,19 @@
   <data name="ClearCase3d" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\clearcase3d\clearcase3d.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="oc_bd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\opencase\oc_bd.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="oc_dvd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\opencase\oc_dvd.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="oc_hddvd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\opencase\oc_hddvd.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="oc_overlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\opencase\oc_overlay.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OpenCase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\opencase\opencase.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

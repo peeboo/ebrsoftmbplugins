@@ -140,6 +140,12 @@ namespace CoverArt
             return imageSets[type].Is3D;
         }
 
+        public SkewRatios Skew(string type)
+        {
+            if (!imageSets.ContainsKey(type)) type = "default";
+            return imageSets[type].Skew;
+        }
+
         public bool FrameOnTop(string type)
         {
             if (!imageSets.ContainsKey(type)) type = "default";
