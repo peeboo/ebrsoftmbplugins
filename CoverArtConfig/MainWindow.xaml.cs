@@ -43,6 +43,7 @@ namespace CoverArtConfig
             "CoverArtClearCaseDVD",
             "CoverArtClearCaseBD",
             "CoverArtClearCase3D",
+            "CoverArtOpenCase",
             "CoverArtCD",
             "CoverArtDiamond",
             "CoverArtRounded",
@@ -234,7 +235,7 @@ namespace CoverArtConfig
             {
                 if (keys.Contains(entry.Key)) //just create the ones we want
                 {
-                    System.Drawing.Image img = CoverArt.Plugin.CreateImage((System.Drawing.Image)entry.Value.Clone(), (System.Drawing.Image)CoverArtConfig.Resources.cover1.Clone(), imageSet.Overlay, imageSet.RootPosition, imageSet.FrameOnTop, imageSet.RoundCorners, imageSet.JustRoundCorners, imageSet.Is3D);
+                    System.Drawing.Image img = CoverArt.Plugin.CreateImage((System.Drawing.Image)entry.Value.Clone(), (System.Drawing.Image)CoverArtConfig.Resources.cover1.Clone(), imageSet.Overlay, imageSet.RootPosition, imageSet.FrameOnTop, imageSet.RoundCorners, imageSet.JustRoundCorners, imageSet.Is3D, imageSet.Skew);
                     filename = System.IO.Path.Combine(TempLocation, imageSetName.GetMD5() + System.DateTime.Now.Millisecond.ToString() + entry.Key + ".png");
                     img.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
                     previews.Add(new PreviewItem(filename, entry.Key));

@@ -9,6 +9,23 @@ using MediaBrowser.Library.Filesystem;
 
 namespace CoverArt
 {
+    public struct SkewRatios
+    {
+        public double TLx, TLy, TRx, TRy, BLx, BLy, BRx, BRy;
+
+        public SkewRatios(double tlx, double tly, double trx, double tryy, double blx, double bly, double brx, double bry)
+        {
+            TLx = tlx;
+            TLy = tly;
+            TRx = trx;
+            TRy = tryy;
+            BLx = blx;
+            BLy = bly;
+            BRx = brx;
+            BRy = bry;
+        }
+    }
+
     public static class CAHelper
     {
         public static bool IsArtistFolder(this IMediaLocation location)
@@ -123,17 +140,6 @@ namespace CoverArt
             g.FillRectangle(b, r.X, r.Y + r.Height - d / 2, r.Width - d / 2 + 1, d / 2);
         }
 
-        //public static Bitmap Squeeze3D(Bitmap image)
-        //{
-        //    Bitmap bitmap = new Bitmap(image.Width, image.Height);
-        //    Point tl = new Point(0, 0);
-        //    Point tr = new Point(image.Width, Convert.ToInt32(image.Height * (.055)));
-        //    Point bl = new Point(0, image.Height);
-        //    Point br = new Point(image.Width, Convert.ToInt32(image.Height * (.945)));
-        //    Bitmap Perspective = QuadDistort.Distort(image, tl, tr, bl, br);
-
-        //    return Perspective;
-        //}
 
         /// <summary>
         /// Returns MAC Address from first Network Card in Computer

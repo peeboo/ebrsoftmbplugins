@@ -29,6 +29,8 @@ namespace CoverArt
         }
 
         public bool Is3D = false;
+        [SkipField]
+        public SkewRatios Skew = new SkewRatios(0,0,1,.055,0,1,1,.945);
         public bool FrameOnTop = false;
         public Rectangle RootPosition = new Rectangle(15, 90, 585, 750);
         public bool RoundCorners = false;
@@ -76,6 +78,9 @@ namespace CoverArt
         protected static Image StdOverlay = Resources.Overlay;
 
         [SkipField]
+        protected static Image OCOverlay = Resources.oc_overlay;
+
+        [SkipField]
         protected static Image _BDCase;
 
         protected static Image BDCase
@@ -88,25 +93,136 @@ namespace CoverArt
         }
 
         [SkipField]
-        protected static Image BDCase3D = Resources.c3d_bd;
+        protected static Image _BDCase3D;
+
+        protected static Image BDCase3D
+        {
+            get
+            {
+                if (_BDCase3D == null) _BDCase3D = Resources.c3d_bd;
+                return _BDCase3D;
+            }
+        }
 
         [SkipField]
-        protected static Image HDDVDCase = Resources.HDDVD;
+        protected static Image _OpenCase;
+
+        protected static Image OpenCase
+        {
+            get
+            {
+                if (_OpenCase == null) _OpenCase = Resources.OpenCase;
+                return _OpenCase;
+            }
+        }
 
         [SkipField]
-        protected static Image HDDVDCase3D = Resources.c3d_hddvd;
+        protected static Image _OpenCaseBD;
+
+        protected static Image OpenCaseBD
+        {
+            get
+            {
+                if (_OpenCaseBD == null) _OpenCaseBD = Resources.oc_bd;
+                return _OpenCaseBD;
+            }
+        }
 
         [SkipField]
-        protected static Image DVDCase = Resources.DVD;
+        protected static Image _OpenCaseDVD;
+
+        protected static Image OpenCaseDVD
+        {
+            get
+            {
+                if (_OpenCaseDVD == null) _OpenCaseDVD = Resources.oc_dvd;
+                return _OpenCaseDVD;
+            }
+        }
 
         [SkipField]
-        protected static Image DVDCase3D = Resources.c3d_dvd;
+        protected static Image _OpenCaseHDDVD;
+
+        protected static Image OpenCaseHDDVD
+        {
+            get
+            {
+                if (_OpenCaseHDDVD == null) _OpenCaseHDDVD = Resources.oc_hddvd;
+                return _OpenCaseHDDVD;
+            }
+        }
 
         [SkipField]
-        protected static Image StdCase = Resources.Case;
+        protected static Image _HDDVDCase;
+
+        protected static Image HDDVDCase
+        {
+            get
+            {
+                if (_HDDVDCase == null) _HDDVDCase = Resources.HDDVD;
+                return _HDDVDCase;
+            }
+        }
 
         [SkipField]
-        protected static Image StdCase3D = Resources.c3d_case;
+        protected static Image _HDDVDCase3D;
+
+        protected static Image HDDVDCase3D
+        {
+            get
+            {
+                if (_HDDVDCase3D == null) _HDDVDCase3D = Resources.c3d_hddvd;
+                return _HDDVDCase3D;
+            }
+        }
+
+        [SkipField]
+        protected static Image _DVDCase;
+
+        protected static Image DVDCase
+        {
+            get
+            {
+                if (_DVDCase == null) _DVDCase = Resources.DVD;
+                return _DVDCase;
+            }
+        }
+
+        [SkipField]
+        protected static Image _DVDCase3D;
+
+        protected static Image DVDCase3D
+        {
+            get
+            {
+                if (_DVDCase3D == null) _DVDCase3D = Resources.c3d_dvd;
+                return _DVDCase3D;
+            }
+        }
+
+        [SkipField]
+        protected static Image _StdCase = Resources.Case;
+
+        protected static Image StdCase
+        {
+            get
+            {
+                if (_StdCase == null) _StdCase = Resources.Case;
+                return _StdCase;
+            }
+        }
+
+        [SkipField]
+        protected static Image _StdCase3D;
+
+        protected static Image StdCase3D
+        {
+            get
+            {
+                if (_StdCase3D == null) _StdCase3D = Resources.c3d_case;
+                return _StdCase3D;
+            }
+        }
 
         [SkipField]
         protected static Image BlankImage = Resources.Blank;
@@ -115,46 +231,172 @@ namespace CoverArt
         protected static Image GlossOverlay = Resources.GlossOverlay;
 
         [SkipField]
-        protected static Image ClearCase = Resources.ClearCase;
+        protected static Image _ClearCase;
+
+        protected static Image ClearCase
+        {
+            get
+            {
+                if (_ClearCase == null) _ClearCase = Resources.ClearCase;
+                return _ClearCase;
+            }
+        }
 
         [SkipField]
-        protected static Image ClearCaseDVD = Resources.CC_DVD;
+        protected static Image _ClearCaseDVD;
+
+        protected static Image ClearCaseDVD
+        {
+            get
+            {
+                if (_ClearCaseDVD == null) _ClearCaseDVD = Resources.CC_DVD;
+                return _ClearCaseDVD;
+            }
+        }
 
         [SkipField]
-        protected static Image ClearCaseBD = Resources.cc_bd;
+        protected static Image _ClearCaseBD;
+
+        protected static Image ClearCaseBD
+        {
+            get
+            {
+                if (_ClearCaseBD == null) _ClearCaseBD = Resources.cc_bd;
+                return _ClearCaseBD;
+            }
+        }
 
         [SkipField]
-        protected static Image ClearCaseHDDVD = Resources.cc_hddvd;
+        protected static Image _ClearCaseHDDVD;
+
+        protected static Image ClearCaseHDDVD
+        {
+            get
+            {
+                if (_ClearCaseHDDVD == null) _ClearCaseHDDVD = Resources.cc_hddvd;
+                return _ClearCaseHDDVD;
+            }
+        }
 
         [SkipField]
-        protected static Image ClearCase3D = Resources.ClearCase3d;
+        protected static Image _ClearCase3D;
+
+        protected static Image ClearCase3D
+        {
+            get
+            {
+                if (_ClearCase3D == null) _ClearCase3D = Resources.ClearCase3d;
+                return _ClearCase3D;
+            }
+        }
 
         [SkipField]
-        protected static Image ClearCaseDVD3D = Resources.cc3d_dvd;
+        protected static Image _ClearCaseDVD3D;
+
+        protected static Image ClearCaseDVD3D
+        {
+            get
+            {
+                if (_ClearCaseDVD3D == null) _ClearCaseDVD3D = Resources.cc3d_dvd;
+                return _ClearCaseDVD3D;
+            }
+        }
 
         [SkipField]
-        protected static Image ClearCaseBD3D = Resources.cc3d_bd;
+        protected static Image _ClearCaseBD3D;
+
+        protected static Image ClearCaseBD3D
+        {
+            get
+            {
+                if (_ClearCaseBD3D == null) _ClearCaseBD3D = Resources.cc3d_bd;
+                return _ClearCaseBD3D;
+            }
+        }
 
         [SkipField]
-        protected static Image ClearCaseHDDVD3D = Resources.cc3d_hddvd;
+        protected static Image _ClearCaseHDDVD3D;
+
+        protected static Image ClearCaseHDDVD3D
+        {
+            get
+            {
+                if (_ClearCaseHDDVD3D == null) _ClearCaseHDDVD3D = Resources.cc3d_hddvd;
+                return _ClearCaseHDDVD3D;
+            }
+        }
 
         [SkipField]
-        protected static Image Diamond = Resources.Diamond;
+        protected static Image _Diamond;
+
+        protected static Image Diamond
+        {
+            get
+            {
+                if (_Diamond == null) _Diamond = Resources.Diamond;
+                return _Diamond;
+            }
+        }
 
         [SkipField]
-        protected static Image TV = Resources.TV;
+        protected static Image _TV;
+
+        protected static Image TV
+        {
+            get
+            {
+                if (_TV == null) _TV = Resources.TV;
+                return _TV;
+            }
+        }
 
         [SkipField]
-        protected static Image TVMB = Resources.TVMB;
+        protected static Image _TVMB;
+
+        protected static Image TVMB
+        {
+            get
+            {
+                if (_TVMB == null) _TVMB = Resources.TVMB;
+                return _TVMB;
+            }
+        }
 
         [SkipField]
-        protected static Image Film = Resources.Film;
+        protected static Image _Film;
+
+        protected static Image Film
+        {
+            get
+            {
+                if (_Film == null) _Film = Resources.Film;
+                return _Film;
+            }
+        }
 
         [SkipField]
-        protected static Image Border = Resources.SimpleBorder;
+        protected static Image _Border;
+
+        protected static Image Border
+        {
+            get
+            {
+                if (_Border == null) _Border = Resources.SimpleBorder;
+                return _Border;
+            }
+        }
 
         [SkipField]
-        protected static Image CD = Resources.CD;
+        protected static Image _CD;
+
+        protected static Image CD
+        {
+            get
+            {
+                if (_CD == null) _CD = Resources.CD;
+                return _CD;
+            }
+        }
 
         [SkipField]
         protected static Image TVOverlay = Resources.TVOverlay;
@@ -163,7 +405,14 @@ namespace CoverArt
         protected static Image FilmOverlay = Resources.FilmOverlay;
 
         [SkipField]
-        protected static Dictionary<string, Image> InternalCase = new Dictionary<string, Image>() {
+        protected static Dictionary<string, Image> _InternalCase;
+        protected static Dictionary<string, Image> InternalCase
+        {
+            get
+            {
+                if (_InternalCase == null)
+                {
+                    _InternalCase = new Dictionary<string, Image>() {
                         {"default", StdCase},
                         {"BD",BDCase},
                         {"DVD",DVDCase},
@@ -179,7 +428,11 @@ namespace CoverArt
                         {"MOV",Resources.mov},
                         {"XVID",Resources.Xvid},
                         {"HD",Resources.HD}
-        };
+                    };
+                }
+                return _InternalCase;
+            }
+        }
 
         [SkipField]
         protected static Dictionary<string, Image> InternalCase3D = new Dictionary<string, Image>() {
@@ -220,7 +473,33 @@ namespace CoverArt
         };
 
         [SkipField]
-        protected static Dictionary<string, Image> InternalClearCase = new Dictionary<string, Image>() {
+        protected static Dictionary<string, Image> InternalOpenCase = new Dictionary<string, Image>() {
+                        {"default", OpenCase},
+                        {"BD",OpenCaseBD},
+                        {"DVD",OpenCaseDVD},
+                        //{"MKV",Resources.Mkv},
+                        //{"WMV",Resources.Wmv},
+                        //{"AVI",Resources.Avi},
+                        {"HDDVD",OpenCaseHDDVD},
+                        //{"DVRMS",Resources.dv},
+                        //{"H264",Resources.h264},
+                        //{"MPEG",Resources.Mpeg},
+                        //{"MP4",Resources.Mpeg},
+                        //{"DIVX",Resources.DivX},
+                        //{"MOV",Resources.mov},
+                        //{"XVID",Resources.Xvid},
+                        {"HD",OpenCaseBD}
+        };
+
+        [SkipField]
+        protected static Dictionary<string, Image> _InternalClearCase;
+        protected static Dictionary<string, Image> InternalClearCase
+        {
+            get
+            {
+                if (_InternalClearCase == null)
+                {
+                    _InternalClearCase = new Dictionary<string, Image>() {
                         {"default", ClearCase},
                         {"BD",ClearCaseBD},
                         {"DVD",ClearCaseDVD},
@@ -236,6 +515,10 @@ namespace CoverArt
                         {"MOV",Resources.cc_mov},
                         {"XVID",Resources.cc_xvid}
         };
+                }
+                return _InternalClearCase;
+            }
+        }
 
         public void Save()
         {
@@ -247,6 +530,36 @@ namespace CoverArt
 
         [SkipField]
         XmlSettings<ImageSet> settings;
+
+        public static void UnloadImages()
+        {
+            //cause all our images to unload from memory
+            _ClearCase = null;
+            _BDCase = null;
+            _BDCase3D = null;
+            _Border = null;
+            _CD = null;
+            _ClearCase3D = null;
+            _ClearCaseBD = null;
+            _ClearCaseBD3D = null;
+            _ClearCaseDVD = null;
+            _ClearCaseDVD3D = null;
+            _ClearCaseHDDVD = null;
+            _ClearCaseHDDVD3D = null;
+            _Diamond = null;
+            _DVDCase = null;
+            _DVDCase3D = null;
+            _Film = null;
+            _HDDVDCase = null;
+            _HDDVDCase3D = null;
+            _StdCase = null;
+            _StdCase3D = null;
+            _TV = null;
+            _TVMB = null;
+            _InternalCase = null;
+            _InternalClearCase = null;
+            
+        }
 
         protected void Load()
         {
@@ -263,6 +576,16 @@ namespace CoverArt
                     RootPosition = caseRectangle;
                     Overlay = StdOverlay;
                     Frames = InternalCase;
+                    break;
+                case "CoverArtOpenCase":
+                    //Internal OpenCase
+                    Is3D = true;
+                    Skew = new SkewRatios(0, .144, 1, 0, .2, 1, .95, .75);
+                    FrameOnTop = false;
+                    RootPosition = new Rectangle(73,85,500,750);
+                    Overlay = OCOverlay;
+                    RoundCorners = true;
+                    Frames = InternalOpenCase;
                     break;
                 case "CoverArtCaseBD":
                     //Internal Case

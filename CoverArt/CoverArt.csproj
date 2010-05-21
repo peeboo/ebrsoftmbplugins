@@ -151,6 +151,11 @@
     <Content Include="Images\Film\FilmOverlay.png" />
     <Content Include="Images\Film\SimpleBorder.png" />
     <Content Include="Images\GlossOverlay.png" />
+    <Content Include="Images\OpenCase\oc_overlay.png" />
+    <Content Include="Images\OpenCase\OpenCase.png" />
+    <Content Include="Images\OpenCase\oc_bd.png" />
+    <Content Include="Images\OpenCase\oc_dvd.png" />
+    <Content Include="Images\OpenCase\oc_hddvd.png" />
     <Content Include="Images\TVMB\TVMB.png" />
     <Content Include="Images\TV\TVOverlay.png" />
     <Content Include="Images\TV\TV.png" />
