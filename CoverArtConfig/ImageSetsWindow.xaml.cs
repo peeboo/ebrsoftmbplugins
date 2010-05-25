@@ -189,7 +189,7 @@ namespace CoverArtConfig
                     PreviewWin.Closed += previewWindowClosed;
                 }
                 this.Cursor = Cursors.Wait;
-                PreviewWin.Previews = MainWindow.CreatePreviews(imageSet, imageSetName);
+                PreviewWin.Previews = MainWindow.CreatePreviews(new ProfileDefinition(), imageSet, imageSetName);
                 this.Cursor = Cursors.Arrow;
                 PreviewWin.UpdatePreviews();
                 PreviewWin.Show();

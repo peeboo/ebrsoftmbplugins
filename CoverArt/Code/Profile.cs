@@ -14,21 +14,23 @@ namespace CoverArt
     public class Profile
     {
         protected Dictionary<string, ImageSet> imageSets = new Dictionary<string, ImageSet>();
+        protected Dictionary<string, string> typeMap = new Dictionary<string, string>();
 
         public bool CoverByDefinition = false;
 
 
         public Profile()
         {
-            init(null, null, null, null, null, null, null, null, false);
+            init(null, null, null, null, null, null, null, null, false, null);
         }
-        public Profile(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation, string folderLocation, bool coverByDef)
+        public Profile(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation, string folderLocation, bool coverByDef, Dictionary<string,string> typeMap)
         {
-            init(movieLocation, seriesLocation, seasonLocation, episodeLocation, remoteLocation, thumbLocation, albumLocation, folderLocation, coverByDef);
+            init(movieLocation, seriesLocation, seasonLocation, episodeLocation, remoteLocation, thumbLocation, albumLocation, folderLocation, coverByDef, typeMap);
         }
 
-        private void init(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation, string folderLocation, bool coverByDef)
+        private void init(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation, string folderLocation, bool coverByDef, Dictionary<string,string> typeMap)
         {
+
             if (String.IsNullOrEmpty(movieLocation))
             {
                 movieLocation = "CoverArtCase";
@@ -70,6 +72,8 @@ namespace CoverArt
 
             CoverByDefinition = coverByDef;
 
+            this.typeMap = typeMap;
+
             //Create all our imagesets
             imageSets.Add("default", new ImageSet("CoverArtCase"));
             imageSets.Add("movie", new ImageSet(movieLocation));
@@ -80,6 +84,13 @@ namespace CoverArt
             imageSets.Add("album", new ImageSet(albumLocation));
             imageSets.Add("thumb", new ImageSet(thumbLocation));
             imageSets.Add("folder", new ImageSet(folderLocation));
+        }
+
+        public string Translate(string type)
+        {
+            if (typeMap.ContainsKey(type))
+                return typeMap[type];
+            else return type;
         }
 
         public ImageSet GetImageSet(string location)
@@ -199,7 +210,7 @@ namespace CoverArt
 
         public Image MovieFrame(string type)
         {
-            return Frame("movie", type);
+            return Frame("movie", Translate(type));
         }
 
         public Image SeasonFrame(string type)

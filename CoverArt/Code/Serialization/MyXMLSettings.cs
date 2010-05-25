@@ -280,6 +280,48 @@ namespace CoverArt
             }
         }
 
+        class StringDictionarySerializer : AbstractSerializer
+        {
+
+            public override object Read(XmlNode node, Type type)
+            {
+                Dictionary<string, string> dict = new Dictionary<string,string>();
+
+                var serializer = FindSerializer(typeof(string));
+
+                foreach (XmlNode child in node.ChildNodes)
+                {
+                    dict.Add(child.Name,(string)serializer.Read(child, typeof(string)));
+                }
+                return dict;
+            }
+
+            public override void Write(XmlNode node, object o)
+            {
+                Dictionary<string, string> dict = (Dictionary<string,string>)o;
+
+                node.InnerXml = "";
+
+                if (dict != null)
+                {
+
+                    var serializer = FindSerializer(typeof(string));
+
+                    foreach (KeyValuePair<string,string> entry in dict)
+                    {
+                        var inner = node.OwnerDocument.CreateNode(XmlNodeType.Element, entry.Key, null);
+                        node.AppendChild(inner);
+                        serializer.Write(inner, entry.Value);
+                    }
+                }
+            }
+
+            public override bool SupportsType(Type type)
+            {
+                return type == typeof(Dictionary<string,string>);
+            }
+        }
+
 
         #endregion
 
@@ -310,6 +352,7 @@ namespace CoverArt
                 new EnumSerializer(),
                 new ListSerializer(),
                 new RectangleSerializer(),
+                new StringDictionarySerializer(),
                 new GenericObjectSerializer()
             };
         }

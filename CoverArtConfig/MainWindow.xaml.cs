@@ -197,18 +197,30 @@ namespace CoverArtConfig
             if (!PreviewItems.ContainsKey(imageSetName))
             {
                 this.Cursor = Cursors.Wait;
-                PreviewItems.Add(imageSetName, CreatePreviews(currentImageSet, imageSetName, imageSetType));
+                PreviewItems.Add(imageSetName, CreatePreviews(currentProfileDef, currentImageSet, imageSetName, imageSetType));
                 this.Cursor = Cursors.Arrow;
             }
             coversView.ItemsSource = PreviewItems[imageSetName];
         }
 
-        public static List<PreviewItem> CreatePreviews(ImageSet imageSet, string imageSetName)
+        private static string Translate(ProfileDefinition profile, string type)
         {
-            return CreatePreviews(imageSet, imageSetName, "all");
+            if (profile.TypeMap.ContainsKey(type))
+                return profile.TypeMap[type];
+            else return type;
         }
 
-        public static List<PreviewItem> CreatePreviews(ImageSet imageSet, string imageSetName, string previewType) {
+        //public List<PreviewItem> CreatePreviews(ImageSet imageSet, string imageSetName)
+        //{
+        //    return CreatePreviews(currentProfileDef, imageSet, imageSetName);
+        //}
+
+        public static List<PreviewItem> CreatePreviews(ProfileDefinition profile, ImageSet imageSet, string imageSetName)
+        {
+            return CreatePreviews(profile, imageSet, imageSetName, "all");
+        }
+
+        public static List<PreviewItem> CreatePreviews(ProfileDefinition profile, ImageSet imageSet, string imageSetName, string previewType) {
             List<PreviewItem> previews = new List<PreviewItem>();
             string filename;
             List<string> keys;
@@ -235,11 +247,15 @@ namespace CoverArtConfig
             {
                 if (keys.Contains(entry.Key)) //just create the ones we want
                 {
-                    System.Drawing.Image img = CoverArt.Plugin.CreateImage((System.Drawing.Image)entry.Value.Clone(), (System.Drawing.Image)CoverArtConfig.Resources.cover1.Clone(), imageSet.Overlay, imageSet.RootPosition, imageSet.FrameOnTop, imageSet.RoundCorners, imageSet.JustRoundCorners, imageSet.Is3D, imageSet.Skew);
+                    //translate if need be
+                    System.Drawing.Image frame = (System.Drawing.Image)imageSet.Frames[Translate(profile, entry.Key)].Clone();
+                    System.Drawing.Image img = CoverArt.Plugin.CreateImage(frame, (System.Drawing.Image)CoverArtConfig.Resources.cover1.Clone(), imageSet.Overlay, imageSet.RootPosition, imageSet.FrameOnTop, imageSet.RoundCorners, imageSet.JustRoundCorners, imageSet.Is3D, imageSet.Skew);
                     filename = System.IO.Path.Combine(TempLocation, imageSetName.GetMD5() + System.DateTime.Now.Millisecond.ToString() + entry.Key + ".png");
                     img.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
                     previews.Add(new PreviewItem(filename, entry.Key));
                     img.Dispose();
+                    frame.Dispose();
+                    frame = null;
                     img = null;
                 }
             }
