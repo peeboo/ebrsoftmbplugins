@@ -581,9 +581,9 @@ namespace CoverArt
                     //Internal OpenCase
                     Is3D = true;
                     Skew = new SkewRatios(0, .144, 1, 0, .2, 1, .95, .75);
-                    FrameOnTop = false;
-                    RootPosition = new Rectangle(73,85,500,750);
-                    Overlay = OCOverlay;
+                    FrameOnTop = true;
+                    RootPosition = new Rectangle(70,72,510,767);
+                    Overlay = BlankOverlay;
                     RoundCorners = true;
                     Frames = InternalOpenCase;
                     break;
