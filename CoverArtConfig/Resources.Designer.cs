@@ -60,6 +60,13 @@ namespace CoverArtConfig {
             }
         }
         
+        internal static System.Drawing.Bitmap album {
+            get {
+                object obj = ResourceManager.GetObject("album", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap cover1 {
             get {
                 object obj = ResourceManager.GetObject("cover1", resourceCulture);
@@ -67,9 +74,30 @@ namespace CoverArtConfig {
             }
         }
         
+        internal static System.Drawing.Bitmap episode {
+            get {
+                object obj = ResourceManager.GetObject("episode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap folder {
             get {
                 object obj = ResourceManager.GetObject("folder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap thumb {
+            get {
+                object obj = ResourceManager.GetObject("thumb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap tvseries {
+            get {
+                object obj = ResourceManager.GetObject("tvseries", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
