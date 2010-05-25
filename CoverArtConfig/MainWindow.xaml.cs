@@ -183,6 +183,30 @@ namespace CoverArtConfig
             loadPreviews();
             return true;
         }
+        private System.Drawing.Image exampleCover
+        {
+            get
+            {
+                switch (tabImageSet.SelectedIndex)
+                {
+                    case 0:
+                    case 4:
+                        return (System.Drawing.Image)CoverArtConfig.Resources.cover1.Clone();
+                    case 1:
+                    case 2:
+                        return (System.Drawing.Image)CoverArtConfig.Resources.tvseries.Clone();
+                    case 3:
+                        return (System.Drawing.Image)CoverArtConfig.Resources.episode.Clone();
+                    case 5:
+                        return (System.Drawing.Image)CoverArtConfig.Resources.thumb.Clone();
+                    case 6:
+                        return (System.Drawing.Image)CoverArtConfig.Resources.album.Clone();
+                    case 7:
+                    default:
+                        return (System.Drawing.Image)CoverArtConfig.Resources.folder.Clone();
+                }
+            }
+        }
         
         private void loadPreviews()
         {
@@ -197,7 +221,7 @@ namespace CoverArtConfig
             if (!PreviewItems.ContainsKey(imageSetName))
             {
                 this.Cursor = Cursors.Wait;
-                PreviewItems.Add(imageSetName, CreatePreviews(currentProfileDef, currentImageSet, imageSetName, imageSetType));
+                PreviewItems.Add(imageSetName, CreatePreviews(currentProfileDef, currentImageSet, imageSetName, imageSetType,exampleCover));
                 this.Cursor = Cursors.Arrow;
             }
             coversView.ItemsSource = PreviewItems[imageSetName];
@@ -217,10 +241,10 @@ namespace CoverArtConfig
 
         public static List<PreviewItem> CreatePreviews(ProfileDefinition profile, ImageSet imageSet, string imageSetName)
         {
-            return CreatePreviews(profile, imageSet, imageSetName, "all");
+            return CreatePreviews(profile, imageSet, imageSetName, "all", (System.Drawing.Image)CoverArtConfig.Resources.cover1.Clone());
         }
 
-        public static List<PreviewItem> CreatePreviews(ProfileDefinition profile, ImageSet imageSet, string imageSetName, string previewType) {
+        public static List<PreviewItem> CreatePreviews(ProfileDefinition profile, ImageSet imageSet, string imageSetName, string previewType, System.Drawing.Image art) {
             List<PreviewItem> previews = new List<PreviewItem>();
             string filename;
             List<string> keys;
@@ -249,7 +273,7 @@ namespace CoverArtConfig
                 {
                     //translate if need be
                     System.Drawing.Image frame = (System.Drawing.Image)imageSet.Frames[Translate(profile, entry.Key)].Clone();
-                    System.Drawing.Image img = CoverArt.Plugin.CreateImage(frame, (System.Drawing.Image)CoverArtConfig.Resources.cover1.Clone(), imageSet.Overlay, imageSet.RootPosition, imageSet.FrameOnTop, imageSet.RoundCorners, imageSet.JustRoundCorners, imageSet.Is3D, imageSet.Skew);
+                    System.Drawing.Image img = CoverArt.Plugin.CreateImage(frame, art, imageSet.Overlay, imageSet.RootPosition, imageSet.FrameOnTop, imageSet.RoundCorners, imageSet.JustRoundCorners, imageSet.Is3D, imageSet.Skew);
                     filename = System.IO.Path.Combine(TempLocation, imageSetName.GetMD5() + System.DateTime.Now.Millisecond.ToString() + entry.Key + ".png");
                     img.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
                     previews.Add(new PreviewItem(filename, entry.Key));
