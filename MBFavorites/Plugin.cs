@@ -79,6 +79,7 @@ namespace MBFavorites
                 {
                     kernel.AddMenuItem(new MenuItem(addRemoveText, "resx://MediaBrowser/MediaBrowser.Resources/Star_Full", this.addRemoveFavorite, new List<Type>() { typeof(Movie), typeof(Series), typeof(Folder) }));
                     kernel.AddMenuItem(new MenuItem("Clear All", "resx://MediaBrowser/MediaBrowser.Resources/IconDelete", this.clearFavorites, new List<Type>() { typeof(FavoriteFolder) }));
+                    kernel.AddExternalPlayableFolder(typeof(FavoriteFolder));
                     //kernel.AddMenuItem(new MenuItem("Hide Favorites", "resx://MediaBrowser/MediaBrowser.Resources/IconDelete", this.hideFavorites, new List<Type>() { typeof(FavoriteFolder) }));
                 }
                 else Logger.ReportInfo("Not creating menus for Favorites.  Appear to not be in MediaCenter.  AppDomain is: " + AppDomain.CurrentDomain.FriendlyName);
