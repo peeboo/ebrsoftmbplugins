@@ -173,7 +173,7 @@
 	</Window.Background>
 
     <Grid>
-        <TabControl Margin="12,203,12,57" x:Name="tabImageSet" FontSize="14" SelectionChanged="tabImageSet_SelectionChanged" Background="{x:Null}">
+        <TabControl Margin="12,203,12,57" x:Name="tabImageSet" FontSize="14" SelectionChanged="tabImageSet_SelectionChanged" Background="{x:Null}" ToolTip="These are the different types of items that can be treated by CoverArt.   You select a set of treatments to use for each individual type by selecting the tab and then choosing an Image Set">
         	<TabControl.BorderBrush>
         		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
         			<GradientStop Color="Black" Offset="0"/>
@@ -182,8 +182,12 @@
         	</TabControl.BorderBrush>
             <TabItem Header="Movie" x:Name="movieTab" >
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="414*" />
+                        <ColumnDefinition Width="357*" />
+                    </Grid.ColumnDefinitions>
                     <Label Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" x:Name="label1" VerticalAlignment="Top" Width="88" Content="Image Set"/>
-                    <ComboBox Height="23" Margin="104,15,296,0"  SelectionChanged="ddlImageSet_SelectionChanged" x:Name="ddlMovieLocation" VerticalAlignment="Top" HorizontalAlignment="Left" Width="371" />
+                    <ComboBox Height="23" Margin="104,15,296,0"  SelectionChanged="ddlImageSet_SelectionChanged" x:Name="ddlMovieLocation" VerticalAlignment="Top" Grid.ColumnSpan="2" ToolTip="Image Sets are the groups of treatments available.  You assign an image set to an item within each profile" />
                 </Grid>
             </TabItem>
             <TabItem Header="Series" x:Name="seriesTab">
@@ -229,8 +233,8 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button Height="23" Margin="0,247,90,0" x:Name="btnCustomImageSet" VerticalAlignment="Top"  IsEnabled="True" Click="btnCustomImageSet_Click" HorizontalAlignment="Right" Width="184" Content="Custom Image Sets..."/>
-        <ListView Margin="20,304,23,62" x:Name="coversView" ItemsSource="{Binding}" Padding="5" BorderThickness="5" IsEnabled="True" IsTextSearchEnabled="False" Focusable="False" Foreground="#FFD8D5D5">
+        <Button Height="23" Margin="0,247,90,0" x:Name="btnCustomImageSet" VerticalAlignment="Top"  IsEnabled="True" Click="btnCustomImageSet_Click" HorizontalAlignment="Right" Width="184" Content="Custom Image Sets..." ToolTip="This will open a window that will allow you to point to a folder that contains a set of custom covers you would like to use.  You then will need to define the other parameters that apply to these covers." />
+        <ListView Margin="20,304,23,62" x:Name="coversView" ItemsSource="{Binding}" Padding="5" BorderThickness="5" IsEnabled="True" IsTextSearchEnabled="False" Focusable="False" Foreground="#FFD8D5D5" ToolTip="These are examples of what your covers should look like with the selected treatments.">
         	<ListView.BorderBrush>
         		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
         			<GradientStop Color="Black" Offset="0"/>
@@ -264,16 +268,16 @@
         	</ListView.Background>
         </ListView>
         <Image Height="101" HorizontalAlignment="Right" Margin="0,12,12,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="286" Source="images/coverartlogo.png" />
-        <ListBox Height="130" Margin="12,34,313,0" x:Name="lbxProfiles" VerticalAlignment="Top" ItemsSource="{Binding config.ProfileDefs}" SelectionChanged="lbxProfiles_SelectionChanged" Background="Transparent" BorderBrush="#FF4C4E51" />
+        <ListBox Height="130" Margin="12,34,313,0" x:Name="lbxProfiles" VerticalAlignment="Top" ItemsSource="{Binding config.ProfileDefs}" SelectionChanged="lbxProfiles_SelectionChanged" Background="Transparent" BorderBrush="#FF4C4E51" ToolTip="Profiles define a specific set of treatments for items in a specific folder (and all sub-folders)" />
         <TextBlock Height="21" HorizontalAlignment="Left" Margin="12,12,0,0" Text="Profiles" x:Name="textBlock1" VerticalAlignment="Top" Width="188" FontSize="14" />
-        <Button Height="30" HorizontalAlignment="Left" Margin="20,0,0,14" x:Name="btnNew" VerticalAlignment="Bottom" Width="106" FontSize="14" Click="btnNew_Click" Content="New Profile..."/>
-        <Button FontSize="14" Height="30" HorizontalAlignment="Left" Margin="132,0,0,14" x:Name="btnRemove" VerticalAlignment="Bottom" Width="106" Click="btnRemove_Click" Content="Remove"/>
-        <Button FontSize="14" Height="30" Margin="244,0,0,14" x:Name="btnIgnores" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="106" Click="btnIgnores_Click" Content="Ignores..."/>
-        <Button FontSize="14" Height="30" HorizontalAlignment="Right" Margin="0,0,23,14" x:Name="btnDone" VerticalAlignment="Bottom" Width="106" Click="btnDone_Click" Content="Done"/>
-        <Button Height="32" HorizontalAlignment="Right" Margin="0,0,154,12" x:Name="btnHelp" VerticalAlignment="Bottom" Width="75" FontSize="14" Click="btnHelp_Click" Content="Help..."/>
-        <Button Height="30" Margin="356,0,313,14" x:Name="btnClearCache" VerticalAlignment="Bottom" FontSize="14" Click="btnClearCache_Click" Content="Clear Image Cache"/>
+        <Button Height="30" HorizontalAlignment="Left" Margin="20,0,0,14" x:Name="btnNew" VerticalAlignment="Bottom" Width="106" FontSize="14" Click="btnNew_Click" Content="New Profile..." ToolTip="Create a new profile.  That is - define a folder that you want treated a certain way." />
+        <Button FontSize="14" Height="30" HorizontalAlignment="Left" Margin="132,0,0,14" x:Name="btnRemove" VerticalAlignment="Bottom" Width="106" Click="btnRemove_Click" Content="Remove" ToolTip="Remove the currently selected profile." />
+        <Button FontSize="14" Height="30" Margin="244,0,0,14" x:Name="btnIgnores" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="106" Click="btnIgnores_Click" Content="Ignores..." ToolTip="This will bring up a window that will allow you to define folders that should not be treated at all by CoverArt." />
+        <Button FontSize="14" Height="30" HorizontalAlignment="Right" Margin="0,0,23,14" x:Name="btnDone" VerticalAlignment="Bottom" Width="106" Click="btnDone_Click" Content="Done" ToolTip="Exit the configuration tool." />
+        <Button Height="32" HorizontalAlignment="Right" Margin="0,0,154,12" x:Name="btnHelp" VerticalAlignment="Bottom" Width="75" FontSize="14" Click="btnHelp_Click" Content="Help..." ToolTip="This will take you to the CoverArt setup page on the ebrSoft website." />
+        <Button Height="30" Margin="356,0,313,14" x:Name="btnClearCache" VerticalAlignment="Bottom" FontSize="14" Click="btnClearCache_Click" Content="Clear Image Cache" ToolTip="This will delete ALL the images in the MB image cache.  Use this when you want to change the treatments of your items after they have already been treated by CoverArt." />
         <Label Height="28" HorizontalAlignment="Right" Margin="0,119,40,0" x:Name="version" VerticalAlignment="Top" Width="258" HorizontalContentAlignment="Right" Content="Version 0.1.10.0"/>
-        <Button Height="23" HorizontalAlignment="Right" Margin="0,153,40,0" x:Name="btnRegister" VerticalAlignment="Top" Width="89" Click="btnRegister_Click" Content="Register..."/>
-        <CheckBox Height="20" Margin="20,177,0,0" x:Name="cbxByDef" VerticalAlignment="Top" FontSize="14" Unchecked="cbxByDef_Checked" Checked="cbxByDef_Checked" HorizontalAlignment="Left" Width="429" Content="Cover by Definition instead of type (applies only to Movie items)"/>
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,153,40,0" x:Name="btnRegister" VerticalAlignment="Top" Width="89" Click="btnRegister_Click" Content="Register..." ToolTip="Enter or edit a registration key" />
+        <CheckBox Height="20" Margin="20,177,0,0" x:Name="cbxByDef" VerticalAlignment="Top" FontSize="14" Unchecked="cbxByDef_Checked" Checked="cbxByDef_Checked" HorizontalAlignment="Left" Width="429" Content="Cover by Definition instead of type (applies only to Movie items)" ToolTip="Checking this will make movies get one of two treatments based on their resolution.  720p and up gets the HD treatment and everything else gets the default treatment" />
     </Grid>
 </Window>
