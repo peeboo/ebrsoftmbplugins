@@ -19,7 +19,7 @@ namespace CoverArt
         public string AlbumLocation = "CoverArtCD";
         public string FolderLocation = "Ignore";
         public bool CoverByDefinition = false;
-        public Dictionary<string, string> TypeMap = new Dictionary<string, string>(){{"MKV","BD"},{"AVI","default"}};
+        public Dictionary<string, string> TypeMap = new Dictionary<string, string>();
 
         public override string ToString()
         {
