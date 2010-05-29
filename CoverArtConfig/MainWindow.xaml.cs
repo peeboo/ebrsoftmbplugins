@@ -160,6 +160,14 @@ namespace CoverArtConfig
         {
             if (lbxProfiles != null && lbxProfiles.SelectedItem != null)
             {
+                ProfileDefinition lastProfile = e.RemovedItems[0] as ProfileDefinition;
+                ProfileDefinition thisProfile = e.AddedItems[0] as ProfileDefinition;
+                if (lastProfile.TypeMap.Count > 0 || thisProfile.TypeMap.Count > 0)
+                {
+                    //either the last selection or the new one has a type map so we can't re-use the previews
+                    PreviewItems.Clear();
+                }
+
                 loadProfile(lbxProfiles.SelectedItem as ProfileDefinition);
             }
         }
@@ -485,6 +493,27 @@ namespace CoverArtConfig
             config.Save();
             setCurrentImageSet();
             loadPreviews();
+        }
+
+        private void btnTypeMap_Click(object sender, RoutedEventArgs e)
+        {
+            //save the current type map in case we cancel changes
+            Dictionary<string, string> sav = new Dictionary<string, string>(currentProfileDef.TypeMap);
+            TypeMapWindow dlg = new TypeMapWindow(currentProfileDef);
+            dlg.Left = this.Left + 40;
+            dlg.Top = this.Top + 40;
+            if (dlg.ShowDialog() == true)
+            {
+                config.Save(); //save changes
+                //and we need to re-create all our previews because the covers changed
+                PreviewItems.Clear();
+                loadPreviews();
+            }
+            else
+            {
+                //user canceled changes
+                currentProfileDef.TypeMap = sav; //replace with the old one because we could have modified it
+            }
         }
 
     }
