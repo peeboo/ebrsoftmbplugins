@@ -567,22 +567,22 @@ namespace CoverArt
             if (video != null)
             {
                 MediaType mediaType = video.MediaType;
-                //*********Uncomment after CRONOS
-                //if (video.DisplayMediaType != null)
-                //{
-                //    switch (video.DisplayMediaType.ToLower())
-                //    {
-                //        case "blu-ray":
-                //            mediaType = MediaType.BluRay;
-                //            break;
-                //        case "dvd":
-                //            mediaType = MediaType.DVD;
-                //            break;
-                //        case "hd dvd":
-                //            mediaType = MediaType.HDDVD;
-                //            break;
-                //    }
-                //}
+                //Override type if indicated
+                if (video.DisplayMediaType != null)
+                {
+                    switch (video.DisplayMediaType.ToLower())
+                    {
+                        case "bluray":
+                            mediaType = MediaType.BluRay;
+                            break;
+                        case "dvd":
+                            mediaType = MediaType.DVD;
+                            break;
+                        case "hddvd":
+                            mediaType = MediaType.HDDVD;
+                            break;
+                    }
+                }
                 switch (mediaType)
                 {
                     case MediaType.BluRay:
@@ -631,6 +631,10 @@ namespace CoverArt
                         return profile.MovieFrame("DVRMS");
                     case MediaType.Mpg:
                         return profile.MovieFrame("MPEG");
+                    case MediaType.DVD:
+                        return profile.MovieFrame("DVD");
+                    case MediaType.HDDVD:
+                        return profile.MovieFrame("HDDVD");
                     default:
                         //couldn't find type - try extension
                         //Logger.ReportInfo("Could not determine file type of " + Path.GetExtension(video.VideoFiles.First()).ToUpper());
