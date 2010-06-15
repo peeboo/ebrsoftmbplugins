@@ -183,11 +183,12 @@
             <TabItem Header="Movie" x:Name="movieTab" >
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="414*" />
-                        <ColumnDefinition Width="357*" />
+                        <ColumnDefinition Width="748*" />
+                        <ColumnDefinition Width="23*" />
                     </Grid.ColumnDefinitions>
                     <Label Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" x:Name="label1" VerticalAlignment="Top" Width="88" Content="Image Set"/>
-                    <ComboBox Height="23" Margin="104,15,296,0"  SelectionChanged="ddlImageSet_SelectionChanged" x:Name="ddlMovieLocation" VerticalAlignment="Top" Grid.ColumnSpan="2" ToolTip="Image Sets are the groups of treatments available.  You assign an image set to an item within each profile" />
+                    <ComboBox Height="23" Margin="104,15,273,0"  SelectionChanged="ddlImageSet_SelectionChanged" x:Name="ddlMovieLocation" VerticalAlignment="Top" ToolTip="Image Sets are the groups of treatments available.  You assign an image set to an item within each profile" />
+                    <Label Height="28" Margin="187,44,175,0" Name="lblHasTypeMap" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontWeight="Bold" ToolTip="Specific covers are selected for some types so they may not appear as you expect">Type Mappings in use 'Select Specific Covers' to modify</Label>
                 </Grid>
             </TabItem>
             <TabItem Header="Series" x:Name="seriesTab">
@@ -234,7 +235,7 @@
             </TabItem>
         </TabControl>
         <Button Height="23" Margin="0,292,90,0" x:Name="btnCustomImageSet" VerticalAlignment="Top"  IsEnabled="True" Click="btnCustomImageSet_Click" HorizontalAlignment="Right" Width="184" Content="Custom Image Sets..." ToolTip="This will open a window that will allow you to point to a folder that contains a set of custom covers you would like to use.  You then will need to define the other parameters that apply to these covers." />
-        <ListView Margin="20,343,23,62" x:Name="coversView" ItemsSource="{Binding}" Padding="5" BorderThickness="5" IsEnabled="True" IsTextSearchEnabled="False" Focusable="False" Foreground="#FFD8D5D5" ToolTip="These are examples of what your covers should look like with the selected treatments.">
+        <ListView Margin="20,346,23,62" x:Name="coversView" ItemsSource="{Binding}" Padding="5" BorderThickness="5" IsEnabled="True" IsTextSearchEnabled="False" Focusable="False" Foreground="#FFD8D5D5" ToolTip="These are examples of what your covers should look like with the selected treatments.">
         	<ListView.BorderBrush>
         		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
         			<GradientStop Color="Black" Offset="0"/>
@@ -285,7 +286,7 @@
                     <ColumnDefinition Width="26*" />
                     <ColumnDefinition Width="442*" />
                 </Grid.ColumnDefinitions>
-                <Button Margin="0,6,24,6" Name="btnTypeMap" FontSize="12" HorizontalAlignment="Right" Width="142" Grid.Column="2" Click="btnTypeMap_Click">Select Specific Covers...</Button>
+                <Button Margin="0,6,24,6" Name="btnTypeMap" FontSize="12" HorizontalAlignment="Right" Width="142" Grid.Column="2" Click="btnTypeMap_Click" ToolTip="Change the types of covers used for specific media formats">Select Specific Covers...</Button>
                 <CheckBox Margin="0,9,203,9.04" x:Name="cbxByDef" FontSize="14" Unchecked="cbxByDef_Checked" Checked="cbxByDef_Checked" Content="Cover by Definition Instead of Type" ToolTip="Checking this will make movies get one of two treatments based on their resolution.  720p and up gets the HD treatment and everything else gets the default treatment" Grid.Column="2" />
             </Grid>
         </GroupBox>

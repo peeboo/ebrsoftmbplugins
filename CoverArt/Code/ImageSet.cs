@@ -60,8 +60,8 @@ namespace CoverArt
             "H264",
             "XVID",
             "DVRMS",
-            "HD",
-            "SD"
+            "WTV",
+            "HD"            
             
         };
 
@@ -513,7 +513,8 @@ namespace CoverArt
                         {"MP4",Resources.cc_mpeg},
                         {"DIVX",Resources.cc_divx},
                         {"MOV",Resources.cc_mov},
-                        {"XVID",Resources.cc_xvid}
+                        {"XVID",Resources.cc_xvid},
+                        {"HD",ClearCaseBD}
         };
                 }
                 return _InternalClearCase;
@@ -587,41 +588,41 @@ namespace CoverArt
                     RoundCorners = true;
                     Frames = InternalOpenCase;
                     break;
-                case "CoverArtCaseBD":
-                    //Internal Case
-                    Is3D = false;
-                    FrameOnTop = false;
-                    RootPosition = caseRectangle;
-                    Overlay = StdOverlay;
-                    Frames = new Dictionary<string, Image>() {
-                        {"default", BDCase},
-                    };
-                    break;
-                case "CoverArtCaseDVD":
-                    //Internal Case
-                    Is3D = false;
-                    FrameOnTop = false;
-                    RootPosition = caseRectangle;
-                    Overlay = StdOverlay;
-                    Frames = new Dictionary<string, Image>() {
-                        {"default", DVDCase},
-                    };
-                    break;
-                case "CoverArtCaseMinimal":
-                    //Just the big 3
-                    Is3D = false;
-                    FrameOnTop = false;
-                    RootPosition = caseRectangle;
-                    Overlay = StdOverlay;
-                    Frames = new Dictionary<string, Image>() {
-                        {"default", StdCase},
-                        {"DVD",DVDCase},
-                        {"BD",BDCase},
-                        {"HDDVD",HDDVDCase},
-                        {"SD",DVDCase},
-                        {"HD",BDCase}
-                    };
-                    break;
+                //case "CoverArtCaseBD":
+                //    //Internal Case
+                //    Is3D = false;
+                //    FrameOnTop = false;
+                //    RootPosition = caseRectangle;
+                //    Overlay = StdOverlay;
+                //    Frames = new Dictionary<string, Image>() {
+                //        {"default", BDCase},
+                //    };
+                //    break;
+                //case "CoverArtCaseDVD":
+                //    //Internal Case
+                //    Is3D = false;
+                //    FrameOnTop = false;
+                //    RootPosition = caseRectangle;
+                //    Overlay = StdOverlay;
+                //    Frames = new Dictionary<string, Image>() {
+                //        {"default", DVDCase},
+                //    };
+                //    break;
+                //case "CoverArtCaseMinimal":
+                //    //Just the big 3
+                //    Is3D = false;
+                //    FrameOnTop = false;
+                //    RootPosition = caseRectangle;
+                //    Overlay = StdOverlay;
+                //    Frames = new Dictionary<string, Image>() {
+                //        {"default", StdCase},
+                //        {"DVD",DVDCase},
+                //        {"BD",BDCase},
+                //        {"HDDVD",HDDVDCase},
+                //        {"SD",DVDCase},
+                //        {"HD",BDCase}
+                //    };
+                //    break;
                 case "CoverArtCase3D":
                     //Internal 3D Case
                     Is3D = true;
@@ -702,55 +703,55 @@ namespace CoverArt
                     Overlay = BlankOverlay;
                     Frames = InternalClearCase3D;
                     break;
-                case "CoverArtClearCaseMinimal":
-                    //Internal ClearCase
-                    Is3D = false;
-                    FrameOnTop = true;
-                    RoundCorners = true;
-                    RootPosition = new Rectangle(75, 25, 470, 668);
-                    Overlay = BlankOverlay;
-                    Frames = new Dictionary<string, Image>() {
-                        {"default",ClearCase},
-                        {"DVD",ClearCaseDVD},
-                        {"BD",ClearCaseBD},
-                        {"HDDVD",ClearCaseHDDVD},
-                        {"HD",ClearCaseBD},
-                        {"SD",ClearCaseDVD}
-                    };
-                    break;
-                case "CoverArtClearCasePlain":
-                    //Internal ClearCase with just the plain one
-                    Is3D = false;
-                    FrameOnTop = true;
-                    RoundCorners = true;
-                    RootPosition = new Rectangle(75, 25, 470, 668);
-                    Overlay = BlankOverlay;
-                    Frames = new Dictionary<string, Image>() {
-                        {"default",ClearCase}
-                    };
-                    break;
-                case "CoverArtClearCaseBD":
-                    //Internal ClearCase with just the plain one
-                    Is3D = false;
-                    FrameOnTop = true;
-                    RoundCorners = true;
-                    RootPosition = new Rectangle(75, 25, 470, 668);
-                    Overlay = BlankOverlay;
-                    Frames = new Dictionary<string, Image>() {
-                        {"default",ClearCaseBD}
-                    };
-                    break;
-                case "CoverArtClearCaseDVD":
-                    //Internal ClearCase just DVD cover
-                    Is3D = false;
-                    FrameOnTop = true;
-                    RoundCorners = true;
-                    RootPosition = new Rectangle(75, 25, 470, 668);
-                    Overlay = BlankOverlay;
-                    Frames = new Dictionary<string, Image>() {
-                        {"default", ClearCaseDVD}
-                    };
-                    break;
+                //case "CoverArtClearCaseMinimal":
+                //    //Internal ClearCase
+                //    Is3D = false;
+                //    FrameOnTop = true;
+                //    RoundCorners = true;
+                //    RootPosition = new Rectangle(75, 25, 470, 668);
+                //    Overlay = BlankOverlay;
+                //    Frames = new Dictionary<string, Image>() {
+                //        {"default",ClearCase},
+                //        {"DVD",ClearCaseDVD},
+                //        {"BD",ClearCaseBD},
+                //        {"HDDVD",ClearCaseHDDVD},
+                //        {"HD",ClearCaseBD},
+                //        {"SD",ClearCaseDVD}
+                //    };
+                //    break;
+                //case "CoverArtClearCasePlain":
+                //    //Internal ClearCase with just the plain one
+                //    Is3D = false;
+                //    FrameOnTop = true;
+                //    RoundCorners = true;
+                //    RootPosition = new Rectangle(75, 25, 470, 668);
+                //    Overlay = BlankOverlay;
+                //    Frames = new Dictionary<string, Image>() {
+                //        {"default",ClearCase}
+                //    };
+                //    break;
+                //case "CoverArtClearCaseBD":
+                //    //Internal ClearCase with just the plain one
+                //    Is3D = false;
+                //    FrameOnTop = true;
+                //    RoundCorners = true;
+                //    RootPosition = new Rectangle(75, 25, 470, 668);
+                //    Overlay = BlankOverlay;
+                //    Frames = new Dictionary<string, Image>() {
+                //        {"default",ClearCaseBD}
+                //    };
+                //    break;
+                //case "CoverArtClearCaseDVD":
+                //    //Internal ClearCase just DVD cover
+                //    Is3D = false;
+                //    FrameOnTop = true;
+                //    RoundCorners = true;
+                //    RootPosition = new Rectangle(75, 25, 470, 668);
+                //    Overlay = BlankOverlay;
+                //    Frames = new Dictionary<string, Image>() {
+                //        {"default", ClearCaseDVD}
+                //    };
+                //    break;
                 case "CoverArtRounded":
                     //Internal Rounded Corners - only the overlay will be used
                     JustRoundCorners = true;
@@ -831,7 +832,17 @@ namespace CoverArt
                         }
                         else Overlay = BlankOverlay;
                     }
-                    else Logger.ReportError("CoverArt ImageSet does not exist: " + directory);
+                    else
+                    {
+                        Logger.ReportError("CoverArt ImageSet does not exist: " + directory);
+                        //Ignore 
+                        RootPosition = new Rectangle(0, 0, 0, 0);
+                        Overlay = BlankOverlay;
+                        Frames = new Dictionary<string, Image>() {
+                            {"default", BlankImage}
+                        };
+                    }
+
                     break;
             }
         }
