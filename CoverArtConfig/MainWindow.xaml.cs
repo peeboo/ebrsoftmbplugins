@@ -33,15 +33,15 @@ namespace CoverArtConfig
         private List<string> imageSetOptions = new List<string>();
         private List<string> builtinImageSets = new List<string>() {
             "CoverArtCase",
-            "CoverArtCaseMinimal",
-            "CoverArtCaseBD",
-            "CoverArtCaseDVD",
+            //"CoverArtCaseMinimal",
+            //"CoverArtCaseBD",
+            //"CoverArtCaseDVD",
             "CoverArtCase3D",
             "CoverArtClearCase",
-            "CoverArtClearCasePlain",
-            "CoverArtClearCaseMinimal",
-            "CoverArtClearCaseDVD",
-            "CoverArtClearCaseBD",
+            //"CoverArtClearCasePlain",
+            //"CoverArtClearCaseMinimal",
+            //"CoverArtClearCaseDVD",
+            //"CoverArtClearCaseBD",
             "CoverArtClearCase3D",
             "CoverArtOpenCase",
             "CoverArtCD",
@@ -93,7 +93,7 @@ namespace CoverArtConfig
         {
             config = MyConfigData.FromFile(System.IO.Path.Combine(MediaBrowser.Library.Configuration.ApplicationPaths.AppPluginPath, "Configurations\\Coverart.xml"));
             isReg = CoverArt.Plugin.Validate(config.RegKey);
-            expDate = CoverArt.Plugin.Ping("http://www.ebrsoft.com/software/mb/plugins/caexpdate.php");
+            expDate = CoverArt.Plugin.Ping("http://www.ebrsoft.com/software/mb/plugins/expdate.php?product=CoverArt2&mac="+CAHelper.GetMACAddress());
 
             InitializeComponent();
             refreshImageSetOptions();
@@ -160,7 +160,12 @@ namespace CoverArtConfig
         {
             if (lbxProfiles != null && lbxProfiles.SelectedItem != null)
             {
-                ProfileDefinition lastProfile = e.RemovedItems[0] as ProfileDefinition;
+                ProfileDefinition lastProfile;
+                if (e.RemovedItems.Count > 0)
+                    lastProfile = e.RemovedItems[0] as ProfileDefinition;
+                else
+                    lastProfile = new ProfileDefinition();
+
                 ProfileDefinition thisProfile = e.AddedItems[0] as ProfileDefinition;
                 if (lastProfile.TypeMap.Count > 0 || thisProfile.TypeMap.Count > 0)
                 {
@@ -232,6 +237,7 @@ namespace CoverArtConfig
                 PreviewItems.Add(imageSetName, CreatePreviews(currentProfileDef, currentImageSet, imageSetName, imageSetType,exampleCover));
                 this.Cursor = Cursors.Arrow;
             }
+            lblHasTypeMap.Visibility = (currentProfileDef.TypeMap.Count > 0) ? Visibility.Visible : Visibility.Hidden;
             coversView.ItemsSource = PreviewItems[imageSetName];
         }
 
@@ -256,6 +262,7 @@ namespace CoverArtConfig
             List<PreviewItem> previews = new List<PreviewItem>();
             string filename;
             List<string> keys;
+            Dictionary<string, System.Drawing.Image> frames = new Dictionary<string, System.Drawing.Image>(imageSet.Frames);
 
             switch (previewType)
             {
@@ -266,7 +273,7 @@ namespace CoverArtConfig
                     keys = new List<string>() { "default" };
                     break;
                 case "std":
-                    keys = ImageSet.FrameTypes;
+                    keys = new List<string>(ImageSet.FrameTypes);
                     keys.Remove("HD");
                     keys.Remove("SD");
                     break;
@@ -275,12 +282,23 @@ namespace CoverArtConfig
                     break;
             }
 
-            foreach (KeyValuePair<string, System.Drawing.Image> entry in imageSet.Frames)
+            //even if this imageset doesn't contain a specific frame for a certain type, we may have it mapped to one it does
+            foreach (KeyValuePair<string, string> entry in profile.TypeMap)
+            {
+                if (imageSet.Frames.ContainsKey(entry.Value) && !frames.ContainsKey(entry.Key))
+                {
+                    frames.Add(entry.Key, imageSet.Frames[entry.Value]);
+                }
+            }
+
+            foreach (KeyValuePair<string, System.Drawing.Image> entry in frames)
             {
                 if (keys.Contains(entry.Key)) //just create the ones we want
                 {
                     //translate if need be
-                    System.Drawing.Image frame = (System.Drawing.Image)imageSet.Frames[Translate(profile, entry.Key)].Clone();
+                    string effType = Translate(profile, entry.Key);
+                    if (!imageSet.Frames.ContainsKey(effType)) effType = "default"; //its possible we translate to a type that doesn't exist in this image set
+                    System.Drawing.Image frame = (System.Drawing.Image)imageSet.Frames[effType].Clone();
                     System.Drawing.Image img = CoverArt.Plugin.CreateImage(frame, art, imageSet.Overlay, imageSet.RootPosition, imageSet.FrameOnTop, imageSet.RoundCorners, imageSet.JustRoundCorners, imageSet.Is3D, imageSet.Skew);
                     filename = System.IO.Path.Combine(TempLocation, imageSetName.GetMD5() + System.DateTime.Now.Millisecond.ToString() + entry.Key + ".png");
                     img.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
@@ -490,6 +508,7 @@ namespace CoverArtConfig
         private void cbxByDef_Checked(object sender, RoutedEventArgs e)
         {
             currentProfileDef.CoverByDefinition = cbxByDef.IsChecked.Value;
+            //btnTypeMap.IsEnabled = !cbxByDef.IsChecked.Value;
             config.Save();
             setCurrentImageSet();
             loadPreviews();

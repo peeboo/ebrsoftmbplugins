@@ -128,7 +128,7 @@ namespace CoverArt
 
                 Async.Queue("CAPing", () =>
                 {
-                    expirationDate = Ping("http://www.ebrsoft.com/software/mb/plugins/cahits_db.php?ver=" + Version.ToString()+"&mac="+CAHelper.GetMACAddress()+"&key="+configData.RegKey);
+                    expirationDate = Ping("http://www.ebrsoft.com/software/mb/plugins/ping.php?product=CoverArt2&ver=" + Version.ToString()+"&mac="+CAHelper.GetMACAddress()+"&key="+configData.RegKey);
                     isReg = Validate(configData.RegKey);
                     //Logger.ReportInfo("CoverArt registration status: " + isReg+ ". Expiration date: "+expirationDate);
                 });
@@ -176,7 +176,7 @@ namespace CoverArt
 
         public static bool Validate(string key)
         {
-            string path = "http://www.ebrsoft.com/software/mb/plugins/caregcheck.php?key=" + key;
+            string path = "http://www.ebrsoft.com/software/mb/plugins/regcheck.php?product=CoverArt2&key=" + key;
             try
             {
                 WebRequest request = WebRequest.Create(path);
@@ -757,7 +757,7 @@ namespace CoverArt
                 //    {
                 //        regStr = "\n\nTRIAL EXPIRED.  Please donate at www.ebrsoft.com/Registration";
                 //    }
-                return "Built-in CoverArt for MediaBrowser. (REQUIRES Pegasus). Version 1.2 adds new covers and image sets.  \n\nBrought to you by ebrSoft (www.ebrsoft.com)" + regStr;
+                return "Built-in CoverArt for MediaBrowser. (REQUIRES Cronos). Version 2.0 adds 3D!.  \n\nBrought to you by ebrSoft (www.ebrsoft.com)" + regStr;
             }
         }
 
@@ -777,7 +777,7 @@ namespace CoverArt
         {
             get
             {
-                return new System.Version(2,2,4,0);
+                return new System.Version(2,2,5,0);
             }
         }
 
@@ -785,7 +785,7 @@ namespace CoverArt
         {
             get
             {
-                return new System.Version(2, 2, 4, 0);
+                return new System.Version(2, 2, 5, 0);
             }
         }
 
@@ -804,7 +804,7 @@ namespace CoverArt
         {
             get
             {
-                return "http://www.ebrsoft.com/software/mb/plugins/CoverArtdesc.htm";
+                return "http://www.ebrsoft.com/software/mb/plugins/CoverArt2desc.htm";
             }
         }
 
