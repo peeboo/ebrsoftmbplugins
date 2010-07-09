@@ -213,7 +213,9 @@ namespace CoverArt
                     nagged++;
                 }
 
-            Logger.ReportInfo("Image for " + item.Name + " being processed by CoverArt. Path is: "+item.Path);
+            string directory = item.Path ?? "";
+
+            Logger.ReportInfo("Image for " + item.Name + " being processed by CoverArt. Path is: "+directory);
             Image newImage = rootImage;
 
             bool frameOnTop = false;
@@ -222,10 +224,10 @@ namespace CoverArt
             bool process = false;
 
             //be sure path is valid
-            if (item.Path == null || item.Path == "") {
-                Logger.ReportInfo("Not processing Item " + item.Name +" (null path)");
-                return rootImage;
-            }
+            //if (item.Path == null || item.Path == "") {
+            //    Logger.ReportInfo("Not processing Item " + item.Name +" (null path)");
+            //    return rootImage;
+            //}
 
             //check top-level
             if (configData.IgnoreTopFolders && item.Parent == Application.CurrentInstance.RootFolder)
@@ -235,13 +237,13 @@ namespace CoverArt
             }
 
             //check for ignore
-            if (Ignore(item.Path))
+            if (Ignore(directory))
             {
-                Logger.ReportInfo("Ignoring Item in " + item.Path);
+                Logger.ReportInfo("Ignoring Item in " + directory);
                 return rootImage;
             }
 
-            Profile profile = getProfile(item.Path);
+            Profile profile = getProfile(directory);
             Rectangle position = new Rectangle(0,0,0,0);
             Image overlay = new Bitmap(Resources.Overlay);
             bool is3D = false;
@@ -253,7 +255,7 @@ namespace CoverArt
                 overlay = profile.MovieOverlay();
                 position = profile.RootPosition("movie");
 
-                if (item.Path.StartsWith("http://"))
+                if (directory.StartsWith("http://"))
                 {
                     //remote file - use remote case
                     Logger.ReportInfo("Using remote case art for " + item.Name);
@@ -288,12 +290,12 @@ namespace CoverArt
                         roundCorners = profile.RoundCorners("movie");
                         is3D = profile.Is3D("movie");
                         skew = profile.Skew("movie");
-                        //Logger.ReportInfo("Process file " + item.Path);
+                        //Logger.ReportInfo("Process file " + directory);
 
-                        if (Directory.Exists(item.Path))
+                        if (Directory.Exists(directory))
                         {
                             //we are a directory - probably a file rip of dvd, bd, etc.
-                            if (Helper.IsBluRayFolder(item.Path, null))
+                            if (Helper.IsBluRayFolder(directory, null))
                             {
                                 //blu-ray start with frame as background
                                 if (profile.CoverByDefinition)
@@ -310,7 +312,7 @@ namespace CoverArt
                             }
                             else
                             {
-                                if (Helper.IsDvDFolder(item.Path, null, null))
+                                if (Helper.IsDvDFolder(directory, null, null))
                                 {
                                     //dvd
                                     if (profile.CoverByDefinition)
@@ -326,7 +328,7 @@ namespace CoverArt
                                     }
                                 }
                                 else
-                                    if (Helper.IsHDDVDFolder(item.Path, null))
+                                    if (Helper.IsHDDVDFolder(directory, null))
                                     {
                                         //hd-dvd
                                         if (profile.CoverByDefinition)
@@ -373,7 +375,7 @@ namespace CoverArt
                         else
                         {
                             //not a directory - maybe a file...?
-                            if (File.Exists(item.Path))
+                            if (File.Exists(directory))
                             {
                                 if (profile.CoverByDefinition)
                                 {
@@ -455,7 +457,7 @@ namespace CoverArt
                         if (item is Folder && rootImage != null)
                         {
                             //see if we are a music folder of some sort
-                            if (CAHelper.IsAlbumFolder(item.Path))
+                            if (CAHelper.IsAlbumFolder(directory))
                             {
                                 //apply album processing
                                 process = true;

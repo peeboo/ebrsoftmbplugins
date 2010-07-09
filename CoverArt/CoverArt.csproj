@@ -147,6 +147,7 @@
     <Content Include="Images\ClearCase\CC_DVD.png" />
     <Content Include="Images\Blank.png" />
     <Content Include="Images\Diamond\Diamond.png" />
+    <Content Include="Images\Diamond\DiamondGloss.png" />
     <Content Include="Images\Film\Film.png" />
     <Content Include="Images\Film\FilmOverlay.png" />
     <Content Include="Images\Film\SimpleBorder.png" />

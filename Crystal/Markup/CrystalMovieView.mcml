@@ -427,6 +427,7 @@
       <Command Name="RefreshMovieCommand" />
       <Command Name="DeleteMovieCommand" />
       <Command Name="LocalTrailerCommand" />
+      <Command Name="NextItemCommand" />
       <Command Name="NullCommand" />
     </Locals>
 
@@ -466,6 +467,14 @@
       <Changed Source="[RefreshMovieCommand.Invoked]">
         <Actions>
           <Invoke Target="[Item.RefreshMetadata]"/>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[NextItemCommand.Invoked]">
+        <Actions>
+          <Invoke Target="[Application.Back]" />
+          <Invoke Target="[Application.Navigate]" item="[Item.PhysicalParent.NextChild]"/>
+          <!--<Set Target="[Item]" Value="[Item.PhysicalParent.NextChild]" />-->
         </Actions>
       </Changed>
 
@@ -519,6 +528,7 @@
                   <ctb:CrystalImageButton Name="TrailerButton" Text="TRAILER" Command="[LocalTrailerCommand]" Icon="resx://MediaBrowser/MediaBrowser.Resources/IconTrailer" Size="[Size]" Font="font://f:MM_ButtonFont" Visible="false" />
                   <ctb:CrystalImageButton Name="ToggleViewButton" Text="DISPLAY" Command="[ToggleViewCommand]" Icon="resx://MediaBrowser/MediaBrowser.Resources/IconFloral" Size="[Size]" Font="font://f:MM_ButtonFont" />
                   <ctb:CrystalImageButton Name="RefreshMovieButton" Text="REFRESH" Command="[RefreshMovieCommand]" Icon="resx://MediaBrowser/MediaBrowser.Resources/IconRefresh" Size="[Size]" Font="font://f:MM_ButtonFont" />
+                  <ctb:CrystalImageButton Name="NextMovieButton" Text="NEXT" Command="[NextItemCommand]" Icon="resx://MediaBrowser/MediaBrowser.Resources/IconPlay" Size="[Size]" Font="font://f:MM_ButtonFont" />
                   <ctb:CrystalImageButton Name="CacheMovieButton" Text="CACHE 2 XML" Command="[NullCommand]" Icon="resx://MediaBrowser/MediaBrowser.Resources/Lines" Size="[Size]" Font="font://f:MM_ButtonFont" Visible="false" />
                   <ctb:CrystalImageButton Name="DeleteMovieButton" Text="DELETE" Command="[DeleteMovieCommand]" Icon="resx://MediaBrowser/MediaBrowser.Resources/IconDelete" Size="[Size]" Font="font://f:MM_ButtonFont" Visible="false" />
                 </Children>

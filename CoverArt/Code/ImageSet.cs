@@ -333,7 +333,7 @@ namespace CoverArt
         {
             get
             {
-                if (_Diamond == null) _Diamond = Resources.Diamond;
+                if (_Diamond == null) _Diamond = Resources.DiamondGloss;
                 return _Diamond;
             }
         }
