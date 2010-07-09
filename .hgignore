@@ -17,3 +17,5 @@ glob:*.suo
 glob:CoverArtConfig/obj/
 glob:CoverArtConfig/bin
 glob:TestClearCase
+glob:CoverArt/Images/OpenCase/OpenCase.zip
+glob:CoverArtConfig/CoverArtConfig.csproj.user
