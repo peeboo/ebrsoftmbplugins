@@ -263,6 +263,13 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap DiamondGloss {
+            get {
+                object obj = ResourceManager.GetObject("DiamondGloss", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap DivX {
             get {
                 object obj = ResourceManager.GetObject("DivX", resourceCulture);
