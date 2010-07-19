@@ -88,6 +88,13 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap boxset {
+            get {
+                object obj = ResourceManager.GetObject("boxset", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap c3d_bd {
             get {
                 object obj = ResourceManager.GetObject("c3d_bd", resourceCulture);
@@ -133,6 +140,13 @@ namespace CoverArt {
         internal static System.Drawing.Bitmap cc_bd {
             get {
                 object obj = ResourceManager.GetObject("cc_bd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_boxset {
+            get {
+                object obj = ResourceManager.GetObject("cc_boxset", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -189,6 +203,13 @@ namespace CoverArt {
         internal static System.Drawing.Bitmap cc_mpeg {
             get {
                 object obj = ResourceManager.GetObject("cc_mpeg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_trailer {
+            get {
+                object obj = ResourceManager.GetObject("cc_trailer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -298,6 +319,13 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap Film3D {
+            get {
+                object obj = ResourceManager.GetObject("Film3D", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap FilmOverlay {
             get {
                 object obj = ResourceManager.GetObject("FilmOverlay", resourceCulture);
@@ -396,6 +424,20 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap Season {
+            get {
+                object obj = ResourceManager.GetObject("Season", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Series {
+            get {
+                object obj = ResourceManager.GetObject("Series", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap SimpleBorder {
             get {
                 object obj = ResourceManager.GetObject("SimpleBorder", resourceCulture);
@@ -403,9 +445,9 @@ namespace CoverArt {
             }
         }
         
-        internal static System.Drawing.Bitmap TV {
+        internal static System.Drawing.Bitmap trailer {
             get {
-                object obj = ResourceManager.GetObject("TV", resourceCulture);
+                object obj = ResourceManager.GetObject("trailer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -417,9 +459,9 @@ namespace CoverArt {
             }
         }
         
-        internal static System.Drawing.Bitmap TVOverlay {
+        internal static System.Drawing.Bitmap TVMB3D {
             get {
-                object obj = ResourceManager.GetObject("TVOverlay", resourceCulture);
+                object obj = ResourceManager.GetObject("TVMB3D", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

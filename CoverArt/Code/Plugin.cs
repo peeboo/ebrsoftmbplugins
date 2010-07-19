@@ -128,7 +128,7 @@ namespace CoverArt
 
                 Async.Queue("CAPing", () =>
                 {
-                    expirationDate = Ping("http://www.ebrsoft.com/software/mb/plugins/ping.php?product=CoverArt2&ver=" + Version.ToString()+"&mac="+CAHelper.GetMACAddress()+"&key="+configData.RegKey);
+                    expirationDate = Ping("http://www.ebrsoft.com/software/mb/plugins/ping.php?product=CoverArt&ver=" + Version.ToString()+"&mac="+CAHelper.GetMACAddress()+"&key="+configData.RegKey);
                     isReg = Validate(configData.RegKey);
                     //Logger.ReportInfo("CoverArt registration status: " + isReg+ ". Expiration date: "+expirationDate);
                 });
@@ -176,7 +176,7 @@ namespace CoverArt
 
         public static bool Validate(string key)
         {
-            string path = "http://www.ebrsoft.com/software/mb/plugins/regcheck.php?product=CoverArt2&key=" + key;
+            string path = "http://www.ebrsoft.com/software/mb/plugins/regcheck.php?product=CoverArt&key=" + key;
             try
             {
                 WebRequest request = WebRequest.Create(path);
@@ -471,11 +471,20 @@ namespace CoverArt
                                 skew = profile.Skew("album");
 
                             }
+                            else 
+                                if (item is Index) {
+                                    Logger.ReportInfo(item.Name + " is index.");
+                                    Logger.ReportInfo("Image Path: "+item.PrimaryImagePath);
+                                    if (item.PrimaryImagePath.ToLower().StartsWith(Path.Combine(Config.Instance.ImageByNameLocation.ToLower(), "people")))
+                                    {
+                                        Logger.ReportInfo(item.Name + " is a Person");
+                                    }
+                                }
                             else
                             {
                                 //just a plain old folder
                                 process = true;
-                                newImage = profile.FolderFrame("default");
+                                newImage = profile.FolderFrame("FOLDER");
                                 overlay = profile.FolderOverlay();
                                 frameOnTop = profile.FrameOnTop("folder");
                                 justRoundCorners = profile.JustRoundCorners("folder");

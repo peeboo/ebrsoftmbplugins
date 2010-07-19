@@ -279,7 +279,7 @@
         <Button Height="30" Margin="356,0,313,14" x:Name="btnClearCache" VerticalAlignment="Bottom" FontSize="14" Click="btnClearCache_Click" Content="Clear Image Cache" ToolTip="This will delete ALL the images in the MB image cache.  Use this when you want to change the treatments of your items after they have already been treated by CoverArt." />
         <Label Height="28" HorizontalAlignment="Right" Margin="0,119,40,0" x:Name="version" VerticalAlignment="Top" Width="258" HorizontalContentAlignment="Right" Content="Version 0.1.10.0"/>
         <Button Height="23" HorizontalAlignment="Right" Margin="0,153,40,0" x:Name="btnRegister" VerticalAlignment="Top" Width="89" Click="btnRegister_Click" Content="Register..." ToolTip="Enter or edit a registration key" />
-        <GroupBox Header="Special Movie Options" Height="61" Margin="12,170,313,0" Name="groupBox1" VerticalAlignment="Top" FontSize="14" BorderBrush="#FF4C4E51">
+        <GroupBox Header="Profile Options" Height="61" Margin="12,170,313,0" Name="groupBox1" VerticalAlignment="Top" FontSize="14" BorderBrush="#FF4C4E51">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0*" />

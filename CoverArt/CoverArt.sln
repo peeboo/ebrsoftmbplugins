@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoverArt", "CoverArt.csproj", "{18EE1044-0D0A-444A-BCAB-58C9EB9D5004}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoverArtConfig", "..\CoverArtConfig\CoverArtConfig.csproj", "{A80C9DEA-8E72-4AD5-845C-83BD6C563ACE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{18EE1044-0D0A-444A-BCAB-58C9EB9D5004}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18EE1044-0D0A-444A-BCAB-58C9EB9D5004}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18EE1044-0D0A-444A-BCAB-58C9EB9D5004}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A80C9DEA-8E72-4AD5-845C-83BD6C563ACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A80C9DEA-8E72-4AD5-845C-83BD6C563ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A80C9DEA-8E72-4AD5-845C-83BD6C563ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A80C9DEA-8E72-4AD5-845C-83BD6C563ACE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -49,6 +49,7 @@
       <Color Name="ValueColor" Color="White" />
       <FormLayoutInput Name="FullBG" Left="Parent,0" Right="Parent,1" Top="Parent,0.66,-15" Bottom="Parent,1"/>
       <FormLayoutInput Name="SmallBG" Left="Parent,0" Right="Parent,0,250" Top="Parent,0.66,-15" Bottom="Parent,1"/>
+      <Command Name="NextItem"/>
 
       <Timer Name="NavTimer" AutoRepeat="false" Enabled="true" Interval="500"  />
     </Locals>
@@ -91,9 +92,16 @@
       <Condition Source="[Item.Directors.Count]" ConditionOp="GreaterThan" SourceValue="0" Target="[DirectedByPanel.Visible]" Value="true"  />
       <Binding Source="[Item.Genres]" Target="[GenreRepeater.Source]" />
       <Binding Target="[MediaInfoPane.Visible]" Source="[Item.HasMediaInfo]" />
+      <Binding Target="[Backdrop.Item]" Source="[Item]" />
       <Changed Source="[Item.MediaInfo]" InitialEvaluate="true">
         <Actions>
           <Set Target="[MediaInfo.Content]" Value="[Item.MediaInfo.CombinedInfo]"/>
+        </Actions>
+      </Changed>
+
+      <Changed Source="[NextItem.Invoked]">
+        <Actions>
+          <Set Target="[Item]" Value="[Item.PhysicalParent.NextChild]" />
         </Actions>
       </Changed>
 
@@ -186,7 +194,7 @@
               </Panel>
 
               <!-- play/resume buttons-->
-              <me:CommandButtons Application="[Application]" Item="[Item]" FilterColor="[FilterColor]" Size="200,45"
+              <me:CommandButtons Application="[Application]" Item="[Item]" NextItemCommand="[NextItem]" FilterColor="[FilterColor]" Size="200,45"
                                  Name="CmdButtons" DisplayMax="[DisplayMax]" Alpha="global://s:FilterAlpha" FocusOrder="0">
                 <LayoutInput>
                   <AnchorLayoutInput Left="Parent,0,20" Top="CrystalBG,0,10" />
@@ -414,6 +422,7 @@
     <Properties>
       <a:Application Name="Application" Application="$Required" />
       <lib:Item Name="Item" Item="$Required"/>
+      <Command Name="NextItemCommand" Command="$Required"/>
       <Color Name="FilterColor" Color="Black"/>
       <cor:Single Name="Alpha" Single="1" />
       <BooleanChoice Name="DisplayMax" BooleanChoice="$Required" />
@@ -427,11 +436,11 @@
       <Command Name="RefreshMovieCommand" />
       <Command Name="DeleteMovieCommand" />
       <Command Name="LocalTrailerCommand" />
-      <Command Name="NextItemCommand" />
       <Command Name="NullCommand" />
     </Locals>
 
     <Rules>
+      <Binding Source="[Application.CurrentItem]" Target="[Item]" />
       <Binding Source="[Item.CanResume]" Target="[ResumeMovieButton.Visible]" />
       <Condition Source="[Item.CanResume]" ConditionOp="Equals" SourceValue="false" Target="[ResumeMovieButton.Visible]" Value="false"/>
 
@@ -467,14 +476,6 @@
       <Changed Source="[RefreshMovieCommand.Invoked]">
         <Actions>
           <Invoke Target="[Item.RefreshMetadata]"/>
-        </Actions>
-      </Changed>
-
-      <Changed Source="[NextItemCommand.Invoked]">
-        <Actions>
-          <Invoke Target="[Application.Back]" />
-          <Invoke Target="[Application.Navigate]" item="[Item.PhysicalParent.NextChild]"/>
-          <!--<Set Target="[Item]" Value="[Item.PhysicalParent.NextChild]" />-->
         </Actions>
       </Changed>
 

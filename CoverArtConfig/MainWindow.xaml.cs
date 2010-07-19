@@ -49,7 +49,9 @@ namespace CoverArtConfig
             "CoverArtRounded",
             "CoverArtTV",
             "CoverArtTVMB",
+            "CoverArtTVMB3D",
             "CoverArtFilm",
+            "CoverArtFilm3D",
             "CoverArtBorder",
             "Ignore"
             
@@ -225,9 +227,10 @@ namespace CoverArtConfig
         {
             string imageSetName = currentImageSetName;
             string imageSetType = "std";
-            List<int> defOnlyTabs = new List<int>() {1,2,4,6,7};
+            List<int> defOnlyTabs = new List<int>() {1,2,4,6};
             //determine the type of previews we should create
             if (tabImageSet.SelectedIndex == 0 && currentProfileDef.CoverByDefinition) imageSetType = "definition";
+            else if (tabImageSet.SelectedIndex == 7) imageSetType = "folder";
             else if (defOnlyTabs.Contains(tabImageSet.SelectedIndex)) imageSetType = "defaultonly";
             imageSetName = imageSetName + imageSetType;
 
@@ -244,7 +247,10 @@ namespace CoverArtConfig
         private static string Translate(ProfileDefinition profile, string type)
         {
             if (profile.TypeMap.ContainsKey(type))
-                return profile.TypeMap[type];
+                if (profile.TypeMap[type] == "default" && profile.TypeMap.ContainsKey("default"))
+                    return profile.TypeMap["default"]; //if items are translated to default AND default is itself translated, then return the translated one
+                else
+                    return profile.TypeMap[type];
             else return type;
         }
 
@@ -272,23 +278,27 @@ namespace CoverArtConfig
                 case "defaultonly":
                     keys = new List<string>() { "default" };
                     break;
-                case "std":
-                    keys = new List<string>(ImageSet.FrameTypes);
-                    keys.Remove("HD");
-                    keys.Remove("SD");
+                case "folder":
+                    keys = new List<string>() { "Folder" };
                     break;
+                case "std":
                 default:
-                    keys = ImageSet.FrameTypes;
+                    keys = new List<string>(ImageSet.FrameTypes.Where(x => !ImageSet.NonMediaFrameTypes.Contains(x)));
                     break;
             }
 
             //even if this imageset doesn't contain a specific frame for a certain type, we may have it mapped to one it does
+            // or we may have a type mapped to a frame that doesn't exist so we need to re-map that to default
             foreach (KeyValuePair<string, string> entry in profile.TypeMap)
             {
                 if (imageSet.Frames.ContainsKey(entry.Value) && !frames.ContainsKey(entry.Key))
                 {
                     frames.Add(entry.Key, imageSet.Frames[entry.Value]);
-                }
+                } else
+                    if (!imageSet.Frames.ContainsKey(entry.Value) && !frames.ContainsKey(entry.Key))
+                    {
+                        frames.Add(entry.Key, imageSet.Frames["default"]);
+                    }
             }
 
             foreach (KeyValuePair<string, System.Drawing.Image> entry in frames)

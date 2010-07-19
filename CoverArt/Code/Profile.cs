@@ -89,7 +89,10 @@ namespace CoverArt
         public string Translate(string type)
         {
             if (typeMap.ContainsKey(type))
-                return typeMap[type];
+                if (typeMap[type] == "default" && typeMap.ContainsKey("default"))
+                    return typeMap["default"]; //if items are translated to default AND default is itself translated, then return the translated one
+                else
+                    return typeMap[type];
             else return type;
         }
 
@@ -215,37 +218,37 @@ namespace CoverArt
 
         public Image SeasonFrame(string type)
         {
-            return Frame("season", type);
+            return Frame("season", Translate(type));
         }
 
         public Image SeriesFrame(string type)
         {
-            return Frame("series", type);
+            return Frame("series", Translate(type));
         }
 
         public Image EpisodeFrame(string type)
         {
-            return Frame("episode", type);
+            return Frame("episode", Translate(type));
         }
 
         public Image RemoteFrame(string type)
         {
-            return Frame("remote", type);
+            return Frame("remote", Translate(type));
         }
 
         public Image ThumbFrame(string type)
         {
-            return Frame("thumb", type);
+            return Frame("thumb", Translate(type));
         }
 
         public Image AlbumFrame(string type)
         {
-            return Frame("album", type);
+            return Frame("album", Translate(type));
         }
 
         public Image FolderFrame(string type)
         {
-            return Frame("folder", type);
+            return Frame("folder", Translate(type));
         }
     }
 }
