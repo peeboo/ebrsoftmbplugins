@@ -110,7 +110,7 @@ namespace CoverArt
         {
             get
             {
-                if (_BDCase == null) _BDCase = Resources.BD;
+                if (_BDCase == null) { _BDCase = Resources.BD; Logger.ReportInfo("Loading BD Case"); }
                 return _BDCase;
             }
         }

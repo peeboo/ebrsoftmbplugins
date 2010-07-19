@@ -135,7 +135,7 @@ namespace CoverArtConfig
             List<string> customSets = new List<string>();
             foreach (Profile profile in config.Profiles.Values)
             {
-                foreach (ImageSet imageSet in profile.ImageSets)
+                foreach (ImageSet imageSet in profile.ImageSetList)
                 {
                     if (!builtinImageSets.Contains(imageSet.Name)) customSets.Add(imageSet.Name);
                 }
