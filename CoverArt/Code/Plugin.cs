@@ -148,6 +148,10 @@ namespace CoverArt
             {
                 //been more than two minutes since we processed something - unload our images
                 Logger.ReportInfo("CoverArt dormant.  Freeing memory...");
+                foreach (KeyValuePair<string,Profile> entry in configData.Profiles)
+                {
+                    entry.Value.ClearImageSets();
+                }
                 ImageSet.UnloadImages();
                 //and stop the collector
                 garbageCollector.Stop();

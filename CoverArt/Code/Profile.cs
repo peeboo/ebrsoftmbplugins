@@ -13,8 +13,17 @@ namespace CoverArt
 {
     public class Profile
     {
-        protected Dictionary<string, ImageSet> imageSets = new Dictionary<string, ImageSet>();
+        protected Dictionary<string, ImageSet> imageSets;
         protected Dictionary<string, string> typeMap = new Dictionary<string, string>();
+        protected string movieLocation = "CoverArtCase";
+        protected string seriesLocation = "CoverArtCase";
+        protected string seasonLocation = "CoverArtCase";
+        protected string episodeLocation = "CoverArtTVMB";
+        protected string remoteLocation = "CoverArtClearCase";
+        protected string thumbLocation = "CoverArtFilm";
+        protected string albumLocation = "CoverArtCD";
+        protected string folderLocation = "Ignore";
+
 
         public bool CoverByDefinition = false;
 
@@ -31,50 +40,56 @@ namespace CoverArt
         private void init(string movieLocation, string seriesLocation, string seasonLocation, string episodeLocation, string remoteLocation, string thumbLocation, string albumLocation, string folderLocation, bool coverByDef, Dictionary<string,string> typeMap)
         {
 
-            if (String.IsNullOrEmpty(movieLocation))
+            if (!String.IsNullOrEmpty(movieLocation))
             {
-                movieLocation = "CoverArtCase";
+                this.movieLocation = movieLocation;
             }
-            if (String.IsNullOrEmpty(seriesLocation))
+            if (!String.IsNullOrEmpty(seriesLocation))
             {
-                seriesLocation = "CoverArtCase";
-            }
-
-            if (String.IsNullOrEmpty(seasonLocation))
-            {
-                seasonLocation = "CoverArtCase";
+                this.seriesLocation = seriesLocation;
             }
 
-            if (String.IsNullOrEmpty(episodeLocation))
+            if (!String.IsNullOrEmpty(seasonLocation))
             {
-                episodeLocation = "CoverArtTVMB";
+                this.seasonLocation = seasonLocation;
             }
 
-            if (String.IsNullOrEmpty(remoteLocation))
+            if (!String.IsNullOrEmpty(episodeLocation))
             {
-                remoteLocation = "CoverArtClearCase";
+                this.episodeLocation = episodeLocation;
             }
 
-            if (String.IsNullOrEmpty(thumbLocation))
+            if (!String.IsNullOrEmpty(remoteLocation))
             {
-                thumbLocation = "CoverArtFilm";
+                this.remoteLocation = remoteLocation;
             }
 
-            if (String.IsNullOrEmpty(albumLocation))
+            if (!String.IsNullOrEmpty(thumbLocation))
             {
-                albumLocation = "CoverArtCD";
+                this.thumbLocation = thumbLocation;
             }
 
-            if (String.IsNullOrEmpty(folderLocation))
+            if (!String.IsNullOrEmpty(albumLocation))
             {
-                albumLocation = "Ignore";
+                this.albumLocation = albumLocation;
             }
 
+            if (!String.IsNullOrEmpty(folderLocation))
+            {
+                this.folderLocation = folderLocation;
+            }
+
+            //CreateImageSets();
             CoverByDefinition = coverByDef;
 
             this.typeMap = typeMap;
 
+        }
+
+        protected void CreateImageSets()
+        {
             //Create all our imagesets
+            imageSets = new Dictionary<string, ImageSet>();
             imageSets.Add("default", new ImageSet("CoverArtCase"));
             imageSets.Add("movie", new ImageSet(movieLocation));
             imageSets.Add("remote", new ImageSet(remoteLocation));
@@ -84,6 +99,16 @@ namespace CoverArt
             imageSets.Add("album", new ImageSet(albumLocation));
             imageSets.Add("thumb", new ImageSet(thumbLocation));
             imageSets.Add("folder", new ImageSet(folderLocation));
+        }
+
+        public void ClearImageSets()
+        {
+            //clear out our image sets to free up memory
+            if (imageSets != null)
+            {
+                imageSets.Clear();
+                imageSets = null;
+            }
         }
 
         public string Translate(string type)
@@ -98,6 +123,7 @@ namespace CoverArt
 
         public ImageSet GetImageSet(string location)
         {
+
             if (imageSets.ContainsKey(location))
                 return imageSets[location];
             else 
@@ -110,11 +136,20 @@ namespace CoverArt
             imageSets[type] = new ImageSet(location);
         }
 
-        public List<ImageSet> ImageSets
+        public List<ImageSet> ImageSetList
         {
             get
             {
                 return imageSets.Values.ToList();
+            }
+        }
+
+        protected Dictionary<string,ImageSet> ImageSets
+        {
+            get
+            {
+                if (imageSets == null) CreateImageSets(); //in case we unloaded these
+                return imageSets;
             }
         }
 
@@ -125,57 +160,57 @@ namespace CoverArt
 
         public Image Frame(string type, string subtype)
         {
-            lock (imageSets)
+            lock (ImageSets)
             {
-                if (!imageSets.ContainsKey(type)) type = "default";
-                if (!imageSets[type].Frames.ContainsKey(subtype)) subtype = "default";
+                if (!ImageSets.ContainsKey(type)) type = "default";
+                if (!ImageSets[type].Frames.ContainsKey(subtype)) subtype = "default";
                 Logger.ReportInfo("Getting frame for " + type + "/" + subtype);
-                return new Bitmap(imageSets[type].Frames[subtype]);
+                return new Bitmap(ImageSets[type].Frames[subtype]);
             }
         }
 
         public Rectangle RootPosition(string type)
         {
-            if (!imageSets.ContainsKey(type)) type = "default";
-            return imageSets[type].RootPosition;
+            if (!ImageSets.ContainsKey(type)) type = "default";
+            return ImageSets[type].RootPosition;
         }
 
         public Image Overlay(string type)
         {
-            lock (imageSets)
+            lock (ImageSets)
             {
-                if (!imageSets.ContainsKey(type)) type = "default";
-                return new Bitmap(imageSets[type].Overlay);
+                if (!ImageSets.ContainsKey(type)) type = "default";
+                return new Bitmap(ImageSets[type].Overlay);
             }
         }
 
         public bool Is3D(string type) {
-            if (!imageSets.ContainsKey(type)) type = "default";
-            return imageSets[type].Is3D;
+            if (!ImageSets.ContainsKey(type)) type = "default";
+            return ImageSets[type].Is3D;
         }
 
         public SkewRatios Skew(string type)
         {
-            if (!imageSets.ContainsKey(type)) type = "default";
-            return imageSets[type].Skew;
+            if (!ImageSets.ContainsKey(type)) type = "default";
+            return ImageSets[type].Skew;
         }
 
         public bool FrameOnTop(string type)
         {
-            if (!imageSets.ContainsKey(type)) type = "default";
-            return imageSets[type].FrameOnTop;
+            if (!ImageSets.ContainsKey(type)) type = "default";
+            return ImageSets[type].FrameOnTop;
         }
 
         public bool JustRoundCorners(string type)
         {
-            if (!imageSets.ContainsKey(type)) type = "default";
-            return imageSets[type].JustRoundCorners;
+            if (!ImageSets.ContainsKey(type)) type = "default";
+            return ImageSets[type].JustRoundCorners;
         }
 
         public bool RoundCorners(string type)
         {
-            if (!imageSets.ContainsKey(type)) type = "default";
-            return imageSets[type].RoundCorners;
+            if (!ImageSets.ContainsKey(type)) type = "default";
+            return ImageSets[type].RoundCorners;
         }
 
         public Image MovieOverlay()
