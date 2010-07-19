@@ -114,6 +114,7 @@
     <Content Include="Images\Case3D\c3d_hddvd.png" />
     <Content Include="Images\Case\Avi.png" />
     <Content Include="Images\Case\BD.png" />
+    <Content Include="Images\Case\boxset.png" />
     <Content Include="Images\Case\Case.png" />
     <Content Include="Images\Case\DivX.png" />
     <Content Include="Images\Case\dv.png" />
@@ -125,6 +126,9 @@
     <Content Include="Images\Case\mov.png" />
     <Content Include="Images\Case\Mpeg.png" />
     <Content Include="Images\Case\Overlay.png" />
+    <Content Include="Images\Case\Season.png" />
+    <Content Include="Images\Case\Series.png" />
+    <Content Include="Images\Case\trailer.png" />
     <Content Include="Images\Case\Wmv.png" />
     <Content Include="Images\Case\Xvid.png" />
     <Content Include="Images\CD\CD.png" />
@@ -134,6 +138,7 @@
     <Content Include="Images\ClearCase3D\ClearCase3d.png" />
     <Content Include="Images\ClearCase\cc_avi.png" />
     <Content Include="Images\ClearCase\cc_bd.png" />
+    <Content Include="Images\ClearCase\cc_boxset.png" />
     <Content Include="Images\ClearCase\cc_divx.png" />
     <Content Include="Images\ClearCase\cc_dv.png" />
     <Content Include="Images\ClearCase\cc_h264.png" />
@@ -146,8 +151,10 @@
     <Content Include="Images\ClearCase\ClearCase.png" />
     <Content Include="Images\ClearCase\CC_DVD.png" />
     <Content Include="Images\Blank.png" />
+    <Content Include="Images\ClearCase\cc_trailer.png" />
     <Content Include="Images\Diamond\Diamond.png" />
     <Content Include="Images\Diamond\DiamondGloss.png" />
+    <Content Include="Images\Film3D\Film3D.png" />
     <Content Include="Images\Film\Film.png" />
     <Content Include="Images\Film\FilmOverlay.png" />
     <Content Include="Images\Film\SimpleBorder.png" />
@@ -157,9 +164,8 @@
     <Content Include="Images\OpenCase\oc_bd.png" />
     <Content Include="Images\OpenCase\oc_dvd.png" />
     <Content Include="Images\OpenCase\oc_hddvd.png" />
+    <Content Include="Images\TVMB3D\TVMB3D.png" />
     <Content Include="Images\TVMB\TVMB.png" />
-    <Content Include="Images\TV\TVOverlay.png" />
-    <Content Include="Images\TV\TV.png" />
     <Content Include="Markup\ConfigPanel.mcml" />
   </ItemGroup>
   <ItemGroup>

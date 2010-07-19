@@ -163,12 +163,6 @@
   <data name="Overlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\case\overlay.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TV" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\tv\tv.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TVOverlay" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\tv\tvoverlay.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Wmv" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\case\wmv.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -279,5 +273,29 @@
   </data>
   <data name="DiamondGloss" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\diamond\diamondgloss.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cc_boxset" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\clearcase\cc_boxset.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cc_trailer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\clearcase\cc_trailer.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Film3D" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\film3d\film3d.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TVMB3D" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\tvmb3d\tvmb3d.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="boxset" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\case\boxset.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Season" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\case\season.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Series" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\case\series.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="trailer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\case\trailer.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

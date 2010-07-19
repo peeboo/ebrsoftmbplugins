@@ -43,6 +43,9 @@ namespace CoverArtConfig
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             List<string> possibleFormats = new List<string>(ImageSet.FrameTypes);
+            //remove non-media type frames
+            possibleFormats.Remove("TRAILER");
+            possibleFormats.Remove("BOXSET");
             foreach (KeyValuePair<string, string> item in lbxTypeMap.Items)
             {
                 //remove the ones we alredy have in there
@@ -101,7 +104,7 @@ namespace CoverArtConfig
             profile.TypeMap.Clear();
             foreach (string format in CoverArt.ImageSet.FrameTypes)
             {
-                if (format != "default")
+                if (format != "default" && format != "TRAILER" && format != "BOXSET" )
                     profile.TypeMap.Add(format, "default");
             }
             lbxTypeMap.Items.Refresh();

@@ -247,4 +247,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "c:\Users\Eric\Documents\ebrSoft\CoverArt\"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

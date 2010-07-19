@@ -61,7 +61,30 @@ namespace CoverArt
             "XVID",
             "DVRMS",
             "WTV",
-            "HD"            
+            "HD",
+            "TRAILER",
+            "BOXSET",
+            "Folder",
+            "Series",
+            "Season",
+            "Episode",
+            "Album",
+            "Person"
+            
+        };
+
+        [SkipField]
+        public static List<string> NonMediaFrameTypes = new List<string>() {
+            "HD",
+            "SD",
+            "TRAILER",
+            "BOXSET",
+            "Folder",
+            "Series",
+            "Season",
+            "Episode",
+            "Album",
+            "Person"
             
         };
 
@@ -213,6 +236,42 @@ namespace CoverArt
         }
 
         [SkipField]
+        protected static Image _SeasonCase = Resources.Season;
+
+        protected static Image SeasonCase
+        {
+            get
+            {
+                if (_SeasonCase == null) _SeasonCase = Resources.Season;
+                return _SeasonCase;
+            }
+        }
+
+        [SkipField]
+        protected static Image _SeriesCase = Resources.Series;
+
+        protected static Image SeriesCase
+        {
+            get
+            {
+                if (_SeriesCase == null) _SeriesCase = Resources.Series;
+                return _SeriesCase;
+            }
+        }
+
+        [SkipField]
+        protected static Image _TrailerCase = Resources.trailer;
+
+        protected static Image TrailerCase
+        {
+            get
+            {
+                if (_TrailerCase == null) _TrailerCase = Resources.trailer;
+                return _TrailerCase;
+            }
+        }
+
+        [SkipField]
         protected static Image _StdCase3D;
 
         protected static Image StdCase3D
@@ -338,17 +397,17 @@ namespace CoverArt
             }
         }
 
-        [SkipField]
-        protected static Image _TV;
+        //[SkipField]
+        //protected static Image _TV;
 
-        protected static Image TV
-        {
-            get
-            {
-                if (_TV == null) _TV = Resources.TV;
-                return _TV;
-            }
-        }
+        //protected static Image TV
+        //{
+        //    get
+        //    {
+        //        if (_TV == null) _TV = Resources.TV;
+        //        return _TV;
+        //    }
+        //}
 
         [SkipField]
         protected static Image _TVMB;
@@ -363,6 +422,18 @@ namespace CoverArt
         }
 
         [SkipField]
+        protected static Image _TVMB3D;
+
+        protected static Image TVMB3D
+        {
+            get
+            {
+                if (_TVMB3D == null) _TVMB3D = Resources.TVMB3D;
+                return _TVMB3D;
+            }
+        }
+
+        [SkipField]
         protected static Image _Film;
 
         protected static Image Film
@@ -371,6 +442,18 @@ namespace CoverArt
             {
                 if (_Film == null) _Film = Resources.Film;
                 return _Film;
+            }
+        }
+
+        [SkipField]
+        protected static Image _Film3D;
+
+        protected static Image Film3D
+        {
+            get
+            {
+                if (_Film3D == null) _Film3D = Resources.Film3D;
+                return _Film3D;
             }
         }
 
@@ -398,8 +481,8 @@ namespace CoverArt
             }
         }
 
-        [SkipField]
-        protected static Image TVOverlay = Resources.TVOverlay;
+        //[SkipField]
+        //protected static Image TVOverlay = Resources.TVOverlay;
 
         [SkipField]
         protected static Image FilmOverlay = Resources.FilmOverlay;
@@ -427,7 +510,10 @@ namespace CoverArt
                         {"DIVX",Resources.DivX},
                         {"MOV",Resources.mov},
                         {"XVID",Resources.Xvid},
-                        {"HD",Resources.HD}
+                        {"HD",Resources.HD},
+                        {"Season",SeasonCase},
+                        {"Series",SeriesCase},
+                        {"Trailer",TrailerCase}
                     };
                 }
                 return _InternalCase;
@@ -514,7 +600,10 @@ namespace CoverArt
                         {"DIVX",Resources.cc_divx},
                         {"MOV",Resources.cc_mov},
                         {"XVID",Resources.cc_xvid},
-                        {"HD",ClearCaseBD}
+                        {"HD",ClearCaseBD},
+                        {"TRAILER",Resources.cc_trailer},
+                        {"BOXSET",Resources.cc_boxset},
+                        {"Folder",ClearCase}
         };
                 }
                 return _InternalClearCase;
@@ -551,12 +640,17 @@ namespace CoverArt
             _DVDCase = null;
             _DVDCase3D = null;
             _Film = null;
+            _Film3D = null;
             _HDDVDCase = null;
             _HDDVDCase3D = null;
             _StdCase = null;
             _StdCase3D = null;
-            _TV = null;
+            _SeriesCase = null;
+            _SeasonCase = null;
+            _TrailerCase = null;
+            //_TV = null;
             _TVMB = null;
+            _TVMB3D = null;
             _InternalCase = null;
             _InternalClearCase = null;
             
@@ -633,23 +727,35 @@ namespace CoverArt
                     break;
                 case "CoverArtTV":
                     //Internal TV
-                    Is3D = false;
-                    FrameOnTop = false;
-                    RootPosition = new Rectangle(45, 35, 645, 345);
-                    Overlay = TVOverlay;
-                    Frames = new Dictionary<string, Image>() {
-                        {"default", TV},
-                    };
-                    break;
+                    //Is3D = false;
+                    //FrameOnTop = false;
+                    //RootPosition = new Rectangle(45, 35, 645, 345);
+                    //Overlay = TVOverlay;
+                    //Frames = new Dictionary<string, Image>() {
+                    //    {"default", TV},
+                    //};
+                    //break;
                 case "CoverArtTVMB":
                     //Internal TV with MB logo
                     Is3D = false;
                     FrameOnTop = true;
                     //RoundCorners = true;
                     RootPosition = new Rectangle(38,38,665,380);
-                    Overlay = TVOverlay;
+                    Overlay = BlankOverlay;
                     Frames = new Dictionary<string, Image>() {
                         {"default", TVMB},
+                    };
+                    break;
+                case "CoverArtTVMB3D":
+                    //Internal TV with MB logo
+                    Is3D = true;
+                    FrameOnTop = true;
+                    //RoundCorners = true;
+                    RootPosition = new Rectangle(38, 42, 585, 378);
+                    Skew = new SkewRatios(0, 0, 1, .130, 0, 1, 1, .910);
+                    Overlay = BlankOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", TVMB3D},
                     };
                     break;
                 case "CoverArtCD":
@@ -670,6 +776,17 @@ namespace CoverArt
                     Overlay = FilmOverlay;
                     Frames = new Dictionary<string, Image>() {
                         {"default", Film},
+                    };
+                    break;
+                case "CoverArtFilm3D":
+                    //Internal Film
+                    Is3D = true;
+                    FrameOnTop = true;
+                    RootPosition = new Rectangle(95, 30, 485, 355);
+                    Skew = new SkewRatios(0, 0, 1, .115, 0, 1, 1, .910);
+                    Overlay = BlankOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", Film3D},
                     };
                     break;
                 case "CoverArtBorder":
@@ -844,6 +961,11 @@ namespace CoverArt
                     }
 
                     break;
+            }
+            //add in the special folder frame if not there
+            if (!Frames.ContainsKey("Folder"))
+            {
+                Frames.Add("Folder", Frames["default"]);
             }
         }
     }
