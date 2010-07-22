@@ -62,14 +62,16 @@ namespace CoverArt
             "DVRMS",
             "WTV",
             "HD",
-            "TRAILER",
-            "BOXSET",
+            "Trailer",
+            "Boxset",
             "Folder",
             "Series",
             "Season",
+            "Specials",
             "Episode",
             "Album",
-            "Person"
+            "Person",
+            "Remote"
             
         };
 
@@ -77,14 +79,16 @@ namespace CoverArt
         public static List<string> NonMediaFrameTypes = new List<string>() {
             "HD",
             "SD",
-            "TRAILER",
-            "BOXSET",
+            "Trailer",
+            "BoxSet",
             "Folder",
             "Series",
             "Season",
+            "Specials",
             "Episode",
             "Album",
-            "Person"
+            "Person",
+            "Remote"
             
         };
 
@@ -110,7 +114,7 @@ namespace CoverArt
         {
             get
             {
-                if (_BDCase == null) { _BDCase = Resources.BD; Logger.ReportInfo("Loading BD Case"); }
+                if (_BDCase == null) _BDCase = Resources.BD;
                 return _BDCase;
             }
         }
@@ -224,7 +228,7 @@ namespace CoverArt
         }
 
         [SkipField]
-        protected static Image _StdCase = Resources.Case;
+        protected static Image _StdCase;
 
         protected static Image StdCase
         {
@@ -236,7 +240,7 @@ namespace CoverArt
         }
 
         [SkipField]
-        protected static Image _SeasonCase = Resources.Season;
+        protected static Image _SeasonCase;
 
         protected static Image SeasonCase
         {
@@ -248,7 +252,7 @@ namespace CoverArt
         }
 
         [SkipField]
-        protected static Image _SeriesCase = Resources.Series;
+        protected static Image _SeriesCase;
 
         protected static Image SeriesCase
         {
@@ -260,7 +264,19 @@ namespace CoverArt
         }
 
         [SkipField]
-        protected static Image _TrailerCase = Resources.trailer;
+        protected static Image _SpecialsCase;
+
+        protected static Image SpecialsCase
+        {
+            get
+            {
+                if (_SpecialsCase == null) _SpecialsCase = Resources.Specials;
+                return _SpecialsCase;
+            }
+        }
+
+        [SkipField]
+        protected static Image _TrailerCase;
 
         protected static Image TrailerCase
         {
@@ -268,6 +284,18 @@ namespace CoverArt
             {
                 if (_TrailerCase == null) _TrailerCase = Resources.trailer;
                 return _TrailerCase;
+            }
+        }
+
+        [SkipField]
+        protected static Image _BoxsetCase;
+
+        protected static Image BoxsetCase
+        {
+            get
+            {
+                if (_BoxsetCase == null) _BoxsetCase = Resources.boxset;
+                return _BoxsetCase;
             }
         }
 
@@ -386,6 +414,66 @@ namespace CoverArt
         }
 
         [SkipField]
+        protected static Image _ClearCaseSeason;
+
+        protected static Image ClearCaseSeason
+        {
+            get
+            {
+                if (_ClearCaseSeason == null) _ClearCaseSeason = Resources.cc_season;
+                return _ClearCaseSeason;
+            }
+        }
+
+        [SkipField]
+        protected static Image _ClearCaseSeries;
+
+        protected static Image ClearCaseSeries
+        {
+            get
+            {
+                if (_ClearCaseSeries == null) _ClearCaseSeries = Resources.cc_series;
+                return _ClearCaseSeries;
+            }
+        }
+
+        [SkipField]
+        protected static Image _ClearCaseSpecials;
+
+        protected static Image ClearCaseSpecials
+        {
+            get
+            {
+                if (_ClearCaseSpecials == null) _ClearCaseSpecials = Resources.cc_specials;
+                return _ClearCaseSpecials;
+            }
+        }
+
+        [SkipField]
+        protected static Image _ClearCaseTrailer;
+
+        protected static Image ClearCaseTrailer
+        {
+            get
+            {
+                if (_ClearCaseTrailer == null) _ClearCaseTrailer = Resources.cc_trailer;
+                return _ClearCaseTrailer;
+            }
+        }
+
+        [SkipField]
+        protected static Image _ClearCaseBoxset;
+
+        protected static Image ClearCaseBoxset
+        {
+            get
+            {
+                if (_ClearCaseBoxset == null) _ClearCaseBoxset = Resources.cc_boxset;
+                return _ClearCaseBoxset;
+            }
+        }
+
+        [SkipField]
         protected static Image _Diamond;
 
         protected static Image Diamond
@@ -394,6 +482,18 @@ namespace CoverArt
             {
                 if (_Diamond == null) _Diamond = Resources.DiamondGloss;
                 return _Diamond;
+            }
+        }
+
+        [SkipField]
+        protected static Image _DiamondThumb;
+
+        protected static Image DiamondThumb
+        {
+            get
+            {
+                if (_DiamondThumb == null) _DiamondThumb = Resources.DiamondGlossThumb;
+                return _DiamondThumb;
             }
         }
 
@@ -481,6 +581,17 @@ namespace CoverArt
             }
         }
 
+        [SkipField]
+        protected static Image _GlassPlaque;
+
+        protected static Image GlassPlaque
+        {
+            get
+            {
+                if (_GlassPlaque == null) _GlassPlaque = Resources.GlassPlaque;
+                return _GlassPlaque;
+            }
+        }
         //[SkipField]
         //protected static Image TVOverlay = Resources.TVOverlay;
 
@@ -513,7 +624,9 @@ namespace CoverArt
                         {"HD",Resources.HD},
                         {"Season",SeasonCase},
                         {"Series",SeriesCase},
-                        {"Trailer",TrailerCase}
+                        {"Specials",SpecialsCase},
+                        {"Trailer",TrailerCase},
+                        {"Boxset",BoxsetCase}
                     };
                 }
                 return _InternalCase;
@@ -540,7 +653,13 @@ namespace CoverArt
         };
 
         [SkipField]
-        protected static Dictionary<string, Image> InternalClearCase3D = new Dictionary<string, Image>() {
+        protected static Dictionary<string, Image> _InternalClearCase3D;
+
+        protected static Dictionary<string, Image> InternalClearCase3D
+        {
+            get
+            {
+                if (_InternalClearCase3D == null) _InternalClearCase3D = new Dictionary<string, Image>() {
                         {"default", ClearCase3D},
                         {"BD",ClearCaseBD3D},
                         {"DVD",ClearCaseDVD3D},
@@ -556,7 +675,12 @@ namespace CoverArt
                         //{"MOV",Resources.mov},
                         //{"XVID",Resources.Xvid},
                         {"HD",ClearCaseBD3D}
-        };
+         };
+
+                return _InternalClearCase3D;
+            }
+        }
+    
 
         [SkipField]
         protected static Dictionary<string, Image> InternalOpenCase = new Dictionary<string, Image>() {
@@ -601,8 +725,11 @@ namespace CoverArt
                         {"MOV",Resources.cc_mov},
                         {"XVID",Resources.cc_xvid},
                         {"HD",ClearCaseBD},
-                        {"TRAILER",Resources.cc_trailer},
-                        {"BOXSET",Resources.cc_boxset},
+                        {"Trailer",ClearCaseTrailer},
+                        {"Boxset",ClearCaseBoxset},
+                        {"Season",ClearCaseSeason},
+                        {"Series",ClearCaseSeries},
+                        {"Specials",ClearCaseSpecials},
                         {"Folder",ClearCase}
         };
                 }
@@ -636,6 +763,10 @@ namespace CoverArt
             _ClearCaseDVD3D = null;
             _ClearCaseHDDVD = null;
             _ClearCaseHDDVD3D = null;
+            _ClearCaseBoxset = null;
+            _ClearCaseSeason = null;
+            _ClearCaseSeries = null;
+            _ClearCaseSpecials = null;
             _Diamond = null;
             _DVDCase = null;
             _DVDCase3D = null;
@@ -648,11 +779,18 @@ namespace CoverArt
             _SeriesCase = null;
             _SeasonCase = null;
             _TrailerCase = null;
+            _SeasonCase = null;
+            _SpecialsCase = null;
+            _BoxsetCase = null;
             //_TV = null;
             _TVMB = null;
             _TVMB3D = null;
             _InternalCase = null;
             _InternalClearCase = null;
+            _InternalClearCase3D = null;
+            _GlassPlaque = null;
+            _DiamondThumb = null;
+            
             
         }
 
@@ -885,7 +1023,27 @@ namespace CoverArt
                     RootPosition = new Rectangle(26, 25, 470, 665);
                     Overlay = BlankOverlay;
                     Frames = new Dictionary<string, Image>() {
-                        {"default", Diamond}
+                        {"default", Diamond},
+                    };
+                    break;
+                case "CoverArtDiamondThumb":
+                    //Landscape version
+                    RoundCorners = true;
+                    FrameOnTop = true;
+                    RootPosition = new Rectangle(35, 15, 640, 370);
+                    Overlay = BlankOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", DiamondThumb},
+                    };
+                    break;
+                case "CoverArtPlaque":
+                    //A glass plaque effect (good for people)
+                    RoundCorners = false;
+                    FrameOnTop = true;
+                    RootPosition = new Rectangle(83, 83, 382, 585);
+                    Overlay = BlankOverlay;
+                    Frames = new Dictionary<string, Image>() {
+                        {"default", GlassPlaque}
                     };
                     break;
                 case "Ignore":

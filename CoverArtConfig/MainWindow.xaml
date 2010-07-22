@@ -188,7 +188,6 @@
                     </Grid.ColumnDefinitions>
                     <Label Height="28" HorizontalAlignment="Left" Margin="10,10,0,0" x:Name="label1" VerticalAlignment="Top" Width="88" Content="Image Set"/>
                     <ComboBox Height="23" Margin="104,15,273,0"  SelectionChanged="ddlImageSet_SelectionChanged" x:Name="ddlMovieLocation" VerticalAlignment="Top" ToolTip="Image Sets are the groups of treatments available.  You assign an image set to an item within each profile" />
-                    <Label Height="28" Margin="187,44,175,0" Name="lblHasTypeMap" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontWeight="Bold" ToolTip="Specific covers are selected for some types so they may not appear as you expect">Type Mappings in use 'Select Specific Covers' to modify</Label>
                 </Grid>
             </TabItem>
             <TabItem Header="Series" x:Name="seriesTab">
@@ -235,6 +234,7 @@
             </TabItem>
         </TabControl>
         <Button Height="23" Margin="0,292,90,0" x:Name="btnCustomImageSet" VerticalAlignment="Top"  IsEnabled="True" Click="btnCustomImageSet_Click" HorizontalAlignment="Right" Width="184" Content="Custom Image Sets..." ToolTip="This will open a window that will allow you to point to a folder that contains a set of custom covers you would like to use.  You then will need to define the other parameters that apply to these covers." />
+        <Label Height="28" Margin="187,320,175,0" Name="lblHasTypeMap" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontWeight="Bold" ToolTip="Specific covers are selected for some types so they may not appear as you expect">Type Mappings in use 'Select Specific Covers' to modify</Label>
         <ListView Margin="20,346,23,62" x:Name="coversView" ItemsSource="{Binding}" Padding="5" BorderThickness="5" IsEnabled="True" IsTextSearchEnabled="False" Focusable="False" Foreground="#FFD8D5D5" ToolTip="These are examples of what your covers should look like with the selected treatments.">
         	<ListView.BorderBrush>
         		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -268,8 +268,8 @@
         		</LinearGradientBrush>
         	</ListView.Background>
         </ListView>
-        <Image Height="101" HorizontalAlignment="Right" Margin="0,12,12,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="286" Source="images/coverartlogo.png" />
-        <ListBox Height="130" Margin="12,34,313,0" x:Name="lbxProfiles" VerticalAlignment="Top" ItemsSource="{Binding config.ProfileDefs}" SelectionChanged="lbxProfiles_SelectionChanged" Background="Transparent" BorderBrush="#FF4C4E51" ToolTip="Profiles define a specific set of treatments for items in a specific folder (and all sub-folders)" />
+        <Image Height="101" Margin="0,12,12,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Source="images/coverartlogo.png" HorizontalAlignment="Right" Width="286" />
+        <ListBox Height="130" Margin="12,39,313,0" x:Name="lbxProfiles" VerticalAlignment="Top" ItemsSource="{Binding config.ProfileDefs}" SelectionChanged="lbxProfiles_SelectionChanged" Background="Transparent" BorderBrush="#FF4C4E51" ToolTip="Profiles define a specific set of treatments for items in a specific folder (and all sub-folders)" />
         <TextBlock Height="21" HorizontalAlignment="Left" Margin="12,12,0,0" Text="Profiles" x:Name="textBlock1" VerticalAlignment="Top" Width="188" FontSize="14" />
         <Button Height="30" HorizontalAlignment="Left" Margin="20,0,0,14" x:Name="btnNew" VerticalAlignment="Bottom" Width="106" FontSize="14" Click="btnNew_Click" Content="New Profile..." ToolTip="Create a new profile.  That is - define a folder that you want treated a certain way." />
         <Button FontSize="14" Height="30" HorizontalAlignment="Left" Margin="132,0,0,14" x:Name="btnRemove" VerticalAlignment="Bottom" Width="106" Click="btnRemove_Click" Content="Remove" ToolTip="Remove the currently selected profile." />

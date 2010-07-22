@@ -247,6 +247,8 @@ namespace CoverArt
                 return rootImage;
             }
 
+            ProcessedSomething = true;
+
             Profile profile = getProfile(directory);
             Rectangle position = new Rectangle(0,0,0,0);
             Image overlay = new Bitmap(Resources.Overlay);
@@ -418,7 +420,7 @@ namespace CoverArt
                 {
                     //apply episode treatment
                     process = true;
-                    newImage = profile.EpisodeFrame("default");
+                    newImage = profile.EpisodeFrame("episode");
                     overlay = profile.EpisodeOverlay();
                     frameOnTop = profile.FrameOnTop("episode");
                     justRoundCorners = profile.JustRoundCorners("episode");
@@ -433,7 +435,18 @@ namespace CoverArt
                     {
                         //apply season treatment
                         process = true;
-                        newImage = profile.SeasonFrame("default");
+                        //Season season = item as Season;
+                        //int seasonNo = -1;
+                        //int.TryParse(season.SeasonNumber, out seasonNo);
+    
+                        //if (seasonNo == 0)
+                        //{
+                        //    newImage = profile.SeasonFrame("Specials");
+                        //}
+                        //else
+                        {
+                            newImage = profile.SeasonFrame("Season");
+                        }
                         overlay = profile.SeasonOverlay();
                         frameOnTop = profile.FrameOnTop("season");
                         justRoundCorners = profile.JustRoundCorners("season");
@@ -488,7 +501,7 @@ namespace CoverArt
                             {
                                 //just a plain old folder
                                 process = true;
-                                newImage = profile.FolderFrame("FOLDER");
+                                newImage = profile.FolderFrame("Folder");
                                 overlay = profile.FolderOverlay();
                                 frameOnTop = profile.FrameOnTop("folder");
                                 justRoundCorners = profile.JustRoundCorners("folder");
@@ -505,7 +518,6 @@ namespace CoverArt
 
             if (process)
             {
-                ProcessedSomething = true;
                 newImage = CreateImage(newImage, rootImage, overlay, position, frameOnTop, roundCorners, justRoundCorners, is3D, skew);
             }
             else

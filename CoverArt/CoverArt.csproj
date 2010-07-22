@@ -128,6 +128,7 @@
     <Content Include="Images\Case\Overlay.png" />
     <Content Include="Images\Case\Season.png" />
     <Content Include="Images\Case\Series.png" />
+    <Content Include="Images\Case\Specials.png" />
     <Content Include="Images\Case\trailer.png" />
     <Content Include="Images\Case\Wmv.png" />
     <Content Include="Images\Case\Xvid.png" />
@@ -146,6 +147,9 @@
     <Content Include="Images\ClearCase\cc_mkv.png" />
     <Content Include="Images\ClearCase\cc_mov.png" />
     <Content Include="Images\ClearCase\cc_mpeg.png" />
+    <Content Include="Images\ClearCase\cc_season.png" />
+    <Content Include="Images\ClearCase\cc_series.png" />
+    <Content Include="Images\ClearCase\cc_specials.png" />
     <Content Include="Images\ClearCase\cc_wmv.png" />
     <Content Include="Images\ClearCase\cc_xvid.png" />
     <Content Include="Images\ClearCase\ClearCase.png" />
@@ -154,6 +158,7 @@
     <Content Include="Images\ClearCase\cc_trailer.png" />
     <Content Include="Images\Diamond\Diamond.png" />
     <Content Include="Images\Diamond\DiamondGloss.png" />
+    <Content Include="Images\Diamond\DiamondGlossThumb.png" />
     <Content Include="Images\Film3D\Film3D.png" />
     <Content Include="Images\Film\Film.png" />
     <Content Include="Images\Film\FilmOverlay.png" />
@@ -164,6 +169,7 @@
     <Content Include="Images\OpenCase\oc_bd.png" />
     <Content Include="Images\OpenCase\oc_dvd.png" />
     <Content Include="Images\OpenCase\oc_hddvd.png" />
+    <Content Include="Images\Plaque\GlassPlaque.png" />
     <Content Include="Images\TVMB3D\TVMB3D.png" />
     <Content Include="Images\TVMB\TVMB.png" />
     <Content Include="Markup\ConfigPanel.mcml" />

@@ -46,6 +46,8 @@ namespace CoverArtConfig
             "CoverArtOpenCase",
             "CoverArtCD",
             "CoverArtDiamond",
+            "CoverArtDiamondThumb",
+            "CoverArtPlaque",
             "CoverArtRounded",
             "CoverArtTV",
             "CoverArtTVMB",
@@ -227,10 +229,14 @@ namespace CoverArtConfig
         {
             string imageSetName = currentImageSetName;
             string imageSetType = "std";
-            List<int> defOnlyTabs = new List<int>() {1,2,4,6};
+            List<int> defOnlyTabs = new List<int>() {6};
             //determine the type of previews we should create
             if (tabImageSet.SelectedIndex == 0 && currentProfileDef.CoverByDefinition) imageSetType = "definition";
             else if (tabImageSet.SelectedIndex == 7) imageSetType = "folder";
+            else if (tabImageSet.SelectedIndex == 1) imageSetType = "series";
+            else if (tabImageSet.SelectedIndex == 2) imageSetType = "season";
+            else if (tabImageSet.SelectedIndex == 4) imageSetType = "remote";
+            else if (tabImageSet.SelectedIndex == 3) imageSetType = "episode";
             else if (defOnlyTabs.Contains(tabImageSet.SelectedIndex)) imageSetType = "defaultonly";
             imageSetName = imageSetName + imageSetType;
 
@@ -267,6 +273,7 @@ namespace CoverArtConfig
         public static List<PreviewItem> CreatePreviews(ProfileDefinition profile, ImageSet imageSet, string imageSetName, string previewType, System.Drawing.Image art) {
             List<PreviewItem> previews = new List<PreviewItem>();
             string filename;
+            List<string> specialKeys = new List<string>() {"Folder","Series","Season","Specials","Album","Person","Remote","Episode"};
             List<string> keys;
             Dictionary<string, System.Drawing.Image> frames = new Dictionary<string, System.Drawing.Image>(imageSet.Frames);
 
@@ -280,6 +287,18 @@ namespace CoverArtConfig
                     break;
                 case "folder":
                     keys = new List<string>() { "Folder" };
+                    break;
+                case "series":
+                    keys = new List<string>() { "Series" };
+                    break;
+                case "season":
+                    keys = new List<string>() { "Season", "Specials" };
+                    break;
+                case "remote":
+                    keys = new List<string>() { "Remote" };
+                    break;
+                case "episode":
+                    keys = new List<string>() { "Episode" };
                     break;
                 case "std":
                 default:
@@ -299,6 +318,13 @@ namespace CoverArtConfig
                     {
                         frames.Add(entry.Key, imageSet.Frames["default"]);
                     }
+            }
+            //also it is possible an imageset doesn't contain frames for some of our special keys
+            // if not, map those to default
+            foreach (string spKey in specialKeys)
+            {
+                if (keys.Contains(spKey) && !frames.ContainsKey(spKey))
+                    frames.Add(spKey, imageSet.Frames["default"]);
             }
 
             foreach (KeyValuePair<string, System.Drawing.Image> entry in frames)
