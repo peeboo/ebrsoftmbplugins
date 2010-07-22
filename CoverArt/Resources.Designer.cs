@@ -207,6 +207,27 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap cc_season {
+            get {
+                object obj = ResourceManager.GetObject("cc_season", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_series {
+            get {
+                object obj = ResourceManager.GetObject("cc_series", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cc_specials {
+            get {
+                object obj = ResourceManager.GetObject("cc_specials", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap cc_trailer {
             get {
                 object obj = ResourceManager.GetObject("cc_trailer", resourceCulture);
@@ -291,6 +312,13 @@ namespace CoverArt {
             }
         }
         
+        internal static System.Drawing.Bitmap DiamondGlossThumb {
+            get {
+                object obj = ResourceManager.GetObject("DiamondGlossThumb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap DivX {
             get {
                 object obj = ResourceManager.GetObject("DivX", resourceCulture);
@@ -329,6 +357,13 @@ namespace CoverArt {
         internal static System.Drawing.Bitmap FilmOverlay {
             get {
                 object obj = ResourceManager.GetObject("FilmOverlay", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap GlassPlaque {
+            get {
+                object obj = ResourceManager.GetObject("GlassPlaque", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -441,6 +476,13 @@ namespace CoverArt {
         internal static System.Drawing.Bitmap SimpleBorder {
             get {
                 object obj = ResourceManager.GetObject("SimpleBorder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Specials {
+            get {
+                object obj = ResourceManager.GetObject("Specials", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
